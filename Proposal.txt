@@ -1,0 +1,28 @@
+Project Proposal
+
+>>> Group members
+Cuichan Wu, Xiao Xu, and Yuyan Lei
+
+
+>>> Main idea
+We’d like to design a system to help track the groceries in your fridge.
+
+When you put food into the fridge, you can record the name, food type, placement location (frozen or refrigerated) and expiration date of food items in the system.
+
+This system will help you to manage your refrigerator storage in a more organized way. The system provides you with a visual count when you want to know what foods are already in your fridge or their quantity and details. Meanwhile. you will receive alerts when any food is about to expire. The system will also notify you if stocks are running low and need to purchase an item.
+
+
+>>> Goal of the fridge system
+This system will help you to manage your refrigerator storage in a more organized way, and thus avoid wasting.
+
+________________________________________________________
+
+>>> Base functions of the fridge system
+1. Add, record and view the name, food type, placement location and expiration date of food items.
+2. Notify users when any food item is about to expire.
+3. Notify users when stock of any type of food is about to run low, then display the relevant URL for the user to purchase from an online fresh store (Wholefoods/Amazon Fresh/Farmstead, selected by the user in the system).
+
+
+>>> Potential functions of the fridge system
+1. Generate recipes based on available ingredients in the fridge.
+2. Evaluate the daily nutritional intake level based on the daily consumption of ingredients. Remind users what fruits/nutrients they still need to replenish at a specified time each night
