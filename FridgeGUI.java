@@ -29,15 +29,12 @@ public class FridgeGUI extends JFrame  {
         buttonPanel.setLayout(new GridLayout(3,1));
 
         JButton addButton = new JButton("Add item");
-        addButton.setBackground(Color.PINK);
         buttonPanel.add(addButton);
 
         JButton viewButton = new JButton("View stock");
-        viewButton.setBackground(Color.CYAN);
         buttonPanel.add(viewButton);
 
         JButton recipeButton = new JButton("Recommend recipe");
-        recipeButton.setBackground(Color.ORANGE);
         buttonPanel.add(recipeButton);
 
         add(buttonPanel, BorderLayout.CENTER);
