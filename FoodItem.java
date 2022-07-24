@@ -4,11 +4,12 @@ public class FoodItem {
     private String name;
     private int quantity;
     private Date expiration;
-    public enum FoodType {VEGETABLE, MEAT, FRUIT, OTHER} //milk and juice?
+    public enum FoodType {VEGETABLE, MEAT, FRUIT, DRINK, OTHER}
     private FoodType type;
     public enum PlaceLocation {FROZEN,REFRIGERATED}
     private PlaceLocation location;
 
+    public FoodItem(){}
     public FoodItem(String name){ //for checking the specific item?
         setName(name);
     }

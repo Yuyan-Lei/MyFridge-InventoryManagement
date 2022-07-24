@@ -49,7 +49,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("Add item")) {
             //System.out.println("add item");
-            setVisible(false);
+            setVisible(false); //can keep the new window opened only (looks like close the previous window)
             AddWindow aNewWindow = new AddWindow();
         }
         else if (actionCommand.equals("View stock")) {
