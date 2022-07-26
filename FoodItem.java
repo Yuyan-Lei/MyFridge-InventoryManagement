@@ -65,6 +65,15 @@ public class FoodItem {
         return location;
     }
 
+    // Two kinds of URLs: Whole Foods / Amazon Fresh
+    public String getWFURL() {
+        return "https://www.amazon.com/s?k=" + name + "&i=wholefoods";
+    }
+
+    public String getAFURL() {
+        return "https://www.amazon.com/s?k=" + name + "&i=amazonfresh";
+    }
+
     @Override
     public String toString() {
         // Format: name, quantity, expiration date, type, location
