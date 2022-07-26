@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FoodItem {
@@ -28,9 +29,6 @@ public class FoodItem {
     }
 
     public void setQuantity(int quantity) throws IllegalArgumentException {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity cannot be negative");
-        }
         this.quantity = quantity;
     }
 
@@ -67,4 +65,10 @@ public class FoodItem {
         return location;
     }
 
+    @Override
+    public String toString() {
+        // Format: name, quantity, expiration date, type, location
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd");
+        return getName() + " "  + getQuantity() + " "+ formatter.format(getExpiration()) + " " + getType() + " " + getLocation() + "\n";
+    }
 }

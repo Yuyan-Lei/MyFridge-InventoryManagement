@@ -2,19 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 /**
  * This GUI is the basic menu
  */
 public class FridgeGUIwithAction extends JFrame implements ActionListener  {
-    //String name, int quantity, Date expiration, FoodItem.FoodType type, PlaceLocation location
-//    private String name;
-//    private int quantity;
-//    private Date expiration;
-//    public enum FoodType {VEGETABLE, MEAT, FRUIT, OTHER} //milk and juice?
-//    private FoodItem.FoodType type;
-//    public enum PlaceLocation {FROZEN,REFRIGERATED}
-//    private FoodItem.PlaceLocation location;
     public static final int WIDTH = 200;
     public static final int HEIGHT = 350;
     private ActionEvent e;
@@ -54,7 +47,11 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         }
         else if (actionCommand.equals("View stock")) {
             setVisible(false);
-            StockWindow aNewWindow = new StockWindow();
+            try {
+                StockWindow aNewWindow = new StockWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
             //System.out.println("view item");
         else if (actionCommand.equals("Recommend recipe")) {
