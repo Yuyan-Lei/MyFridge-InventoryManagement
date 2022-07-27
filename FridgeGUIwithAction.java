@@ -198,9 +198,4 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
             System.out.println("Unexpected error.");
     }
 
-
-    public static void main(String[] args) throws ParseException {
-        FridgeGUIwithAction gui = new FridgeGUIwithAction();
-        gui.setVisible(true);
-    }
 }

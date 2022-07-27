@@ -1,63 +1,65 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class StockWindow implements ActionListener {
-    JFrame frame = new JFrame();
+public class StockWindow extends JFrame implements ActionListener {
 
     StockWindow() throws ParseException {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WIDTH, HEIGHT);
-        frame.setVisible(true);
-        frame.setLayout(new BorderLayout());
+        super("My Fridge");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(FridgeGUIwithAction.WIDTH, FridgeGUIwithAction.HEIGHT);
+        setVisible(true);
+        setLayout(new BorderLayout());
 
 
         // 1. Top bar
         JPanel topPanel = new JPanel();
-        topPanel.setBackground(GREEN_THEME);
+        topPanel.setBackground(FridgeGUIwithAction.GREEN_THEME);
         JLabel topText = new JLabel("Stock");
-        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-        topText.setForeground(WHITE_COLOR);
+        topText.setFont(new Font(FridgeGUIwithAction.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, FridgeGUIwithAction.TOP_BAR_SIZE));
+        topText.setForeground(FridgeGUIwithAction.WHITE_COLOR);
         topPanel.add(topText);
         add(topPanel, BorderLayout.NORTH);
 
         // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1,4));
-        buttonPanel.setBackground(MENU_BACKGROUND);
+        buttonPanel.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
 
         ImageIcon addIcon = new ImageIcon("./icons/add.png");
         Image img = addIcon.getImage();
-        Image newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
         addIcon = new ImageIcon(newImg);
         JButton addButton = new JButton(addIcon);
         addButton.setActionCommand("add");
-        addButton.setBackground(MENU_BACKGROUND);
+        addButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
         buttonPanel.add(addButton);
 
-        ImageIcon notificationIcon = new ImageIcon("./icons/expired_g.png");
+        ImageIcon notificationIcon = new ImageIcon("./icons/expired.png");
         img = notificationIcon.getImage();
-        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
         notificationIcon = new ImageIcon(newImg);
         JButton notificationButton = new JButton(notificationIcon);
         notificationButton.setActionCommand("notification");
-        notificationButton.setBackground(MENU_BACKGROUND);
+        notificationButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
         notificationButton.setOpaque(true);
         notificationButton.setBorderPainted(false);
         notificationButton.addActionListener(this);
         buttonPanel.add(notificationButton);
 
-        ImageIcon viewIcon = new ImageIcon("./icons/stock.png");
+        ImageIcon viewIcon = new ImageIcon("./icons/stock_g.png");
         img = viewIcon.getImage();
-        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
         viewIcon = new ImageIcon(newImg);
         JButton viewButton = new JButton(viewIcon);
         viewButton.setActionCommand("stock");
-        viewButton.setBackground(MENU_BACKGROUND);
+        viewButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
         viewButton.setOpaque(true);
         viewButton.setBorderPainted(false);
         viewButton.addActionListener(this);
@@ -65,11 +67,11 @@ public class StockWindow implements ActionListener {
 
         ImageIcon recipeIcon = new ImageIcon("./icons/recipe.png");
         img = recipeIcon.getImage();
-        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
         recipeIcon = new ImageIcon(newImg);
         JButton recipeButton = new JButton(recipeIcon);
         recipeButton.setActionCommand("recipe");
-        recipeButton.setBackground(MENU_BACKGROUND);
+        recipeButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
         recipeButton.setOpaque(true);
         recipeButton.setBorderPainted(false);
         recipeButton.addActionListener(this);
@@ -88,7 +90,7 @@ public class StockWindow implements ActionListener {
         for (int i = 0; i < sizeOfItems; i++) {
             String itemText = itemList.get(i).toString();
             itemButtons[i] = new JButton(itemText);
-            expiring.add(itemButtons[i]);
+            infoPanel.add(itemButtons[i]);
         }
 
         add(infoPanel, BorderLayout.CENTER);
@@ -103,7 +105,8 @@ public class StockWindow implements ActionListener {
         else if (actionCommand.equals("notification")) {
             setVisible(false);
             try {
-                StockWindow aNewWindow = new StockWindow();
+                FridgeGUIwithAction aNewWindow = new FridgeGUIwithAction();
+                aNewWindow.setVisible(true);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
