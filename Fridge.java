@@ -3,7 +3,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Fridge {
@@ -12,10 +11,10 @@ public class Fridge {
 
     public Fridge() {
         todayDate = new Date();
-        setStockList();
+        loadStockList();
     }
 
-    private void setStockList() {
+    private void loadStockList() {
         // Store the items in an arraylist.
         stockList = new ArrayList<FoodItem>();
 
@@ -50,6 +49,21 @@ public class Fridge {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void saveStockList() throws IOException {
+        FileWriter fw;
+        try {
+            fw = new FileWriter("./FridgeItem.txt", false);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (FoodItem itemInList : stockList) {
+            String text = itemInList.toString();
+            fw.write(text);
+        }
+        fw.close();
     }
     public void addItem(String name, int quantity, Date expiration, FoodItem.FoodType type, FoodItem.PlaceLocation location) throws IOException {
         // 1. Create a new object
@@ -98,6 +112,54 @@ public class Fridge {
         return almostExpiredItems;
     }
 
+    // Filter: By Type / By Location
+    public ArrayList<FoodItem> getItemsByType(FoodItem.FoodType type) {
+        ArrayList<FoodItem> itemsByType = new ArrayList<FoodItem>();
+        for (FoodItem item : stockList) {
+            if (item.getType().equals(type)) {
+                itemsByType.add(item);
+            }
+        }
+        return itemsByType;
+    }
+
+    public ArrayList<FoodItem> getItemsByLocation(FoodItem.PlaceLocation location) {
+        ArrayList<FoodItem> itemsByLocation = new ArrayList<FoodItem>();
+        for (FoodItem item : stockList) {
+            if (item.getLocation().equals(location)) {
+                itemsByLocation.add(item);
+            }
+        }
+        return itemsByLocation;
+    }
+
+    // Edit
+    public void updateItem(FoodItem item, String name, int quantity, Date expireDate, FoodItem.FoodType type, FoodItem.PlaceLocation location) throws IOException {
+        // Edit the stockList
+        for (FoodItem itemInList : stockList) {
+            if (itemInList.getId() == item.getId()) {
+                itemInList.setName(name);
+                itemInList.setQuantity(quantity);
+                itemInList.setExpiration(expireDate);
+                itemInList.setType(type);
+                itemInList.setLocation(location);
+            }
+        }
+
+        // Save the txt file
+        saveStockList();
+    }
+
+    // Remove
+    public void removeItem(FoodItem item) throws IOException {
+        // Edit the stockList
+        stockList.removeIf(itemInList -> itemInList.getId() == item.getId());
+
+        // Save the txt file
+        saveStockList();
+    }
+
+
     // methods below are only used for testing
     private void viewItems() {
         for (FoodItem item : stockList) {
@@ -139,5 +201,10 @@ public class Fridge {
 
         System.out.println("---- View items expires in 3 days-----");
         newFridge.viewAlmostExpiredItems();
+
+        System.out.println("---- View all items -----");
+        FoodItem item = newFridge.stockList.get(0);
+        newFridge.updateItem(item, "Biscuit", 22, expiration, FoodItem.FoodType.OTHER, FoodItem.PlaceLocation.REFRIGERATED);
+        newFridge.viewItems();
     }
 }
