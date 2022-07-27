@@ -2,6 +2,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FoodItem {
+    private int id;
     private String name;
     private int quantity;
     private Date expiration;
@@ -10,17 +11,17 @@ public class FoodItem {
     public enum PlaceLocation {FROZEN,REFRIGERATED}
     private PlaceLocation location;
 
-    public FoodItem(){}
-    public FoodItem(String name){ //for checking the specific item?
-        setName(name);
-    }
-
-    public FoodItem(String name, int quantity, Date expiration, FoodType type, PlaceLocation location) {
+    public FoodItem(int id, String name, int quantity, Date expiration, FoodType type, PlaceLocation location) {
+        this.id = id;
         setName(name);
         setQuantity(quantity);
         setExpiration(expiration);
         setType(type);
         setLocation(location);
+    }
+
+    public int getId() {
+        return id;
     }
 
     // Setters
@@ -77,7 +78,7 @@ public class FoodItem {
     @Override
     public String toString() {
         // Format: name, quantity, expiration date, type, location
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd");
-        return getName() + " "  + getQuantity() + " "+ formatter.format(getExpiration()) + " " + getType() + " " + getLocation() + "\n";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return getName() + ", "  + getQuantity() + ", "+ formatter.format(getExpiration()) + ", " + getType() + ", " + getLocation() + "\n";
     }
 }

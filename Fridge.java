@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Fridge {
     private Date todayDate;
@@ -14,7 +15,7 @@ public class Fridge {
         setStockList();
     }
 
-    public void setStockList() {
+    private void setStockList() {
         // Store the items in an arraylist.
         stockList = new ArrayList<FoodItem>();
 
@@ -22,7 +23,7 @@ public class Fridge {
         try{
             BufferedReader br = new BufferedReader(new FileReader("./FridgeItem.txt"));
             String s;
-            while((s = br.readLine()) != null){
+            while((s = br.readLine()) != null) {
                 String name;
                 int quantity;
                 Date expiration;
@@ -30,24 +31,19 @@ public class Fridge {
                 FoodItem.PlaceLocation location;
 
                 // 1. Extract information from text
-                Scanner input = new Scanner(s);
-                name = input.next();
-                quantity = input.nextInt();
+                String[] arrOfStr = s.split(", ", 0);
+                name = arrOfStr[0];
+                quantity = Integer.parseInt(arrOfStr[1]);
 
-                int year = input.nextInt();
-                int month = input.nextInt();
-                int day = input.nextInt();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String date = year + "-" + month + "-" + day;
-                expiration = formatter.parse(date);
+                expiration = formatter.parse(arrOfStr[2]);
 
-                String typeString = input.next();
-                type = FoodItem.FoodType.valueOf(typeString);
-                String locationString = input.next();
-                location = FoodItem.PlaceLocation.valueOf(locationString);
+                type = FoodItem.FoodType.valueOf(arrOfStr[3]);
+                location = FoodItem.PlaceLocation.valueOf(arrOfStr[4]);
 
                 // 2. Create objects with the info
-                FoodItem newItem = new FoodItem(name, quantity, expiration, type, location);
+                int newId = stockList.size();
+                FoodItem newItem = new FoodItem(newId, name, quantity, expiration, type, location);
                 stockList.add(newItem);
             }
             br.close();
@@ -57,7 +53,8 @@ public class Fridge {
     }
     public void addItem(String name, int quantity, Date expiration, FoodItem.FoodType type, FoodItem.PlaceLocation location) throws IOException {
         // 1. Create a new object
-        FoodItem newItem = new FoodItem(name, quantity, expiration, type, location);
+        int newId = stockList.size();
+        FoodItem newItem = new FoodItem(newId, name, quantity, expiration, type, location);
         stockList.add(newItem);
 
         // 2. Add to the txt
@@ -73,12 +70,12 @@ public class Fridge {
     }
 
     // View 1: Show all the items in a list
-    public ArrayList<FoodItem> getStockList() {
+    public ArrayList<FoodItem> getItems() {
         return stockList;
     }
 
     // View 2: Show items that have already been expired in a list
-    public ArrayList<FoodItem>  showExpiredItems() {
+    public ArrayList<FoodItem> getExpiredItems() {
         ArrayList<FoodItem> expiredItems = new ArrayList<FoodItem>();
         for (FoodItem item : stockList) {
             if (item.getExpiration().before(todayDate)) {
@@ -89,12 +86,12 @@ public class Fridge {
     }
 
     // View 3: Show items that are going to be expired in 3 days
-    public ArrayList<FoodItem>  showAlmostExpiredItems() throws ParseException {
+    public ArrayList<FoodItem> getAlmostExpiredItems() throws ParseException {
         ArrayList<FoodItem> almostExpiredItems = new ArrayList<FoodItem>();
         for (FoodItem item : stockList) {
             // get the number of days between today and the expiration date
-            long daysBetween = (item.getExpiration().getTime() - todayDate.getTime()) / (24 * 60 * 60 * 1000);
-            if (daysBetween <= 3 && daysBetween >= 0) {
+            long daysBetween = TimeUnit.DAYS.convert(item.getExpiration().getTime() - todayDate.getTime(), TimeUnit.MILLISECONDS);
+            if (item.getExpiration().after(todayDate) && daysBetween <= 3) {
                 almostExpiredItems.add(item);
             }
         }
@@ -104,19 +101,19 @@ public class Fridge {
     // methods below are only used for testing
     private void viewItems() {
         for (FoodItem item : stockList) {
-            System.out.println(item);
+            System.out.println(item.getId() + " " + item.toString());
         }
     }
 
     private void viewExpiredItems() {
-        for (FoodItem item : this.showExpiredItems()) {
-            System.out.println(item);
+        for (FoodItem item : this.getExpiredItems()) {
+            System.out.println(item.getId() + " " + item.toString());
         }
     }
 
     private void viewAlmostExpiredItems() throws ParseException {
-        for (FoodItem item : this.showAlmostExpiredItems()) {
-            System.out.println(item);
+        for (FoodItem item : this.getAlmostExpiredItems()) {
+            System.out.println(item.getId() + " " + item.toString());
         }
     }
 
@@ -126,7 +123,7 @@ public class Fridge {
         Fridge newFridge = new Fridge();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String date = 2022 + "-" + 7 + "-" + 28;
+        String date = 2022 + "-" + 7 + "-" + 26;
         Date expiration = formatter.parse(date);
 
         System.out.println("---- View all items -----");
