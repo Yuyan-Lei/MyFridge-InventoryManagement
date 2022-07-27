@@ -24,7 +24,7 @@ public class StockWindow {
         JPanel stockPanel = new JPanel();
         stockPanel.setLayout(new GridLayout(3,1));
 
-        Fridge stock = new Fridge();
+        Stock stock = new Stock();
         ArrayList<FoodItem> stockList = stock.getItems();
         ArrayList<FoodItem> expiredList = stock.getExpiredItems();
         ArrayList<FoodItem> almostExpiredList = stock.getAlmostExpiredItems();

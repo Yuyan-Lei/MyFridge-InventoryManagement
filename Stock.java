@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class Fridge {
+public class Stock {
     private Date todayDate;
     private ArrayList<FoodItem> stockList;
 
-    public Fridge() {
+    public Stock() {
         todayDate = new Date();
         loadStockList();
     }
 
+    // Private methods for inner operations over the stock list & database
     private void loadStockList() {
         // Store the items in an arraylist.
         stockList = new ArrayList<FoodItem>();
@@ -65,6 +66,9 @@ public class Fridge {
         }
         fw.close();
     }
+
+
+    // Add
     public void addItem(String name, int quantity, Date expiration, FoodItem.FoodType type, FoodItem.PlaceLocation location) throws IOException {
         // 1. Create a new object
         int newId = stockList.size();
@@ -82,6 +86,35 @@ public class Fridge {
         fw.write(text);
         fw.close();
     }
+
+
+    // Edit
+    public void updateItem(FoodItem item, String name, int quantity, Date expireDate, FoodItem.FoodType type, FoodItem.PlaceLocation location) throws IOException {
+        // Edit the stockList
+        for (FoodItem itemInList : stockList) {
+            if (itemInList.getId() == item.getId()) {
+                itemInList.setName(name);
+                itemInList.setQuantity(quantity);
+                itemInList.setExpiration(expireDate);
+                itemInList.setType(type);
+                itemInList.setLocation(location);
+            }
+        }
+
+        // Save the txt file
+        saveStockList();
+    }
+
+
+    // Remove
+    public void removeItem(FoodItem item) throws IOException {
+        // Edit the stockList
+        stockList.removeIf(itemInList -> itemInList.getId() == item.getId());
+
+        // Save the txt file
+        saveStockList();
+    }
+
 
     // View 1: Show all the items in a list
     public ArrayList<FoodItem> getItems() {
@@ -112,6 +145,17 @@ public class Fridge {
         return almostExpiredItems;
     }
 
+    // View 4: Low stock
+    public ArrayList<FoodItem> getLowStockItems(){
+        ArrayList<FoodItem> lowStockItems = new ArrayList<FoodItem>();
+        for (FoodItem item : stockList) {
+            if (item.getQuantity() <= 3) {
+                lowStockItems.add(item);
+            }
+        }
+        return lowStockItems;
+    }
+
     // Filter: By Type / By Location
     public ArrayList<FoodItem> getItemsByType(FoodItem.FoodType type) {
         ArrayList<FoodItem> itemsByType = new ArrayList<FoodItem>();
@@ -131,32 +175,6 @@ public class Fridge {
             }
         }
         return itemsByLocation;
-    }
-
-    // Edit
-    public void updateItem(FoodItem item, String name, int quantity, Date expireDate, FoodItem.FoodType type, FoodItem.PlaceLocation location) throws IOException {
-        // Edit the stockList
-        for (FoodItem itemInList : stockList) {
-            if (itemInList.getId() == item.getId()) {
-                itemInList.setName(name);
-                itemInList.setQuantity(quantity);
-                itemInList.setExpiration(expireDate);
-                itemInList.setType(type);
-                itemInList.setLocation(location);
-            }
-        }
-
-        // Save the txt file
-        saveStockList();
-    }
-
-    // Remove
-    public void removeItem(FoodItem item) throws IOException {
-        // Edit the stockList
-        stockList.removeIf(itemInList -> itemInList.getId() == item.getId());
-
-        // Save the txt file
-        saveStockList();
     }
 
 
@@ -182,29 +200,29 @@ public class Fridge {
     // only for testing
     public static void main(String[] args) throws IOException, ParseException {
 
-        Fridge newFridge = new Fridge();
+        Stock newStock = new Stock();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String date = 2022 + "-" + 7 + "-" + 26;
         Date expiration = formatter.parse(date);
 
         System.out.println("---- View all items -----");
-        newFridge.viewItems();
+        newStock.viewItems();
 
         System.out.println("---- After adding a new item -----");
-        newFridge.addItem("Biscuit", 1, expiration, FoodItem.FoodType.OTHER, FoodItem.PlaceLocation.REFRIGERATED);
+        newStock.addItem("Biscuit", 1, expiration, FoodItem.FoodType.OTHER, FoodItem.PlaceLocation.REFRIGERATED);
 
-        newFridge.viewItems();
+        newStock.viewItems();
 
         System.out.println("---- View expired items -----");
-        newFridge.viewExpiredItems();
+        newStock.viewExpiredItems();
 
         System.out.println("---- View items expires in 3 days-----");
-        newFridge.viewAlmostExpiredItems();
+        newStock.viewAlmostExpiredItems();
 
         System.out.println("---- View all items -----");
-        FoodItem item = newFridge.stockList.get(0);
-        newFridge.updateItem(item, "Biscuit", 22, expiration, FoodItem.FoodType.OTHER, FoodItem.PlaceLocation.REFRIGERATED);
-        newFridge.viewItems();
+        FoodItem item = newStock.stockList.get(0);
+        newStock.updateItem(item, "Biscuit", 22, expiration, FoodItem.FoodType.OTHER, FoodItem.PlaceLocation.REFRIGERATED);
+        newStock.viewItems();
     }
 }

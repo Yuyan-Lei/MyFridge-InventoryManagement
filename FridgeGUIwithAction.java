@@ -11,17 +11,24 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
     public static final int WIDTH = 350;
     public static final int HEIGHT = 750;
     private ActionEvent e;
-    public static final Color mainBackground = new Color(242, 245, 237);
-    public static final Color menuBackground = new Color(232, 240, 213);
-    public static final Color titleColor = new Color(122, 156, 87);
-    public static final Color redColor = new Color(223, 185, 182);
-    public static String titleFont = "San Francisco";
-    public static String textFont = "Arial";
-    public static int titleSize = 18;
-    public static int textSize = 14;
-    public static int menuSize = 12;
-    public static Font menuFormat = new Font(titleFont, Font.PLAIN, menuSize);
-    public static int iconSize = 44;
+
+    // Colors
+    public static final Color MAIN_BACKGROUND = new Color(242, 245, 237);
+    public static final Color MENU_BACKGROUND = new Color(232, 240, 213);
+    public static final Color TITLE_COLOR = new Color(122, 156, 87);
+    public static final Color RED_COLOR = new Color(223, 185, 182);
+
+    // Fonts
+    public static final String TITLE_FONT = "San Francisco";
+    public static final String TEXT_FONT = "Arial";
+
+    // Sizes
+    public static final int TOP_BAR_SIZE = 26;
+    public static final int TITLE_SIZE = 18;
+    public static final int TEXT_SIZE = 14;
+    public static final int MENU_SIZE = 12;
+    public static final Font MENU_FORMAT = new Font(TITLE_FONT, Font.PLAIN, MENU_SIZE);
+    public static final int ICON_SIZE = 44;
 
 
     public FridgeGUIwithAction(){
@@ -30,42 +37,51 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        //top menu
+        // 1. Top bar
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(MENU_BACKGROUND);
+        JLabel topText = new JLabel("Notifications");
+        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+        topText.setForeground(TITLE_COLOR);
+        topPanel.add(topText);
+        add(topPanel, BorderLayout.NORTH);
+
+        // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1,3));
-        buttonPanel.setBackground(menuBackground);
+        buttonPanel.setBackground(MENU_BACKGROUND);
 
-        ImageIcon addIcon = new ImageIcon("../5004-Final-Project/tubiao 2/add.png");
+        ImageIcon addIcon = new ImageIcon("./icons/add.png");
         Image img = addIcon.getImage();
-        Image newImg = img.getScaledInstance(iconSize,iconSize, Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
         addIcon = new ImageIcon(newImg);
         JButton addButton = new JButton(addIcon);
-        addButton.setActionCommand("1");
-        addButton.setBackground(menuBackground);
+        addButton.setActionCommand("add");
+        addButton.setBackground(MENU_BACKGROUND);
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
         buttonPanel.add(addButton);
 
-        ImageIcon viewIcon = new ImageIcon("../5004-Final-Project/tubiao 2/stock.png");
+        ImageIcon viewIcon = new ImageIcon("./icons/stock.png");
         img = viewIcon.getImage();
-        newImg = img.getScaledInstance(iconSize,iconSize, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
         viewIcon = new ImageIcon(newImg);
         JButton viewButton = new JButton(viewIcon);
-        viewButton.setActionCommand("2");
-        viewButton.setBackground(menuBackground);
+        viewButton.setActionCommand("stock");
+        viewButton.setBackground(MENU_BACKGROUND);
         viewButton.setOpaque(true);
         viewButton.setBorderPainted(false);
         viewButton.addActionListener(this);
         buttonPanel.add(viewButton);
 
-        ImageIcon recipeIcon = new ImageIcon("../5004-Final-Project/tubiao 2/recipe.png");
+        ImageIcon recipeIcon = new ImageIcon("./icons/recipe.png");
         img = recipeIcon.getImage();
-        newImg = img.getScaledInstance(iconSize,iconSize, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
         recipeIcon = new ImageIcon(newImg);
         JButton recipeButton = new JButton(recipeIcon);
-        recipeButton.setActionCommand("3");
-        recipeButton.setBackground(menuBackground);
+        recipeButton.setActionCommand("recipe");
+        recipeButton.setBackground(MENU_BACKGROUND);
         recipeButton.setOpaque(true);
         recipeButton.setBorderPainted(false);
         recipeButton.addActionListener(this);
@@ -73,16 +89,16 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
 
         add(buttonPanel, BorderLayout.SOUTH);
 
-        //center stock info
+        // 3. center stock info
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new GridLayout(3,1));
 
         JPanel lowStock = new JPanel();
         lowStock.setLayout(new BorderLayout());
         JLabel titleLow = new JLabel(" Low Stock");
-        titleLow.setFont(new Font(titleFont, Font.LAYOUT_LEFT_TO_RIGHT, titleSize));
-        titleLow.setForeground(titleColor);
-        lowStock.setBackground(mainBackground);
+        titleLow.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TITLE_SIZE));
+        titleLow.setForeground(TITLE_COLOR);
+        lowStock.setBackground(MAIN_BACKGROUND);
         lowStock.add(titleLow, BorderLayout.NORTH);
         //details put in center/bottom -- not finished yet
         lowStock.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -91,9 +107,9 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         JPanel expired = new JPanel();
         expired.setLayout(new BorderLayout());
         JLabel titleExpired = new JLabel(" Expired");
-        titleExpired.setFont(new Font(titleFont, Font.LAYOUT_LEFT_TO_RIGHT, titleSize));
-        titleExpired.setForeground(titleColor);
-        expired.setBackground(mainBackground);
+        titleExpired.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TITLE_SIZE));
+        titleExpired.setForeground(TITLE_COLOR);
+        expired.setBackground(MAIN_BACKGROUND);
         expired.add(titleExpired, BorderLayout.NORTH);
         //details put in center/bottom -- not finished yet
         expired.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -102,9 +118,9 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         JPanel expiring = new JPanel();
         expiring.setLayout(new BorderLayout());
         JLabel titleExpiring = new JLabel(" Expiring soon");
-        titleExpiring.setFont(new Font(titleFont, Font.LAYOUT_LEFT_TO_RIGHT, titleSize));
-        titleExpiring.setForeground(titleColor);
-        expiring.setBackground(mainBackground);
+        titleExpiring.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TITLE_SIZE));
+        titleExpiring.setForeground(TITLE_COLOR);
+        expiring.setBackground(MAIN_BACKGROUND);
         expiring.add(titleExpiring, BorderLayout.NORTH);
         //details put in center/bottom -- not finished yet
         expiring.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -115,12 +131,11 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
 
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
-        if (actionCommand.equals("1")) {
-            //System.out.println("add item");
+        if (actionCommand.equals("add")) {
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
             AddWindow aNewWindow = new AddWindow();
         }
-        else if (actionCommand.equals("2")) {
+        else if (actionCommand.equals("stock")) {
             setVisible(false);
             try {
                 StockWindow aNewWindow = new StockWindow();
@@ -128,12 +143,10 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
                 throw new RuntimeException(ex);
             }
         }
-        //System.out.println("view item");
-        else if (actionCommand.equals("3")) {
+        else if (actionCommand.equals("recipe")) {
             setVisible(false);
             RecipeWindow aNewWindow = new RecipeWindow();
         }
-        //System.out.println("recipes");
         else
             System.out.println("Unexpected error.");
     }
