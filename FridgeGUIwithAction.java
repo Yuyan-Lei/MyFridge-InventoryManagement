@@ -15,6 +15,12 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
     public static final Color menuBackground = new Color(232, 240, 213);
     public static final Color titleColor = new Color(122, 156, 87);
     public static final Color redColor = new Color(223, 185, 182);
+    public static String titleFont = "San Francisco";
+    public static String textFont = "Arial";
+    public static int titleSize = 18;
+    public static int textSize = 14;
+    public static int menuSize = 12;
+    public static Font menuFormat = new Font(titleFont, Font.PLAIN, menuSize);
 
 
     public FridgeGUIwithAction(){
@@ -29,6 +35,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         buttonPanel.setBackground(menuBackground);
 
         JButton addButton = new JButton("➕ Add");
+        addButton.setFont(menuFormat);
         addButton.setBackground(menuBackground);
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
@@ -36,6 +43,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         buttonPanel.add(addButton);
 
         JButton viewButton = new JButton("👁 Stock");
+        viewButton.setFont(menuFormat);
         viewButton.setBackground(menuBackground);
         viewButton.setOpaque(true);
         viewButton.setBorderPainted(false);
@@ -43,6 +51,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         buttonPanel.add(viewButton);
 
         JButton recipeButton = new JButton("📖 Recipe");
+        recipeButton.setFont(menuFormat);
         recipeButton.setBackground(menuBackground);
         recipeButton.setOpaque(true);
         recipeButton.setBorderPainted(false);
@@ -58,7 +67,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         JPanel lowStock = new JPanel();
         lowStock.setLayout(new BorderLayout());
         JLabel titleLow = new JLabel(" Low Stock");
-        titleLow.setFont(new Font("Arial", Font.LAYOUT_LEFT_TO_RIGHT, 18));
+        titleLow.setFont(new Font(titleFont, Font.LAYOUT_LEFT_TO_RIGHT, titleSize));
         titleLow.setForeground(titleColor);
         lowStock.setBackground(mainBackground);
         lowStock.add(titleLow, BorderLayout.NORTH);
@@ -69,7 +78,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         JPanel expired = new JPanel();
         expired.setLayout(new BorderLayout());
         JLabel titleExpired = new JLabel(" Expired");
-        titleExpired.setFont(new Font("Arial", Font.LAYOUT_LEFT_TO_RIGHT, 18));
+        titleExpired.setFont(new Font(titleFont, Font.LAYOUT_LEFT_TO_RIGHT, titleSize));
         titleExpired.setForeground(titleColor);
         expired.setBackground(mainBackground);
         expired.add(titleExpired, BorderLayout.NORTH);
@@ -80,7 +89,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         JPanel expiring = new JPanel();
         expiring.setLayout(new BorderLayout());
         JLabel titleExpiring = new JLabel(" Expiring soon");
-        titleExpiring.setFont(new Font("Arial", Font.LAYOUT_LEFT_TO_RIGHT, 18));
+        titleExpiring.setFont(new Font(titleFont, Font.LAYOUT_LEFT_TO_RIGHT, titleSize));
         titleExpiring.setForeground(titleColor);
         expiring.setBackground(mainBackground);
         expiring.add(titleExpiring, BorderLayout.NORTH);
