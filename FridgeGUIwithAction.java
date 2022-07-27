@@ -21,6 +21,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
     public static int textSize = 14;
     public static int menuSize = 12;
     public static Font menuFormat = new Font(titleFont, Font.PLAIN, menuSize);
+    public static int iconSize = 44;
 
 
     public FridgeGUIwithAction(){
@@ -34,24 +35,36 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         buttonPanel.setLayout(new GridLayout(1,3));
         buttonPanel.setBackground(menuBackground);
 
-        JButton addButton = new JButton("➕ Add");
-        addButton.setFont(menuFormat);
+        ImageIcon addIcon = new ImageIcon("../5004-Final-Project/tubiao 2/add.png");
+        Image img = addIcon.getImage();
+        Image newImg = img.getScaledInstance(iconSize,iconSize, Image.SCALE_SMOOTH);
+        addIcon = new ImageIcon(newImg);
+        JButton addButton = new JButton(addIcon);
+        addButton.setActionCommand("1");
         addButton.setBackground(menuBackground);
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
         buttonPanel.add(addButton);
 
-        JButton viewButton = new JButton("👁 Stock");
-        viewButton.setFont(menuFormat);
+        ImageIcon viewIcon = new ImageIcon("../5004-Final-Project/tubiao 2/stock.png");
+        img = viewIcon.getImage();
+        newImg = img.getScaledInstance(iconSize,iconSize, Image.SCALE_SMOOTH);
+        viewIcon = new ImageIcon(newImg);
+        JButton viewButton = new JButton(viewIcon);
+        viewButton.setActionCommand("2");
         viewButton.setBackground(menuBackground);
         viewButton.setOpaque(true);
         viewButton.setBorderPainted(false);
         viewButton.addActionListener(this);
         buttonPanel.add(viewButton);
 
-        JButton recipeButton = new JButton("📖 Recipe");
-        recipeButton.setFont(menuFormat);
+        ImageIcon recipeIcon = new ImageIcon("../5004-Final-Project/tubiao 2/recipe.png");
+        img = recipeIcon.getImage();
+        newImg = img.getScaledInstance(iconSize,iconSize, Image.SCALE_SMOOTH);
+        recipeIcon = new ImageIcon(newImg);
+        JButton recipeButton = new JButton(recipeIcon);
+        recipeButton.setActionCommand("3");
         recipeButton.setBackground(menuBackground);
         recipeButton.setOpaque(true);
         recipeButton.setBorderPainted(false);
@@ -102,12 +115,12 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
 
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
-        if (actionCommand.equals("➕ Add")) {
+        if (actionCommand.equals("1")) {
             //System.out.println("add item");
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
             AddWindow aNewWindow = new AddWindow();
         }
-        else if (actionCommand.equals("👁 Stock")) {
+        else if (actionCommand.equals("2")) {
             setVisible(false);
             try {
                 StockWindow aNewWindow = new StockWindow();
@@ -116,7 +129,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
             }
         }
         //System.out.println("view item");
-        else if (actionCommand.equals("📖 Recipe")) {
+        else if (actionCommand.equals("3")) {
             setVisible(false);
             RecipeWindow aNewWindow = new RecipeWindow();
         }
