@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddWindow extends FoodItem implements ActionListener {
+public class AddWindow implements ActionListener {
     JFrame frame = new JFrame();
     private JTextField name;
     private JTextField quantity;
