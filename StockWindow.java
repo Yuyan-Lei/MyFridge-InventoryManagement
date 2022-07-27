@@ -8,7 +8,7 @@ public class StockWindow {
 
     StockWindow() throws ParseException {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,1000);
+        frame.setSize(350,750);
         frame.setLayout(null);
         frame.setVisible(true);
 

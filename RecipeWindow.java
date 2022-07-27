@@ -8,7 +8,7 @@ public class RecipeWindow {
         label.setBounds(0,0,200,50);
         frame.add(label);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(200,350);
+        frame.setSize(350,750);
         frame.setLayout(null);
         frame.setVisible(true);
     }
