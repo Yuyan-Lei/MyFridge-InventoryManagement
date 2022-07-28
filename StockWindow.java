@@ -102,7 +102,11 @@ public class StockWindow extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("add")) {
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            AddWindow aNewWindow = new AddWindow();
+            try {
+                AddWindow aNewWindow = new AddWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else if (actionCommand.equals("notification")) {
             setVisible(false);

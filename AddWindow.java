@@ -22,22 +22,22 @@ public class AddWindow extends JFrame implements ActionListener {
 
     String types[] = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
     String locations[] = {"FROZEN","REFRIGERATED" };
-    AddWindow() {
+    AddWindow() throws ParseException {
         //super("My Fridge"); //title name
-
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.setVisible(true);
+        DefaultUI ui = new DefaultUI("Add/Edit Items", this);
+//        frame.setSize(WIDTH, HEIGHT);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setLayout(new BorderLayout());
+        setVisible(true);
 
         // 1. Top bar
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(GREEN_THEME);
-        JLabel topText = new JLabel("Add/Edit Items");
-        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-        topText.setForeground(WHITE_COLOR);
-        topPanel.add(topText);
-        frame.add(topPanel, BorderLayout.NORTH);
+//        JPanel topPanel = new JPanel();
+//        topPanel.setBackground(GREEN_THEME);
+//        JLabel topText = new JLabel("Add/Edit Items");
+//        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+//        topText.setForeground(WHITE_COLOR);
+//        topPanel.add(topText);
+//        frame.add(topPanel, BorderLayout.NORTH);
 
         // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
@@ -92,7 +92,7 @@ public class AddWindow extends JFrame implements ActionListener {
         recipeButton.addActionListener(this);
         buttonPanel.add(recipeButton);
 
-        frame.add(buttonPanel, BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         // 3. center add info
         JPanel addInfoPanel = new JPanel();
@@ -130,7 +130,7 @@ public class AddWindow extends JFrame implements ActionListener {
 
         JButton saveButton = new JButton("Save");
         addPanel.add(saveButton);
-        frame.add(addPanel,BorderLayout.CENTER);
+        add(addPanel,BorderLayout.CENTER);
 
     }
 
@@ -139,7 +139,11 @@ public class AddWindow extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("add")) {
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            AddWindow aNewWindow = new AddWindow();
+            try {
+                AddWindow aNewWindow = new AddWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else if (actionCommand.equals("notification")) {
             setVisible(false);

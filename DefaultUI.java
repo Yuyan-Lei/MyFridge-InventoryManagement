@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-public class DefaultUI {
+public class DefaultUI  {
     public static final int WIDTH = 350;
     public static final int HEIGHT = 750;
     private ActionEvent e;
@@ -29,23 +30,6 @@ public class DefaultUI {
     public static final Font MENU_FORMAT = new Font(TITLE_FONT, Font.PLAIN, MENU_SIZE);
     public static final int ICON_SIZE = 44;
 
-
-//    public DefaultUI() throws ParseException {
-//        super();
-//        setTitle("MY Fridge");
-//        setSize(WIDTH, HEIGHT);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setLayout(new BorderLayout());
-//
-//        JPanel topPanel = new JPanel();
-//        topPanel.setBackground(GREEN_THEME);
-//        JLabel topText = new JLabel();
-//        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-//        topText.setForeground(WHITE_COLOR);
-//        topPanel.add(topText);
-//        add(topPanel, BorderLayout.NORTH);
-//    }
-
     public DefaultUI(String title, JFrame frame) throws ParseException {
         frame.setTitle("My Fridge");
         frame.setSize(WIDTH, HEIGHT);
@@ -53,55 +37,7 @@ public class DefaultUI {
         frame.setLayout(new BorderLayout());
 
         setTopPanel(title, frame);
-
-//        JPanel buttonPanel = new JPanel();
-//        buttonPanel.setLayout(new GridLayout(1,4));
-//        buttonPanel.setBackground(MENU_BACKGROUND);
-//
-//        ImageIcon addIcon = new ImageIcon("./icons/add.png");
-//        Image img = addIcon.getImage();
-//        Image newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
-//        addIcon = new ImageIcon(newImg);
-//        JButton addButton = new JButton(addIcon);
-//        addButton.setActionCommand("add");
-//        addButton.setBackground(MENU_BACKGROUND);
-//        addButton.setOpaque(true);
-//        addButton.setBorderPainted(false);
-////        addButton.addActionListener(this);
-//        buttonPanel.add(addButton);
-//
-//        ImageIcon notificationIcon = new ImageIcon("./icons/expired_g.png");
-//        img = notificationIcon.getImage();
-//        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
-//        notificationIcon = new ImageIcon(newImg);
-//        JButton notificationButton = new JButton(notificationIcon);
-//        notificationButton.setActionCommand("notification");
-//        notificationButton.setBackground(MENU_BACKGROUND);
-//        notificationButton.setOpaque(true);
-//        notificationButton.setBorderPainted(false);
-////        notificationButton.addActionListener(this);
-//        buttonPanel.add(notificationButton);
-//
-//        ImageIcon viewIcon = new ImageIcon("./icons/stock.png");
-//        img = viewIcon.getImage();
-//        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
-//        viewIcon = new ImageIcon(newImg);
-//        JButton viewButton = new JButton(viewIcon);
-//        viewButton.setActionCommand("stock");
-//        viewButton.setBackground(MENU_BACKGROUND);
-//        viewButton.setOpaque(true);
-//        viewButton.setBorderPainted(false);
-////        viewButton.addActionListener(this);
-//        buttonPanel.add(viewButton);
-//        add(buttonPanel);
     }
-
-//    public DefaultUI(JFrame frame) throws ParseException {
-//        frame = new JFrame();
-//        frame.setSize(WIDTH, HEIGHT);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setLayout(new BorderLayout());
-//    }
 
     public void setTopPanel(String title, JFrame frame){
         JPanel topPanel = new JPanel();
@@ -113,9 +49,84 @@ public class DefaultUI {
         frame.add(topPanel, BorderLayout.NORTH);
     }
 
-    public void setButtonPanel(){
+    public void setMenuButtonPanel(String page, JFrame frame){
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1,4));
+        buttonPanel.setBackground(MENU_BACKGROUND);
+
+        ImageIcon addIcon = new ImageIcon("./icons/add.png");
+        Image img = addIcon.getImage();
+        Image newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        addIcon = new ImageIcon(newImg);
+        JButton addButton = new JButton(addIcon);
+        addButton.setActionCommand("add");
+        addButton.setBackground(MENU_BACKGROUND);
+        addButton.setOpaque(true);
+        addButton.setBorderPainted(false);
+//        addButton.addActionListener(this);
+        buttonPanel.add(addButton);
+
+        ImageIcon notificationIcon = new ImageIcon("./icons/expired_g.png");
+        img = notificationIcon.getImage();
+        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        notificationIcon = new ImageIcon(newImg);
+        JButton notificationButton = new JButton(notificationIcon);
+        notificationButton.setActionCommand("notification");
+        notificationButton.setBackground(MENU_BACKGROUND);
+        notificationButton.setOpaque(true);
+        notificationButton.setBorderPainted(false);
+//        notificationButton.addActionListener(this);
+        buttonPanel.add(notificationButton);
+
+        ImageIcon viewIcon = new ImageIcon("./icons/stock.png");
+        img = viewIcon.getImage();
+        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        viewIcon = new ImageIcon(newImg);
+        JButton viewButton = new JButton(viewIcon);
+        viewButton.setActionCommand("stock");
+        viewButton.setBackground(MENU_BACKGROUND);
+        viewButton.setOpaque(true);
+        viewButton.setBorderPainted(false);
+//        viewButton.addActionListener(this);
+        buttonPanel.add(viewButton);
+
+        ImageIcon recipeIcon = new ImageIcon("./icons/recipe.png");
+        img = recipeIcon.getImage();
+        newImg = img.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+        recipeIcon = new ImageIcon(newImg);
+        JButton recipeButton = new JButton(recipeIcon);
+        recipeButton.setActionCommand("recipe");
+        recipeButton.setBackground(MENU_BACKGROUND);
+        recipeButton.setOpaque(true);
+        recipeButton.setBorderPainted(false);
+//        recipeButton.addActionListener(this);
+        buttonPanel.add(recipeButton);
+
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
     }
+
+//    public void actionPerformed(ActionEvent e){
+//        String actionCommand = e.getActionCommand();
+//        if (actionCommand.equals("add")) {
+//            setVisible(false); //can keep the new window opened only (looks like close the previous window)
+//            AddWindow aNewWindow = new AddWindow();
+//        }
+//        else if (actionCommand.equals("stock")) {
+//            setVisible(false);
+//            try {
+//                StockWindow aNewWindow = new StockWindow();
+//            } catch (ParseException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        }
+//        else if (actionCommand.equals("recipe")) {
+//            setVisible(false);
+//            RecipeWindow aNewWindow = new RecipeWindow();
+//        }
+//        else
+//            System.out.println("Unexpected error.");
+//    }
 
     public void setLabel(){
 

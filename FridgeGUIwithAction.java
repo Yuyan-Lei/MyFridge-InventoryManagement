@@ -40,7 +40,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
 //        setSize(WIDTH, HEIGHT);
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setLayout(new BorderLayout());
-        DefaultUI ui = new DefaultUI("NOTICE", this);
+        DefaultUI ui = new DefaultUI("Notifications", this);
 
         // 1. Top bar
 //        JPanel topPanel = new JPanel();
@@ -181,7 +181,11 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("add")) {
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            AddWindow aNewWindow = new AddWindow();
+            try {
+                AddWindow aNewWindow = new AddWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else if (actionCommand.equals("stock")) {
             setVisible(false);
