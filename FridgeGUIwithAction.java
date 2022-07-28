@@ -197,7 +197,11 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         }
         else if (actionCommand.equals("recipe")) {
             setVisible(false);
-            RecipeWindow aNewWindow = new RecipeWindow();
+            try {
+                RecipeWindow aNewWindow = new RecipeWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else
             System.out.println("Unexpected error.");

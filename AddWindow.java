@@ -17,29 +17,31 @@ public class AddWindow extends JFrame implements ActionListener {
 
     String types[] = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
     String locations[] = {"FROZEN","REFRIGERATED" };
-    AddWindow() {
-        super("My Fridge"); //title name
-
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+    AddWindow() throws ParseException {
+//        super("My Fridge"); //title name
+//
+//        setSize(WIDTH, HEIGHT);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setLayout(new BorderLayout());
+//        setVisible(true);
+        DefaultUI ui = new DefaultUI("Add/Edit Items", this);
         setVisible(true);
 
         // 1. Top bar
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(GREEN_THEME);
-        JLabel topText = new JLabel("Add/Edit Items");
-        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-        topText.setForeground(WHITE_COLOR);
-        topPanel.add(topText);
-        add(topPanel, BorderLayout.NORTH);
+//        JPanel topPanel = new JPanel();
+//        topPanel.setBackground(GREEN_THEME);
+//        JLabel topText = new JLabel("Add/Edit Items");
+//        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+//        topText.setForeground(WHITE_COLOR);
+//        topPanel.add(topText);
+//        add(topPanel, BorderLayout.NORTH);
 
         // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1,4));
         buttonPanel.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
 
-        ImageIcon addIcon = new ImageIcon("./icons/add.png");
+        ImageIcon addIcon = new ImageIcon("./icons/add_g.png");
         Image img = addIcon.getImage();
         Image newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
         addIcon = new ImageIcon(newImg);
@@ -63,7 +65,7 @@ public class AddWindow extends JFrame implements ActionListener {
         notificationButton.addActionListener(this);
         buttonPanel.add(notificationButton);
 
-        ImageIcon viewIcon = new ImageIcon("./icons/stock_g.png");
+        ImageIcon viewIcon = new ImageIcon("./icons/stock.png");
         img = viewIcon.getImage();
         newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
         viewIcon = new ImageIcon(newImg);
@@ -156,9 +158,13 @@ public class AddWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-        if (actionCommand.equals("add")) {
+        if (actionCommand.equals("stock")) {
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            AddWindow aNewWindow = new AddWindow();
+            try {
+                StockWindow aNewWindow = new StockWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else if (actionCommand.equals("notification")) {
             setVisible(false);
@@ -171,11 +177,14 @@ public class AddWindow extends JFrame implements ActionListener {
         }
         else if (actionCommand.equals("recipe")) {
             setVisible(false);
-            RecipeWindow aNewWindow = new RecipeWindow();
+            try {
+                RecipeWindow aNewWindow = new RecipeWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else
             System.out.println("Unexpected error.");
     }
 
 }
-
