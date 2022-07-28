@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class StockWindow extends JFrame implements ActionListener {
 
     StockWindow() throws ParseException {
-        DefaultUI ui = new DefaultUI();
+        DefaultUI ui = new DefaultUI("Stock", this);
 //        super("My Fridge");
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setSize(FridgeGUIwithAction.WIDTH, FridgeGUIwithAction.HEIGHT);

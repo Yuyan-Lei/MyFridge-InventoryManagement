@@ -40,7 +40,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
 //        setSize(WIDTH, HEIGHT);
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setLayout(new BorderLayout());
-        DefaultUI ui = new DefaultUI("NOTICE");
+        DefaultUI ui = new DefaultUI("NOTICE", this);
 
         // 1. Top bar
 //        JPanel topPanel = new JPanel();

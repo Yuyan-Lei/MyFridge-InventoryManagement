@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 
-public class DefaultUI extends JFrame implements GUI{
+public class DefaultUI {
     public static final int WIDTH = 350;
     public static final int HEIGHT = 750;
     private ActionEvent e;
@@ -30,36 +30,29 @@ public class DefaultUI extends JFrame implements GUI{
     public static final int ICON_SIZE = 44;
 
 
-    public DefaultUI() throws ParseException {
-        super();
-        setTitle("MY Fridge");
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+//    public DefaultUI() throws ParseException {
+//        super();
+//        setTitle("MY Fridge");
+//        setSize(WIDTH, HEIGHT);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setLayout(new BorderLayout());
+//
+//        JPanel topPanel = new JPanel();
+//        topPanel.setBackground(GREEN_THEME);
+//        JLabel topText = new JLabel();
+//        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+//        topText.setForeground(WHITE_COLOR);
+//        topPanel.add(topText);
+//        add(topPanel, BorderLayout.NORTH);
+//    }
 
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(GREEN_THEME);
-        JLabel topText = new JLabel();
-        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-        topText.setForeground(WHITE_COLOR);
-        topPanel.add(topText);
-        add(topPanel, BorderLayout.NORTH);
-    }
+    public DefaultUI(String title, JFrame frame) throws ParseException {
+        frame.setTitle("My Fridge");
+        frame.setSize(WIDTH, HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
 
-    public DefaultUI(String title) throws ParseException {
-        super();
-        setTitle("MY Fridge");
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(GREEN_THEME);
-        JLabel topText = new JLabel(title);
-        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-        topText.setForeground(WHITE_COLOR);
-        topPanel.add(topText);
-        add(topPanel, BorderLayout.NORTH);
+        setTopPanel(title, frame);
 
 //        JPanel buttonPanel = new JPanel();
 //        buttonPanel.setLayout(new GridLayout(1,4));
@@ -110,14 +103,14 @@ public class DefaultUI extends JFrame implements GUI{
 //        frame.setLayout(new BorderLayout());
 //    }
 
-    public void setTopPanel(String title){
-//        JPanel topPanel = new JPanel();
-//        topPanel.setBackground(GREEN_THEME);
-//        JLabel topText = new JLabel(title);
-//        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-//        topText.setForeground(WHITE_COLOR);
-//        topPanel.add(topText);
-//        frame.add(topPanel, BorderLayout.NORTH);
+    public void setTopPanel(String title, JFrame frame){
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(GREEN_THEME);
+        JLabel topText = new JLabel(title);
+        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+        topText.setForeground(WHITE_COLOR);
+        topPanel.add(topText);
+        frame.add(topPanel, BorderLayout.NORTH);
     }
 
     public void setButtonPanel(){
