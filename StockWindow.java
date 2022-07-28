@@ -8,11 +8,13 @@ import java.util.ArrayList;
 public class StockWindow extends JFrame implements ActionListener {
 
     StockWindow() throws ParseException {
-        super("My Fridge");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(FridgeGUIwithAction.WIDTH, FridgeGUIwithAction.HEIGHT);
+        DefaultUI ui = new DefaultUI();
+//        super("My Fridge");
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setSize(FridgeGUIwithAction.WIDTH, FridgeGUIwithAction.HEIGHT);
         setVisible(true);
-        setLayout(new BorderLayout());
+//        setLayout(new BorderLayout());
+
 
 
         // 1. Top bar

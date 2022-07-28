@@ -36,19 +36,20 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
 
 
     public FridgeGUIwithAction() throws ParseException {
-        super("My Fridge"); //title name
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+//        super("My Fridge"); //title name
+//        setSize(WIDTH, HEIGHT);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setLayout(new BorderLayout());
+        DefaultUI ui = new DefaultUI("NOTICE");
 
         // 1. Top bar
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(GREEN_THEME);
-        JLabel topText = new JLabel("Notifications");
-        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-        topText.setForeground(WHITE_COLOR);
-        topPanel.add(topText);
-        add(topPanel, BorderLayout.NORTH);
+//        JPanel topPanel = new JPanel();
+//        topPanel.setBackground(GREEN_THEME);
+//        JLabel topText = new JLabel("Notifications");
+//        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+//        topText.setForeground(WHITE_COLOR);
+//        topPanel.add(topText);
+//        add(topPanel, BorderLayout.NORTH);
 
         // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
