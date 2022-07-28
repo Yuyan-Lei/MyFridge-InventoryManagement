@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 public class RecipeItem {
+    private int id;
     private String name;
     private String[] ingredient;
     private String detailsOfIngredient;
@@ -10,7 +11,8 @@ public class RecipeItem {
     private String calories;
 
 
-    public RecipeItem(String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime, String calories) {
+    public RecipeItem(int id, String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime, String calories) {
+        this.id = id;
         this.name = name;
         this.ingredient = ingredient;
         this.detailsOfIngredient = detailsOfIngredient;
@@ -21,6 +23,10 @@ public class RecipeItem {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

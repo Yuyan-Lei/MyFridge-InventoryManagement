@@ -3,8 +3,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class RecipeDatabase {
     private ArrayList<RecipeItem> recipeList;
@@ -51,7 +50,7 @@ public class RecipeDatabase {
                     calories = arrOfStr[6];
 
                     // 2. Create objects with the info
-                    RecipeItem newItem = new RecipeItem(name, ingredient, detailsOfIngredient, method, serving, cookTime, calories);
+                    RecipeItem newItem = new RecipeItem(recipeList.size() + 1, name, ingredient, detailsOfIngredient, method, serving, cookTime, calories);
                     recipeList.add(newItem);
                     recipeDetail = new StringBuilder();
                 }
@@ -68,7 +67,7 @@ public class RecipeDatabase {
     // Add
     private void addItem(String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime, String calories) throws IOException {
         // 1. Create a new object
-        RecipeItem newItem = new RecipeItem(name, ingredient, detailsOfIngredient, method, serving,cookTime, calories);
+        RecipeItem newItem = new RecipeItem(recipeList.size() + 1, name, ingredient, detailsOfIngredient, method, serving,cookTime, calories);
         recipeList.add(newItem);
 
         // 2. Add to the txt
@@ -83,10 +82,56 @@ public class RecipeDatabase {
         fw.close();
     }
 
+    // Get a list of all recipes in the database
+    public ArrayList<RecipeItem> getAllRecipes() {
+        return recipeList;
+    }
+
+    // Get a list of recipes that contains the input ingredients.
+    public ArrayList<RecipeItem> getSpecificRecipeList(String[] inputIngredients) {
+        ArrayList<RecipeItem> list = new ArrayList<RecipeItem>();
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        // Check every the input ingredients in every recipe.
+        for (String ingredient : inputIngredients) {
+            for (RecipeItem item : recipeList) {
+                // if this recipe contains the specific ingredient, then map value + 1
+                if (Arrays.asList(item.getIngredient()).contains(ingredient)) {
+                    map.put(item.getId(), map.getOrDefault(item.getId(), 0) + 1);
+                }
+            }
+        }
+        HashMap<Integer, ArrayList<Integer>> hitMap = new HashMap<Integer, ArrayList<Integer>>();
+        for (int id : map.keySet()) {
+            int hitting = map.get(id);
+            if (hitMap.containsKey(hitting)) {
+                ArrayList<Integer> value = hitMap.get(hitting);
+                value.add(id);
+                hitMap.put(hitting, value);
+            }
+            else {
+                ArrayList<Integer> value = new ArrayList<Integer>();
+                value.add(id);
+                hitMap.put(hitting, value);
+            }
+        }
+
+        // Return a list of recipe containing the input ingredients (By the rank of hitting)
+        Object[] keySet = hitMap.keySet().toArray();
+        Arrays.sort(keySet, Collections.reverseOrder());
+        for (Object hitting : keySet) {
+            int hitCount = (int)hitting;
+            for (int id : hitMap.get(hitCount)) {
+                list.add(recipeList.get(id - 1));
+            }
+        }
+
+        return list;
+    }
 
 
     // Only for testing
-    public String getRecipe() {
+    public String printRecipe() {
         StringBuilder list = new StringBuilder();
         for (RecipeItem item : recipeList) {
             String temp = "***Recipe***\n" +
@@ -106,7 +151,11 @@ public class RecipeDatabase {
     public static void main(String[] args) throws IOException {
         // 1. View all the list
         RecipeDatabase recipeDatabase = new RecipeDatabase();
-        System.out.println(recipeDatabase.getRecipe());
+        System.out.println(recipeDatabase.printRecipe());
+
+        String[] inputIngredients = {"a", "b", "c"};
+
+        System.out.println(recipeDatabase.getSpecificRecipeList(inputIngredients));
 
         // 2. Add a new recipe
 //        String name;
