@@ -13,11 +13,11 @@ public class FoodItem {
 
     public FoodItem(int id, String name, int quantity, Date expiration, FoodType type, PlaceLocation location) {
         this.id = id;
-        setName(name);
-        setQuantity(quantity);
-        setExpiration(expiration);
-        setType(type);
-        setLocation(location);
+        this.name = name;
+        this.quantity = quantity;
+        this.expiration = expiration;
+        this.type = type;
+        this.location = location;
     }
 
     public int getId() {
