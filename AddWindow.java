@@ -6,38 +6,33 @@ import java.text.ParseException;
 
 
 public class AddWindow extends JFrame implements ActionListener {
-    JFrame frame = new JFrame();
-    private JTextField name;
-    private JTextField quantity;
-    private JTextField expirationDate;
-
-    private JComboBox typeOption, locationOption;
+    //JFrame frame = new JFrame();
     public static final Color GREEN_THEME = new Color(122, 156, 87);
     public static final Color WHITE_COLOR = new Color(255, 255, 255);
     public static final String TITLE_FONT = "San Francisco";
     public static final int WIDTH = 350;
     public static final int HEIGHT = 750;
-    public static final Color MENU_BACKGROUND = new Color(232, 240, 213);
+
     public static final int TOP_BAR_SIZE = 24;
 
     String types[] = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
     String locations[] = {"FROZEN","REFRIGERATED" };
-    AddWindow() throws ParseException {
-        //super("My Fridge"); //title name
-        DefaultUI ui = new DefaultUI("Add/Edit Items", this);
-//        frame.setSize(WIDTH, HEIGHT);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setLayout(new BorderLayout());
+    AddWindow() {
+        super("My Fridge"); //title name
+
+        setSize(WIDTH, HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
         setVisible(true);
 
         // 1. Top bar
-//        JPanel topPanel = new JPanel();
-//        topPanel.setBackground(GREEN_THEME);
-//        JLabel topText = new JLabel("Add/Edit Items");
-//        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
-//        topText.setForeground(WHITE_COLOR);
-//        topPanel.add(topText);
-//        frame.add(topPanel, BorderLayout.NORTH);
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(GREEN_THEME);
+        JLabel topText = new JLabel("Add/Edit Items");
+        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+        topText.setForeground(WHITE_COLOR);
+        topPanel.add(topText);
+        add(topPanel, BorderLayout.NORTH);
 
         // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
@@ -96,42 +91,66 @@ public class AddWindow extends JFrame implements ActionListener {
 
         // 3. center add info
         JPanel addInfoPanel = new JPanel();
-        addInfoPanel.setLayout(new GridLayout(5,2));
+        addInfoPanel.setLayout(new BoxLayout(addInfoPanel, BoxLayout.PAGE_AXIS));
 
+        JPanel namePanel = new JPanel();
+        namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel nameLabel = new JLabel("Name:");
-        name = new JTextField();
-        addInfoPanel.add(nameLabel);
-        addInfoPanel.add(name);
+        JTextField name = new JTextField();
+        name.setPreferredSize(new Dimension(120,30));
+        namePanel.add(nameLabel);
+        namePanel.add(name);
+        addInfoPanel.add(namePanel);
 
+        JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel quantityLabel = new JLabel("Quantity:");
-        quantity = new JTextField();
-        addInfoPanel.add(quantityLabel);
-        addInfoPanel.add(quantity);
+        JTextField quantity = new JTextField();
+        quantity.setPreferredSize(new Dimension(70,30));
+        quantityPanel.add(quantityLabel);
+        quantityPanel.add(quantity);
+        addInfoPanel.add(quantityPanel);
 
-        JLabel expirationLabel = new JLabel("Expiration Date:");
-        expirationDate = new JTextField();
-        addInfoPanel.add(expirationLabel);
-        addInfoPanel.add(expirationDate);
 
+        JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel expirationLabel = new JLabel("Expiration Date (yyyy-MM-dd):");
+        JPanel expirationDate = new JPanel(new GridLayout(1,3));
+        JTextField expirationYear = new JTextField();
+        expirationYear.setPreferredSize(new Dimension(70,30));
+        JTextField expirationMonth = new JTextField();
+        expirationMonth.setPreferredSize(new Dimension(20,30));
+        JTextField expirationDay = new JTextField();
+        expirationDay.setPreferredSize(new Dimension(20,30));
+
+        expirationDate.add(expirationYear);
+        expirationDate.add(expirationMonth);
+        expirationDate.add(expirationDay);
+
+        expirationPanel.add(expirationLabel);
+        expirationPanel.add(expirationDate);
+        addInfoPanel.add(expirationPanel);
+
+        JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel typeLabel = new JLabel("Type:");
-        typeOption = new JComboBox(types);
-        addInfoPanel.add(typeLabel);
-        addInfoPanel.add(typeOption);
+        JComboBox typeOption = new JComboBox(types);
+        typeOption.setPreferredSize(new Dimension(120,30));
+        typePanel.add(typeLabel);
+        typePanel.add(typeOption);
+        addInfoPanel.add(typePanel);
 
+        JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
-        locationOption = new JComboBox(locations);
-        addInfoPanel.add(locationLabel);
-        addInfoPanel.add(locationOption);
+        JComboBox locationOption = new JComboBox(locations);
+        locationOption.setPreferredSize(new Dimension(120,30));
+        locationPanel.add(locationLabel);
+        locationPanel.add(locationOption);
+        addInfoPanel.add(locationPanel);
 
-
-        JPanel addPanel = new JPanel();
-        addPanel.setLayout(new BoxLayout(addPanel, BoxLayout.PAGE_AXIS));
-        addPanel.add(addInfoPanel);
-
+        JPanel saveButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton saveButton = new JButton("Save");
-        addPanel.add(saveButton);
-        add(addPanel,BorderLayout.CENTER);
+        saveButtonPanel.add(saveButton);
+        addInfoPanel.add(saveButtonPanel);
 
+        add(addInfoPanel,BorderLayout.CENTER);
     }
 
     @Override
@@ -139,11 +158,7 @@ public class AddWindow extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("add")) {
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            try {
-                AddWindow aNewWindow = new AddWindow();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
+            AddWindow aNewWindow = new AddWindow();
         }
         else if (actionCommand.equals("notification")) {
             setVisible(false);
