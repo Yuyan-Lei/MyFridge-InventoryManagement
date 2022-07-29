@@ -18,13 +18,13 @@ public class StockWindow extends JFrame implements ActionListener {
 
 
         // 1. Top bar
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(FridgeGUIwithAction.GREEN_THEME);
-        JLabel topText = new JLabel("Stock");
-        topText.setFont(new Font(FridgeGUIwithAction.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, FridgeGUIwithAction.TOP_BAR_SIZE));
-        topText.setForeground(FridgeGUIwithAction.WHITE_COLOR);
-        topPanel.add(topText);
-        add(topPanel, BorderLayout.NORTH);
+//        JPanel topPanel = new JPanel();
+//        topPanel.setBackground(FridgeGUIwithAction.GREEN_THEME);
+//        JLabel topText = new JLabel("Stock");
+//        topText.setFont(new Font(FridgeGUIwithAction.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, FridgeGUIwithAction.TOP_BAR_SIZE));
+//        topText.setForeground(FridgeGUIwithAction.WHITE_COLOR);
+//        topPanel.add(topText);
+//        add(topPanel, BorderLayout.NORTH);
 
         // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
@@ -102,7 +102,11 @@ public class StockWindow extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("add")) {
             setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            AddWindow aNewWindow = new AddWindow();
+            try {
+                AddWindow aNewWindow = new AddWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else if (actionCommand.equals("notification")) {
             setVisible(false);
@@ -115,7 +119,11 @@ public class StockWindow extends JFrame implements ActionListener {
         }
         else if (actionCommand.equals("recipe")) {
             setVisible(false);
-            RecipeWindow aNewWindow = new RecipeWindow();
+            try {
+                RecipeWindow aNewWindow = new RecipeWindow();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         else
             System.out.println("Unexpected error.");
