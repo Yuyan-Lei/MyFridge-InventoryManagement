@@ -121,7 +121,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         lowStock.setBorder(BorderFactory.createLineBorder(GREEN_THEME));
         // show items
         Stock newStock = new Stock();
-        ArrayList<FoodItem> lowStockList = newStock.getLowStockItems();
+        ArrayList<FoodItem> lowStockList = newStock.getLowStockItems(Stock.StockType.ALL);
         int sizeOfLowStockItems = lowStockList.size();
         lowStock.setLayout(new GridLayout(sizeOfLowStockItems + 1, 1));
         JButton[] lowStockItemButtons = new JButton[sizeOfLowStockItems];
@@ -142,7 +142,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         expired.add(titleExpired, BorderLayout.NORTH);
         expired.setBorder(BorderFactory.createLineBorder(GREEN_THEME));
         // show items
-        ArrayList<FoodItem> expiredList = newStock.getExpiredItems();
+        ArrayList<FoodItem> expiredList = newStock.getExpiredItems(Stock.StockType.ALL);
         int sizeOfExpiredItems = expiredList.size();
         expired.setLayout(new GridLayout(sizeOfExpiredItems + 1, 1));
         JButton[] expiredItemButtons = new JButton[sizeOfExpiredItems];
@@ -163,7 +163,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         expiring.add(titleExpiring, BorderLayout.NORTH);
         expiring.setBorder(BorderFactory.createLineBorder(GREEN_THEME));
         // show items
-        ArrayList<FoodItem> expiringList = newStock.getAlmostExpiredItems();
+        ArrayList<FoodItem> expiringList = newStock.getAlmostExpiredItems(Stock.StockType.ALL);
         int sizeOfExpiringItems = expiringList.size();
         expiring.setLayout(new GridLayout(sizeOfExpiringItems + 1, 1));
         JButton[] expiringItemButtons = new JButton[sizeOfExpiringItems];

@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Stock {
     private Date todayDate;
     private ArrayList<FoodItem> stockList;
+    public enum StockType {ALL, FROZEN,REFRIGERATED, VEGETABLE, MEAT, FRUIT, DRINK, OTHER}
 
     public Stock() {
         todayDate = new Date();
@@ -122,9 +123,19 @@ public class Stock {
     }
 
     // View 2: Show items that have already been expired in a list
-    public ArrayList<FoodItem> getExpiredItems() {
+    public ArrayList<FoodItem> getExpiredItems(StockType stockType) {
         ArrayList<FoodItem> expiredItems = new ArrayList<FoodItem>();
-        for (FoodItem item : stockList) {
+        ArrayList<FoodItem> lookUpList;
+        if (stockType == StockType.ALL) {
+            lookUpList = stockList;
+        }
+        else if (stockType == StockType.FROZEN || stockType == StockType.REFRIGERATED) {
+            lookUpList = getItemsByLocation(FoodItem.PlaceLocation.valueOf(stockType.toString()));
+        }
+        else {
+            lookUpList = getItemsByType(FoodItem.FoodType.valueOf(stockType.toString()));
+        }
+        for (FoodItem item : lookUpList)  {
             if (item.getExpiration().before(todayDate)) {
                 expiredItems.add(item);
             }
@@ -133,9 +144,19 @@ public class Stock {
     }
 
     // View 3: Show items that are going to be expired in 3 days
-    public ArrayList<FoodItem> getAlmostExpiredItems() throws ParseException {
+    public ArrayList<FoodItem> getAlmostExpiredItems(StockType stockType) throws ParseException {
         ArrayList<FoodItem> almostExpiredItems = new ArrayList<FoodItem>();
-        for (FoodItem item : stockList) {
+        ArrayList<FoodItem> lookUpList;
+        if (stockType == StockType.ALL) {
+            lookUpList = stockList;
+        }
+        else if (stockType == StockType.FROZEN || stockType == StockType.REFRIGERATED) {
+            lookUpList = getItemsByLocation(FoodItem.PlaceLocation.valueOf(stockType.toString()));
+        }
+        else {
+            lookUpList = getItemsByType(FoodItem.FoodType.valueOf(stockType.toString()));
+        }
+        for (FoodItem item : lookUpList) {
             // get the number of days between today and the expiration date
             long daysBetween = TimeUnit.DAYS.convert(item.getExpiration().getTime() - todayDate.getTime(), TimeUnit.MILLISECONDS);
             if (item.getExpiration().after(todayDate) && daysBetween <= 3) {
@@ -146,9 +167,19 @@ public class Stock {
     }
 
     // View 4: Low stock
-    public ArrayList<FoodItem> getLowStockItems(){
+    public ArrayList<FoodItem> getLowStockItems(StockType stockType){
         ArrayList<FoodItem> lowStockItems = new ArrayList<FoodItem>();
-        for (FoodItem item : stockList) {
+        ArrayList<FoodItem> lookUpList;
+        if (stockType == StockType.ALL) {
+            lookUpList = stockList;
+        }
+        else if (stockType == StockType.FROZEN || stockType == StockType.REFRIGERATED) {
+            lookUpList = getItemsByLocation(FoodItem.PlaceLocation.valueOf(stockType.toString()));
+        }
+        else {
+            lookUpList = getItemsByType(FoodItem.FoodType.valueOf(stockType.toString()));
+        }
+        for (FoodItem item : lookUpList) {
             if (item.getQuantity() <= 3) {
                 lowStockItems.add(item);
             }
@@ -186,13 +217,13 @@ public class Stock {
     }
 
     private void viewExpiredItems() {
-        for (FoodItem item : this.getExpiredItems()) {
+        for (FoodItem item : this.getExpiredItems(Stock.StockType.ALL)) {
             System.out.println(item.getId() + " " + item.toString());
         }
     }
 
     private void viewAlmostExpiredItems() throws ParseException {
-        for (FoodItem item : this.getAlmostExpiredItems()) {
+        for (FoodItem item : this.getAlmostExpiredItems(Stock.StockType.ALL)) {
             System.out.println(item.getId() + " " + item.toString());
         }
     }
