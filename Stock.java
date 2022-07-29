@@ -118,23 +118,29 @@ public class Stock {
 
 
     // View 1: Show all the items in a list
-    public ArrayList<FoodItem> getItems() {
+    public ArrayList<FoodItem> getAllItems() {
         return stockList;
     }
 
-    // View 2: Show items that have already been expired in a list
-    public ArrayList<FoodItem> getExpiredItems(StockType stockType) {
-        ArrayList<FoodItem> expiredItems = new ArrayList<FoodItem>();
-        ArrayList<FoodItem> lookUpList;
+    // View 2 : Show specific types of items in a list
+    public ArrayList<FoodItem> getSpecificItems(StockType stockType) {
+        ArrayList<FoodItem> showingList;
         if (stockType == StockType.ALL) {
-            lookUpList = stockList;
+            showingList = stockList;
         }
         else if (stockType == StockType.FROZEN || stockType == StockType.REFRIGERATED) {
-            lookUpList = getItemsByLocation(FoodItem.PlaceLocation.valueOf(stockType.toString()));
+            showingList = getItemsByLocation(FoodItem.PlaceLocation.valueOf(stockType.toString()));
         }
         else {
-            lookUpList = getItemsByType(FoodItem.FoodType.valueOf(stockType.toString()));
+            showingList = getItemsByType(FoodItem.FoodType.valueOf(stockType.toString()));
         }
+        return showingList;
+    }
+
+    // View 3: Show items that have already been expired in a list
+    public ArrayList<FoodItem> getExpiredItems(StockType stockType) {
+        ArrayList<FoodItem> expiredItems = new ArrayList<FoodItem>();
+        ArrayList<FoodItem> lookUpList = getSpecificItems(stockType);
         for (FoodItem item : lookUpList)  {
             if (item.getExpiration().before(todayDate)) {
                 expiredItems.add(item);
@@ -143,19 +149,10 @@ public class Stock {
         return expiredItems;
     }
 
-    // View 3: Show items that are going to be expired in 3 days
+    // View 4: Show items that are going to be expired in 3 days
     public ArrayList<FoodItem> getAlmostExpiredItems(StockType stockType) throws ParseException {
         ArrayList<FoodItem> almostExpiredItems = new ArrayList<FoodItem>();
-        ArrayList<FoodItem> lookUpList;
-        if (stockType == StockType.ALL) {
-            lookUpList = stockList;
-        }
-        else if (stockType == StockType.FROZEN || stockType == StockType.REFRIGERATED) {
-            lookUpList = getItemsByLocation(FoodItem.PlaceLocation.valueOf(stockType.toString()));
-        }
-        else {
-            lookUpList = getItemsByType(FoodItem.FoodType.valueOf(stockType.toString()));
-        }
+        ArrayList<FoodItem> lookUpList = getSpecificItems(stockType);
         for (FoodItem item : lookUpList) {
             // get the number of days between today and the expiration date
             long daysBetween = TimeUnit.DAYS.convert(item.getExpiration().getTime() - todayDate.getTime(), TimeUnit.MILLISECONDS);
@@ -166,19 +163,10 @@ public class Stock {
         return almostExpiredItems;
     }
 
-    // View 4: Low stock
+    // View 5: Low stock
     public ArrayList<FoodItem> getLowStockItems(StockType stockType){
         ArrayList<FoodItem> lowStockItems = new ArrayList<FoodItem>();
-        ArrayList<FoodItem> lookUpList;
-        if (stockType == StockType.ALL) {
-            lookUpList = stockList;
-        }
-        else if (stockType == StockType.FROZEN || stockType == StockType.REFRIGERATED) {
-            lookUpList = getItemsByLocation(FoodItem.PlaceLocation.valueOf(stockType.toString()));
-        }
-        else {
-            lookUpList = getItemsByType(FoodItem.FoodType.valueOf(stockType.toString()));
-        }
+        ArrayList<FoodItem> lookUpList = getSpecificItems(stockType);
         for (FoodItem item : lookUpList) {
             if (item.getQuantity() <= 3) {
                 lowStockItems.add(item);
@@ -188,7 +176,7 @@ public class Stock {
     }
 
     // Filter: By Type / By Location
-    public ArrayList<FoodItem> getItemsByType(FoodItem.FoodType type) {
+    private ArrayList<FoodItem> getItemsByType(FoodItem.FoodType type) {
         ArrayList<FoodItem> itemsByType = new ArrayList<FoodItem>();
         for (FoodItem item : stockList) {
             if (item.getType().equals(type)) {
@@ -198,7 +186,7 @@ public class Stock {
         return itemsByType;
     }
 
-    public ArrayList<FoodItem> getItemsByLocation(FoodItem.PlaceLocation location) {
+    private ArrayList<FoodItem> getItemsByLocation(FoodItem.PlaceLocation location) {
         ArrayList<FoodItem> itemsByLocation = new ArrayList<FoodItem>();
         for (FoodItem item : stockList) {
             if (item.getLocation().equals(location)) {

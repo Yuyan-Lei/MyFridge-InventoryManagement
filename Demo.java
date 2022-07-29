@@ -3,7 +3,7 @@ import java.text.ParseException;
 public class Demo {
 
     public static void main(String[] args) throws ParseException {
-        FridgeGUIwithAction gui = new FridgeGUIwithAction();
+        WindowNotice gui = new WindowNotice();
         gui.setVisible(true);
     }
 }

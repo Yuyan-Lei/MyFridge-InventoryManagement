@@ -4,25 +4,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-public class RecipeWindow extends JFrame implements ActionListener {
+public class WindowRecipe extends JFrame implements ActionListener {
 
 
-    RecipeWindow() throws ParseException {
-        DefaultUI ui = new DefaultUI("Add/Edit Items", this);
+    WindowRecipe() throws ParseException {
+        DefaultUI ui = new DefaultUI("Recipes", this);
         setVisible(true);
 
         // 2. Bottom Bar
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1,4));
-        buttonPanel.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
+        buttonPanel.setBackground(WindowNotice.MENU_BACKGROUND);
 
         ImageIcon addIcon = new ImageIcon("./icons/add.png");
         Image img = addIcon.getImage();
-        Image newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
         addIcon = new ImageIcon(newImg);
         JButton addButton = new JButton(addIcon);
         addButton.setActionCommand("add");
-        addButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
+        addButton.setBackground(WindowNotice.MENU_BACKGROUND);
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
@@ -30,11 +30,11 @@ public class RecipeWindow extends JFrame implements ActionListener {
 
         ImageIcon notificationIcon = new ImageIcon("./icons/expired.png");
         img = notificationIcon.getImage();
-        newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
         notificationIcon = new ImageIcon(newImg);
         JButton notificationButton = new JButton(notificationIcon);
         notificationButton.setActionCommand("notification");
-        notificationButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
+        notificationButton.setBackground(WindowNotice.MENU_BACKGROUND);
         notificationButton.setOpaque(true);
         notificationButton.setBorderPainted(false);
         notificationButton.addActionListener(this);
@@ -42,11 +42,11 @@ public class RecipeWindow extends JFrame implements ActionListener {
 
         ImageIcon viewIcon = new ImageIcon("./icons/stock.png");
         img = viewIcon.getImage();
-        newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
         viewIcon = new ImageIcon(newImg);
         JButton viewButton = new JButton(viewIcon);
         viewButton.setActionCommand("stock");
-        viewButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
+        viewButton.setBackground(WindowNotice.MENU_BACKGROUND);
         viewButton.setOpaque(true);
         viewButton.setBorderPainted(false);
         viewButton.addActionListener(this);
@@ -54,11 +54,11 @@ public class RecipeWindow extends JFrame implements ActionListener {
 
         ImageIcon recipeIcon = new ImageIcon("./icons/recipe_g.png");
         img = recipeIcon.getImage();
-        newImg = img.getScaledInstance(FridgeGUIwithAction.ICON_SIZE, FridgeGUIwithAction.ICON_SIZE, Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
         recipeIcon = new ImageIcon(newImg);
         JButton recipeButton = new JButton(recipeIcon);
         recipeButton.setActionCommand("recipe");
-        recipeButton.setBackground(FridgeGUIwithAction.MENU_BACKGROUND);
+        recipeButton.setBackground(WindowNotice.MENU_BACKGROUND);
         recipeButton.setOpaque(true);
         recipeButton.setBorderPainted(false);
         recipeButton.addActionListener(this);
@@ -80,7 +80,7 @@ public class RecipeWindow extends JFrame implements ActionListener {
         else if (actionCommand.equals("notification")) {
             setVisible(false);
             try {
-                FridgeGUIwithAction aNewWindow = new FridgeGUIwithAction();
+                WindowNotice aNewWindow = new WindowNotice();
                 aNewWindow.setVisible(true);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);

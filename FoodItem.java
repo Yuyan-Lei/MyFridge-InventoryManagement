@@ -58,6 +58,11 @@ public class FoodItem {
         return expiration;
     }
 
+    public String getExpirationToString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(getExpiration());
+    }
+
     public FoodType getType() {
         return type;
     }
@@ -78,7 +83,7 @@ public class FoodItem {
     @Override
     public String toString() {
         // Format: name, quantity, expiration date, type, location
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return getName() + ", "  + getQuantity() + ", "+ formatter.format(getExpiration()) + ", " + getType() + ", " + getLocation() + "\n";
+
+        return getName() + ", "  + getQuantity() + ", "+ getExpirationToString() + ", " + getType() + ", " + getLocation() + "\n";
     }
 }

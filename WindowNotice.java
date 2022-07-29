@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * This GUI is the basic menu
  */
-public class FridgeGUIwithAction extends JFrame implements ActionListener  {
+public class WindowNotice extends JFrame implements ActionListener  {
     public static final int WIDTH = 350;
     public static final int HEIGHT = 750;
     private ActionEvent e;
@@ -35,7 +35,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
     public static final int ICON_SIZE = 44;
 
 
-    public FridgeGUIwithAction() throws ParseException {
+    public WindowNotice() throws ParseException {
 //        super("My Fridge"); //title name
 //        setSize(WIDTH, HEIGHT);
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,6 +155,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
 
         // 3-3 Expiring Panel
         JPanel expiring = new JPanel();
+
         // show title
         JLabel titleExpiring = new JLabel(" Expiring soon");
         titleExpiring.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TITLE_SIZE));
@@ -162,16 +163,56 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         expiring.setBackground(MAIN_BACKGROUND);
         expiring.add(titleExpiring, BorderLayout.NORTH);
         expiring.setBorder(BorderFactory.createLineBorder(GREEN_THEME));
+
         // show items
-        ArrayList<FoodItem> expiringList = newStock.getAlmostExpiredItems(Stock.StockType.ALL);
-        int sizeOfExpiringItems = expiringList.size();
-        expiring.setLayout(new GridLayout(sizeOfExpiringItems + 1, 1));
-        JButton[] expiringItemButtons = new JButton[sizeOfExpiringItems];
-        for (int i = 0; i < sizeOfExpiringItems; i++) {
-            String itemText = expiringList.get(i).toString();
-            expiringItemButtons[i] = new JButton(itemText);
-            expiring.add(expiringItemButtons[i]);
+        Stock stock = new Stock();
+        ArrayList<FoodItem> showinglist = stock.getAlmostExpiredItems(Stock.StockType.ALL);
+        int size = showinglist.size();
+
+        JPanel expiringItemsPanel = new JPanel();
+        expiringItemsPanel.setLayout(new GridLayout(5, 1));
+        expiringItemsPanel.setBackground(WindowNotice.MAIN_BACKGROUND);
+        for (int i = 0; i < size; i++) {
+            JPanel itemPanel = new JPanel(new GridLayout(1, 4));
+            itemPanel.setBackground(WindowNotice.WHITE_COLOR);
+            // a. remove
+            ImageIcon newIcon = new ImageIcon("./icons/delete_g.png");
+            img = newIcon.getImage();
+            newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+            ImageIcon removeIcon = new ImageIcon(newImg);
+
+            JButton removeButton = new JButton(removeIcon);
+            removeButton.setActionCommand("remove" + i);
+            removeButton.setOpaque(true);
+            removeButton.setBorderPainted(false);
+            removeButton.addActionListener(this);
+            removeButton.setBackground(WindowNotice.WHITE_COLOR);
+            itemPanel.add(removeButton);
+
+            // b. Name
+            JButton nameButton = new JButton(showinglist.get(i).getName());
+            nameButton.setActionCommand("View" + i);
+            nameButton.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
+            nameButton.setHorizontalAlignment(SwingConstants.LEFT);
+            nameButton.setOpaque(true);
+            nameButton.setBorderPainted(false);
+            nameButton.setBackground(WindowNotice.WHITE_COLOR);
+            itemPanel.add(nameButton);
+
+            // c. Quantity
+            JLabel qtyLabel = new JLabel(String.valueOf(showinglist.get(i).getQuantity()));
+            qtyLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.PLAIN, 11));
+            itemPanel.add(qtyLabel);
+
+            // d. Expiration
+            JLabel expirationLabel = new JLabel(showinglist.get(i).getExpirationToString());
+            expirationLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.PLAIN, 11));
+            itemPanel.add(expirationLabel);
+
+            expiringItemsPanel.add(itemPanel);
         }
+        expiring.add(expiringItemsPanel);
+
         infoPanel.add(expiring);
 
         add(infoPanel, BorderLayout.CENTER);
@@ -198,7 +239,7 @@ public class FridgeGUIwithAction extends JFrame implements ActionListener  {
         else if (actionCommand.equals("recipe")) {
             setVisible(false);
             try {
-                RecipeWindow aNewWindow = new RecipeWindow();
+                WindowRecipe aNewWindow = new WindowRecipe();
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
