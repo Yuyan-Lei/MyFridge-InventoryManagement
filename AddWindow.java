@@ -171,7 +171,7 @@ public class AddWindow extends JFrame implements ActionListener {
         locationPanel.add(locationLabel);
         locationPanel.add(locationOption);
         addInfoPanel.add(locationPanel);
-        //location = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption));
+        //thelocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption));
 
         JPanel saveButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton saveButton = new JButton("Save");
