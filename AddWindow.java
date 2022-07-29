@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 
 
 public class AddWindow extends JFrame implements ActionListener {
-    //JFrame frame = new JFrame();
     public static final Color GREEN_THEME = new Color(122, 156, 87);
     public static final Color WHITE_COLOR = new Color(255, 255, 255);
     public static final String TITLE_FONT = "San Francisco";
@@ -14,9 +15,21 @@ public class AddWindow extends JFrame implements ActionListener {
     public static final int HEIGHT = 750;
 
     public static final int TOP_BAR_SIZE = 24;
-
     String types[] = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
     String locations[] = {"FROZEN","REFRIGERATED" };
+    private String theName;
+    private int theQuantity;
+    private Date theExpiration;
+    private FoodItem.FoodType theType;
+    private FoodItem.PlaceLocation theLocation;
+
+    private JTextField name;
+    private JTextField quantity;
+    private JComboBox typeOption;
+    private JComboBox locationOption;
+
+
+    Boolean isValidate = true;
     AddWindow() throws ParseException {
 //        super("My Fridge"); //title name
 //
@@ -98,29 +111,33 @@ public class AddWindow extends JFrame implements ActionListener {
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel nameLabel = new JLabel("Name:");
-        JTextField name = new JTextField();
+        name = new JTextField("eg: Broccoli");
         name.setPreferredSize(new Dimension(120,30));
         namePanel.add(nameLabel);
         namePanel.add(name);
         addInfoPanel.add(namePanel);
+        theName = name.getText();
+        System.out.println(theName);
 
         JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel quantityLabel = new JLabel("Quantity:");
-        JTextField quantity = new JTextField();
+        quantity = new JTextField("1");
         quantity.setPreferredSize(new Dimension(70,30));
         quantityPanel.add(quantityLabel);
         quantityPanel.add(quantity);
         addInfoPanel.add(quantityPanel);
+        theQuantity = Integer.parseInt(quantity.getText());
+        System.out.println(theQuantity);
 
 
         JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel expirationLabel = new JLabel("Expiration Date (yyyy-MM-dd):");
         JPanel expirationDate = new JPanel(new GridLayout(1,3));
-        JTextField expirationYear = new JTextField();
+        JTextField expirationYear = new JTextField("2022");
         expirationYear.setPreferredSize(new Dimension(70,30));
-        JTextField expirationMonth = new JTextField();
+        JTextField expirationMonth = new JTextField("12");
         expirationMonth.setPreferredSize(new Dimension(20,30));
-        JTextField expirationDay = new JTextField();
+        JTextField expirationDay = new JTextField("31");
         expirationDay.setPreferredSize(new Dimension(20,30));
 
         expirationDate.add(expirationYear);
@@ -131,31 +148,43 @@ public class AddWindow extends JFrame implements ActionListener {
         expirationPanel.add(expirationDate);
         addInfoPanel.add(expirationPanel);
 
+        theExpiration = new Date(Integer.parseInt(expirationYear.getText()),Integer.parseInt(expirationMonth.getText()),Integer.parseInt(expirationDay.getText()));
+        System.out.println(theExpiration);
+
+
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel typeLabel = new JLabel("Type:");
-        JComboBox typeOption = new JComboBox(types);
+        typeOption = new JComboBox(types);
+        typeOption.setSelectedIndex(1);
         typeOption.setPreferredSize(new Dimension(120,30));
         typePanel.add(typeLabel);
         typePanel.add(typeOption);
         addInfoPanel.add(typePanel);
 
+        //theType = FoodItem.FoodType.VEGETABLE;
+        //theType = FoodItem.FoodType.valueOf(typeOption.getToolTipText());
+
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
-        JComboBox locationOption = new JComboBox(locations);
+        locationOption = new JComboBox(locations);
         locationOption.setPreferredSize(new Dimension(120,30));
         locationPanel.add(locationLabel);
         locationPanel.add(locationOption);
         addInfoPanel.add(locationPanel);
+        //location = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption));
 
         JPanel saveButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(this);
         saveButtonPanel.add(saveButton);
         addInfoPanel.add(saveButtonPanel);
 
         add(addInfoPanel,BorderLayout.CENTER);
     }
 
-    @Override
+    public void getInput(){
+    }
+
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("stock")) {
@@ -183,6 +212,20 @@ public class AddWindow extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
         }
+
+        else if (actionCommand.equals("Save")) {
+            setVisible(false);
+            if(isValidate){
+                try {
+                    Stock newItem = new Stock();
+                    //newItem.addItem(String.valueOf(name), Integer.valueOf(String.valueOf(quantity)), expiration, type, location);
+                    SaveWindow aNewWindow = new SaveWindow();
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+
         else
             System.out.println("Unexpected error.");
     }
