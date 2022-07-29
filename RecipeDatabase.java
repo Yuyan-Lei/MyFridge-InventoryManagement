@@ -28,7 +28,6 @@ public class RecipeDatabase {
             String method;
             String serving;
             String cookTime;
-            String calories;
 
             while ((s = br.readLine()) != null) {
                 // 1. Extract information from text
@@ -47,10 +46,9 @@ public class RecipeDatabase {
                     method = arrOfStr[3];
                     serving = arrOfStr[4];
                     cookTime = arrOfStr[5];
-                    calories = arrOfStr[6];
 
                     // 2. Create objects with the info
-                    RecipeItem newItem = new RecipeItem(recipeList.size() + 1, name, ingredient, detailsOfIngredient, method, serving, cookTime, calories);
+                    RecipeItem newItem = new RecipeItem(recipeList.size() + 1, name, ingredient, detailsOfIngredient, method, serving, cookTime);
                     recipeList.add(newItem);
                     recipeDetail = new StringBuilder();
                 }
@@ -65,9 +63,9 @@ public class RecipeDatabase {
     }
 
     // Add
-    private void addItem(String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime, String calories) throws IOException {
+    private void addItem(String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime) throws IOException {
         // 1. Create a new object
-        RecipeItem newItem = new RecipeItem(recipeList.size() + 1, name, ingredient, detailsOfIngredient, method, serving,cookTime, calories);
+        RecipeItem newItem = new RecipeItem(recipeList.size() + 1, name, ingredient, detailsOfIngredient, method, serving,cookTime);
         recipeList.add(newItem);
 
         // 2. Add to the txt
@@ -88,7 +86,7 @@ public class RecipeDatabase {
     }
 
     // Get a list of recipes that contains the input ingredients.
-    public ArrayList<RecipeItem> getSpecificRecipeList(String[] inputIngredients) {
+    public ArrayList<RecipeItem> getSpecificRecipeList(String[] inputIngredients, int range) {
         ArrayList<RecipeItem> list = new ArrayList<RecipeItem>();
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
@@ -126,7 +124,12 @@ public class RecipeDatabase {
             }
         }
 
-        return list;
+        // Only return the recipes in the given range
+        ArrayList<RecipeItem> result = new ArrayList<RecipeItem>();
+        for (int i = 0; i < range; i++) {
+            result.add(list.get(i));
+        }
+        return result;
     }
 
 
@@ -141,7 +144,6 @@ public class RecipeDatabase {
                         "Method: " + item.getMethod() + "\n\n" +
                         "Sering: " + item.getServing() + "\n\n" +
                         "Cook Time: " + item.getCookTime() + "\n\n" +
-                        "Calories: " + item.getCalories() + "\n\n" +
                         "******" + "\n\n";
             list.append(temp);
         }
@@ -151,11 +153,10 @@ public class RecipeDatabase {
     public static void main(String[] args) throws IOException {
         // 1. View all the list
         RecipeDatabase recipeDatabase = new RecipeDatabase();
-        System.out.println(recipeDatabase.printRecipe());
 
-        String[] inputIngredients = {"a", "b", "c"};
+        String[] inputIngredients = {"onion", "lemon", "sugar", "avocado", "potato"};
 
-        System.out.println(recipeDatabase.getSpecificRecipeList(inputIngredients));
+        System.out.println(recipeDatabase.getSpecificRecipeList(inputIngredients, 10));
 
         // 2. Add a new recipe
 //        String name;

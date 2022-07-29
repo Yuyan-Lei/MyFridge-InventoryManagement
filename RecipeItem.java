@@ -8,10 +8,9 @@ public class RecipeItem {
     private String method;
     private String serving;
     private String cookTime;
-    private String calories;
 
 
-    public RecipeItem(int id, String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime, String calories) {
+    public RecipeItem(int id, String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime) {
         this.id = id;
         this.name = name;
         this.ingredient = ingredient;
@@ -19,7 +18,6 @@ public class RecipeItem {
         this.method = method;
         this.serving = serving;
         this.cookTime = cookTime;
-        this.calories = calories;
     }
 
     // Getters
@@ -50,9 +48,6 @@ public class RecipeItem {
         return cookTime;
     }
 
-    public String getCalories() {
-        return calories;
-    }
 
     // Used for showing
     public String ingredientsToString() {
@@ -84,7 +79,6 @@ public class RecipeItem {
                 method + "///\n" +
                 serving + "///\n" +
                 cookTime + "///\n" +
-                calories + "\n" +
                 "******" + "\n";
     }
 }
