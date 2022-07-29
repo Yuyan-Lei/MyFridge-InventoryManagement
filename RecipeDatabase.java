@@ -86,7 +86,7 @@ public class RecipeDatabase {
     }
 
     // Get a list of recipes that contains the input ingredients.
-    public ArrayList<RecipeItem> getSpecificRecipeList(String[] inputIngredients, int range) {
+    public ArrayList<RecipeItem> getSpecificRecipeList(ArrayList<String> inputIngredients, int range) {
         ArrayList<RecipeItem> list = new ArrayList<RecipeItem>();
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
@@ -152,11 +152,11 @@ public class RecipeDatabase {
 
     public static void main(String[] args) throws IOException {
         // 1. View all the list
-        RecipeDatabase recipeDatabase = new RecipeDatabase();
-
-        String[] inputIngredients = {"onion", "lemon", "sugar", "avocado", "potato"};
-
-        System.out.println(recipeDatabase.getSpecificRecipeList(inputIngredients, 10));
+//        RecipeDatabase recipeDatabase = new RecipeDatabase();
+//
+//        String[] inputIngredients = {"onion", "lemon", "sugar", "avocado", "potato"};
+//
+//        System.out.println(recipeDatabase.getSpecificRecipeList(inputIngredients, 10));
 
         // 2. Add a new recipe
 //        String name;

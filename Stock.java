@@ -196,6 +196,16 @@ public class Stock {
         return itemsByLocation;
     }
 
+    // For recipe usage
+    public ArrayList<String> getIngredientList() {
+        ArrayList<String> list = new ArrayList<String>();
+        for (FoodItem item : stockList) {
+            String ingredient = item.getName().toLowerCase();
+            list.add(ingredient);
+        }
+        return list;
+    }
+
 
     // methods below are only used for testing
     private void viewItems() {

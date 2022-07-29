@@ -7,8 +7,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class WindowViewALLItems extends JFrame implements ActionListener{
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 750;
     Stock.StockType inputType;
     private ActionEvent e;
 
@@ -36,16 +34,17 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
         centerPanel.setBackground(WindowNotice.MAIN_BACKGROUND);
 
         for (int i = 0; i < size; i++) {
-            JPanel itemPanel = new JPanel(new GridLayout(1, 4));
-            JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JPanel middle1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JPanel middle2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JPanel rightSide = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            JPanel itemPanel = new JPanel(new BorderLayout());
+            JPanel left = new JPanel();
+            JPanel middle = new JPanel(new GridLayout(1, 2));
+            JPanel middle1 = new JPanel();
+            JPanel middle2 = new JPanel();
+            JPanel rightSide = new JPanel();
             left.setBackground(WindowNotice.WHITE_COLOR);
+            middle.setBackground(WindowNotice.WHITE_COLOR);
             middle1.setBackground(WindowNotice.WHITE_COLOR);
             middle2.setBackground(WindowNotice.WHITE_COLOR);
             rightSide.setBackground(WindowNotice.WHITE_COLOR);
-//            item.setLayout(new GridLayout(1, 6));
 
             // a. remove
             ImageIcon newIcon = new ImageIcon("./icons/delete_g.png");
@@ -77,7 +76,6 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
             JButton nameButton = new JButton(showinglist.get(i).getName());
             nameButton.setActionCommand("View" + i);
             nameButton.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
-            nameButton.setHorizontalAlignment(SwingConstants.LEFT);
             nameButton.setOpaque(true);
             nameButton.setBorderPainted(false);
             nameButton.setBackground(WindowNotice.WHITE_COLOR);
@@ -107,10 +105,11 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
             editButton.setBackground(WindowNotice.WHITE_COLOR);
             rightSide.add(editButton);
 
-            itemPanel.add(left);
-            itemPanel.add(middle1);
-            itemPanel.add(middle2);
-            itemPanel.add(rightSide);
+            itemPanel.add(left, BorderLayout.WEST);
+            middle.add(middle1);
+            middle.add(middle2);
+            itemPanel.add(middle, BorderLayout.CENTER);
+            itemPanel.add(rightSide, BorderLayout.EAST);
             centerPanel.add(itemPanel);
         }
 
@@ -181,7 +180,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
 
             setVisible(false);
             // 这个window还没写，用于edit指定item。写好后把下面代码解除注释，即可使用。
-            // WindowViewALLItems window = new WindowViewALLItems(editItem);
+            // WindowEditItem window = new WindowEditItem(editItem);
             // window.setVisible(true);
         }
         else if (actionCommand.startsWith("view")) {
