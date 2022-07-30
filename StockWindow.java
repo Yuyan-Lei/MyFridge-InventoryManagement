@@ -13,16 +13,16 @@ public class StockWindow extends JFrame implements ActionListener {
         setVisible(true);
 
         // 2. Bottom Bar
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1,4));
-        buttonPanel.setBackground(WindowNotice.MENU_BACKGROUND);
-
-        buildBottomIcon(buttonPanel, "add", "add"); // 看这里，给button们建立method了
-        buildBottomIcon(buttonPanel, "expired", "notification");
-        buildBottomIcon(buttonPanel, "stock_g", "stock");
-        buildBottomIcon(buttonPanel, "recipe", "recipe");
-
-        add(buttonPanel, BorderLayout.SOUTH);
+//        JPanel buttonPanel = new JPanel();
+//        buttonPanel.setLayout(new GridLayout(1,4));
+//        buttonPanel.setBackground(WindowNotice.MENU_BACKGROUND);
+//
+//        buildBottomIcon(buttonPanel, "add", "add"); // 看这里，给button们建立method了
+//        buildBottomIcon(buttonPanel, "expired", "notification");
+//        buildBottomIcon(buttonPanel, "stock_g", "stock");
+//        buildBottomIcon(buttonPanel, "recipe", "recipe");
+//
+//        add(buttonPanel, BorderLayout.SOUTH);
 
         // 3. center stock info
         Stock newStock = new Stock();
@@ -135,32 +135,32 @@ public class StockWindow extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
-        if (actionCommand.equals("add")) {
-            setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            try {
-                AddWindow aNewWindow = new AddWindow();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else if (actionCommand.equals("notification")) {
-            setVisible(false);
-            try {
-                WindowNotice aNewWindow = new WindowNotice();
-                aNewWindow.setVisible(true);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else if (actionCommand.equals("recipe")) {
-            setVisible(false);
-            try {
-                WindowRecipe aNewWindow = new WindowRecipe();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else if (actionCommand.equals("Fridge")) {
+//        if (actionCommand.equals("add")) {
+//            setVisible(false); //can keep the new window opened only (looks like close the previous window)
+//            try {
+//                AddWindow aNewWindow = new AddWindow();
+//            } catch (ParseException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        }
+//        else if (actionCommand.equals("notification")) {
+//            setVisible(false);
+//            try {
+//                WindowNotice aNewWindow = new WindowNotice();
+//                aNewWindow.setVisible(true);
+//            } catch (ParseException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        }
+//        else if (actionCommand.equals("recipe")) {
+//            setVisible(false);
+//            try {
+//                WindowRecipe aNewWindow = new WindowRecipe();
+//            } catch (ParseException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        }
+        if (actionCommand.equals("Fridge")) {
             setVisible(false);
             WindowViewALLItems window = null;
             try {
