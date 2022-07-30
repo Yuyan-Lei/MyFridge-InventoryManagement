@@ -5,32 +5,14 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.util.ArrayList;
 
-import static java.awt.BorderLayout.NORTH;
-
-
-public class WindowRecipeDetails extends JFrame implements ActionListener {
-
+public class WindowRecipeDetails extends JFrame{
     WindowRecipeDetails(RecipeItem recipeToOpen) throws ParseException {
         DefaultUI ui = new DefaultUI("Recipes", this);
         setVisible(true);
 
-        // 2. Bottom Bar
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1,4));
-        buttonPanel.setBackground(WindowNotice.MENU_BACKGROUND);
-        buildBottomIcon(buttonPanel, "add", "add");
-        buildBottomIcon(buttonPanel, "expired", "notification");
-        buildBottomIcon(buttonPanel, "stock", "stock");
-        buildBottomIcon(buttonPanel, "recipe_g", "recipe");
-        add(buttonPanel, BorderLayout.SOUTH);
-        add(buttonPanel, BorderLayout.SOUTH);
-
-        // 3. Center Items
+        // Center Items
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -47,9 +29,9 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
         } catch (BadLocationException e) {
             System.out.println(e.getMessage());
         }
-        nameLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 15));
+        nameLabel.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, 15));
         nameLabel.setForeground(DefaultUI.GREEN_THEME);
-        nameLabel.setBackground(WindowNotice.WHITE_COLOR);
+        nameLabel.setBackground(DefaultUI.WHITE_COLOR);
 
         // b. Other information - Center
         JPanel servePanel = subPanel(centerPanel, " Servings", "serving", recipeToOpen.getServing());
@@ -66,59 +48,7 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
         add(centerPanel);
     }
 
-    public void actionPerformed(ActionEvent e){
-        String actionCommand = e.getActionCommand();
-        if (actionCommand.equals("add")) {
-            setVisible(false); //can keep the new window opened only (looks like close the previous window)
-            try {
-                AddWindow aNewWindow = new AddWindow();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else if (actionCommand.equals("notification")) {
-            setVisible(false);
-            try {
-                WindowNotice aNewWindow = new WindowNotice();
-                aNewWindow.setVisible(true);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else if (actionCommand.equals("stock")) {
-            setVisible(false);
-            try {
-                StockWindow aNewWindow = new StockWindow();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else if (actionCommand.equals("recipe")) {
-            setVisible(false);
-            try {
-                WindowRecipe aNewWindow = new WindowRecipe();
-                aNewWindow.setVisible(true);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-    }
-
-    public void buildBottomIcon(JPanel buttonPanel, String iconPath, String command) {
-        ImageIcon addIcon = new ImageIcon("./icons/" + iconPath + ".png");
-        Image img = addIcon.getImage();
-        Image newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
-        addIcon = new ImageIcon(newImg);
-        JButton addButton = new JButton(addIcon);
-        addButton.setActionCommand(command);
-        addButton.setBackground(WindowNotice.MENU_BACKGROUND);
-        addButton.setOpaque(true);
-        addButton.setBorderPainted(false);
-        addButton.addActionListener(this);
-        buttonPanel.add(addButton);
-    }
-
-    public JPanel subPanel(JPanel thePanel, String title, String iconPath, String text) {
+    private JPanel subPanel(JPanel thePanel, String title, String iconPath, String text) {
         JPanel subPanel = new JPanel();
         subPanel.setLayout(new BorderLayout());
         subPanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -138,9 +68,9 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
 
         // b. Add Title
         JTextArea nameLabel = new JTextArea(title);
-        nameLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
+        nameLabel.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, 13));
         nameLabel.setForeground(DefaultUI.GREEN_THEME);
-        nameLabel.setBackground(WindowNotice.WHITE_COLOR);
+        nameLabel.setBackground(DefaultUI.WHITE_COLOR);
         titlePanel.add(nameLabel, BorderLayout.CENTER);
 
         subPanel.add(titlePanel, BorderLayout.NORTH);

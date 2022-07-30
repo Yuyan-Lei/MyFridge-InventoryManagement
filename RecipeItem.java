@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class RecipeItem {
     private int id;
     private String name;
@@ -48,8 +46,6 @@ public class RecipeItem {
         return cookTime;
     }
 
-
-    // Used for showing
     public String ingredientsToString() {
         StringBuilder sb = new StringBuilder();
         for (String item : ingredient) {

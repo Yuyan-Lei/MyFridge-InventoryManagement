@@ -22,7 +22,7 @@ public class Stock {
 
         // Read from the txt file
         try{
-            BufferedReader br = new BufferedReader(new FileReader("./FridgeItem.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("DatabaseOfStock.txt"));
             String s;
             while((s = br.readLine()) != null) {
                 String name;
@@ -56,7 +56,7 @@ public class Stock {
     private void saveStockList() throws IOException {
         FileWriter fw;
         try {
-            fw = new FileWriter("./FridgeItem.txt", false);
+            fw = new FileWriter("DatabaseOfStock.txt", false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -80,7 +80,7 @@ public class Stock {
         String text = newItem.toString();
         FileWriter fw;
         try {
-            fw = new FileWriter("./FridgeItem.txt", true);
+            fw = new FileWriter("DatabaseOfStock.txt", true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -204,54 +204,5 @@ public class Stock {
             list.add(ingredient);
         }
         return list;
-    }
-
-
-    // methods below are only used for testing
-    private void viewItems() {
-        for (FoodItem item : stockList) {
-            System.out.println(item.getId() + " " + item.toString());
-        }
-    }
-
-    private void viewExpiredItems() {
-        for (FoodItem item : this.getExpiredItems(Stock.StockType.ALL)) {
-            System.out.println(item.getId() + " " + item.toString());
-        }
-    }
-
-    private void viewAlmostExpiredItems() throws ParseException {
-        for (FoodItem item : this.getAlmostExpiredItems(Stock.StockType.ALL)) {
-            System.out.println(item.getId() + " " + item.toString());
-        }
-    }
-
-    // only for testing
-    public static void main(String[] args) throws IOException, ParseException {
-
-        Stock newStock = new Stock();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String date = 2022 + "-" + 7 + "-" + 26;
-        Date expiration = formatter.parse(date);
-
-        System.out.println("---- View all items -----");
-        newStock.viewItems();
-
-        System.out.println("---- After adding a new item -----");
-        newStock.addItem("Biscuit", 1, expiration, FoodItem.FoodType.OTHER, FoodItem.PlaceLocation.REFRIGERATED);
-
-        newStock.viewItems();
-
-        System.out.println("---- View expired items -----");
-        newStock.viewExpiredItems();
-
-        System.out.println("---- View items expires in 3 days-----");
-        newStock.viewAlmostExpiredItems();
-
-        System.out.println("---- View all items -----");
-        FoodItem item = newStock.stockList.get(0);
-        newStock.updateItem(item, "Biscuit", 22, expiration, FoodItem.FoodType.OTHER, FoodItem.PlaceLocation.REFRIGERATED);
-        newStock.viewItems();
     }
 }

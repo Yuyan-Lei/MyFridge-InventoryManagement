@@ -13,19 +13,7 @@ public class StockWindow extends JFrame implements ActionListener {
         DefaultUI ui = new DefaultUI("Stock", this);
         setVisible(true);
 
-        // 2. Bottom Bar
-//        JPanel buttonPanel = new JPanel();
-//        buttonPanel.setLayout(new GridLayout(1,4));
-//        buttonPanel.setBackground(WindowNotice.MENU_BACKGROUND);
-//
-//        buildBottomIcon(buttonPanel, "add", "add"); // 看这里，给button们建立method了
-//        buildBottomIcon(buttonPanel, "expired", "notification");
-//        buildBottomIcon(buttonPanel, "stock_g", "stock");
-//        buildBottomIcon(buttonPanel, "recipe", "recipe");
-//
-//        add(buttonPanel, BorderLayout.SOUTH);
-
-        // 3. center stock info
+        // Center stock info
         Stock newStock = new Stock();
         ArrayList<FoodItem> itemList = newStock.getAllItems();
         ArrayList<FoodItem> fruitList = newStock.getSpecificItems(Stock.StockType.FRUIT);
@@ -48,7 +36,7 @@ public class StockWindow extends JFrame implements ActionListener {
         bigPanel.setLayout(new BorderLayout());
         bigPanel.setBackground(DefaultUI.WHITE_COLOR);
 
-        JPanel allItemsPanel = subPanel(bigPanel, "All", sizeOfFridge);
+        JPanel allItemsPanel = subPanel(bigPanel, "All", sizeOfAllItems);
         allItemsPanel.setPreferredSize(new Dimension(20,90));
 
         //cut line
@@ -84,11 +72,11 @@ public class StockWindow extends JFrame implements ActionListener {
     public void buildBottomIcon(JPanel buttonPanel, String iconPath, String command) {
         ImageIcon addIcon = new ImageIcon("./icons/" + iconPath + ".png");
         Image img = addIcon.getImage();
-        Image newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
         addIcon = new ImageIcon(newImg);
         JButton addButton = new JButton(addIcon);
         addButton.setActionCommand(command);
-        addButton.setBackground(WindowNotice.MENU_BACKGROUND);
+        addButton.setBackground(DefaultUI.MENU_BACKGROUND);
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
@@ -102,7 +90,7 @@ public class StockWindow extends JFrame implements ActionListener {
         subgroupPanel.setPreferredSize(new Dimension(100,500));
         ImageIcon fridgeIcon = new ImageIcon("./stockIcons/subPanel_" + name.toLowerCase() +".png");
         Image img = fridgeIcon.getImage();
-        Image newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
         fridgeIcon = new ImageIcon(newImg);
         subPanel.add(new JLabel(fridgeIcon)); //add icon
 
@@ -140,41 +128,16 @@ public class StockWindow extends JFrame implements ActionListener {
         openButton.setOpaque(true);
         openButton.setBorderPainted(false);
         openButton.addActionListener(this);
-        openButton.setBackground(WindowNotice.WHITE_COLOR);
+        openButton.setBackground(DefaultUI.WHITE_COLOR);
         subPanel.add(openButton);
 
-        subPanel.setBorder(BorderFactory.createLineBorder(WindowNotice.MENU_BACKGROUND));
+        subPanel.setBorder(BorderFactory.createLineBorder(DefaultUI.MENU_BACKGROUND));
 
         return subPanel;
     }
 
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
-//        if (actionCommand.equals("add")) {
-//            setVisible(false); //can keep the new window opened only (looks like close the previous window)
-//            try {
-//                AddWindow aNewWindow = new AddWindow();
-//            } catch (ParseException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//        }
-//        else if (actionCommand.equals("notification")) {
-//            setVisible(false);
-//            try {
-//                WindowNotice aNewWindow = new WindowNotice();
-//                aNewWindow.setVisible(true);
-//            } catch (ParseException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//        }
-//        else if (actionCommand.equals("recipe")) {
-//            setVisible(false);
-//            try {
-//                WindowRecipe aNewWindow = new WindowRecipe();
-//            } catch (ParseException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//        }
         if (actionCommand.equals("Fridge")) {
             setVisible(false);
             WindowViewALLItems window = null;

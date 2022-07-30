@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.*;
 
 public class RecipeDatabase {
@@ -19,7 +18,7 @@ public class RecipeDatabase {
 
         // Read from the txt file
         try {
-            BufferedReader br = new BufferedReader(new FileReader("./RecipeDatabase.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("DatabaseOfRecipes.txt"));
             String s;
             StringBuilder recipeDetail = new StringBuilder();
             String name;
@@ -72,7 +71,7 @@ public class RecipeDatabase {
         String text = newItem.toString();
         FileWriter fw;
         try {
-            fw = new FileWriter("./RecipeDatabase.txt", true);
+            fw = new FileWriter("DatabaseOfRecipes.txt", true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -130,70 +129,6 @@ public class RecipeDatabase {
             result.add(list.get(i));
         }
         return result;
-    }
-
-
-    // Only for testing
-    public String printRecipe() {
-        StringBuilder list = new StringBuilder();
-        for (RecipeItem item : recipeList) {
-            String temp = "***Recipe***\n" +
-                        "Name:" + item.getName() + "\n\n" +
-                        "Ingredients:" + item.ingredientsToString() + "\n\n"+
-                        "Ingredient Details: " + item.detailsOfIngredientToString() + "\n\n" +
-                        "Method: " + item.getMethod() + "\n\n" +
-                        "Sering: " + item.getServing() + "\n\n" +
-                        "Cook Time: " + item.getCookTime() + "\n\n" +
-                        "******" + "\n\n";
-            list.append(temp);
-        }
-        return list.toString();
-    }
-
-    public static void main(String[] args) throws IOException {
-        // 1. View all the list
-//        RecipeDatabase recipeDatabase = new RecipeDatabase();
-//
-//        String[] inputIngredients = {"onion", "lemon", "sugar", "avocado", "potato"};
-//
-//        System.out.println(recipeDatabase.getSpecificRecipeList(inputIngredients, 10));
-
-        // 2. Add a new recipe
-//        String name;
-//        String[] ingredient;
-//        String detailsOfIngredient;
-//        String method;
-//        String serving;
-//        String cookTime;
-//        String calories;
-//
-//        String exit = "no";
-//
-//        while (!exit.equals("exit")) {
-//            System.out.println("---------------------------");
-//            System.out.println("Enter your new recipe here: ");
-//            Scanner input = new Scanner(System.in);
-//            System.out.println("Name: \n");
-//            name = input.nextLine();
-//            System.out.println("Ingredient: \n");
-//            String ingredientString = input.nextLine();
-//            ingredient = ingredientString.split(", ", 0);
-//            System.out.println("Details Of Ingredient: \n");
-//            detailsOfIngredient = input.nextLine();
-//            System.out.println("Method: \n");
-//            method = input.nextLine();
-//            System.out.println("Serving: \n");
-//            serving = input.nextLine();
-//            System.out.println("Cook time: \n");
-//            cookTime = input.nextLine();
-//            System.out.println("Calories: \n");
-//            calories = input.nextLine();
-//
-//            RecipeDatabase newRecipeDatabase = new RecipeDatabase();
-//            newRecipeDatabase.addItem(name, ingredient, detailsOfIngredient, method, serving, cookTime, calories);
-//            System.out.println("Saved!\n Exit?");
-//            exit = input.nextLine();
-
     }
 }
 
