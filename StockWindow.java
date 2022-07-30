@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.jar.JarEntry;
 
 public class StockWindow extends JFrame implements ActionListener {
 
@@ -48,13 +49,16 @@ public class StockWindow extends JFrame implements ActionListener {
         bigPanel.setBackground(DefaultUI.WHITE_COLOR);
 
         JPanel allItemsPanel = subPanel(bigPanel, "All", sizeOfFridge);
+        allItemsPanel.setPreferredSize(new Dimension(20,90));
 
         //cut line
-        JLabel cutLine = new JLabel("Types");
-        cutLine.setBackground(DefaultUI.MENU_BACKGROUND);
+        JPanel cutPanel = new JPanel();
+        JLabel cutLine = new JLabel("Types                                            ");
+        cutLine.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TITLE_SIZE));
+        cutPanel.setBackground(new Color(230,235,220));
         cutLine.setForeground(Color.GRAY);
-        cutLine.setPreferredSize(new Dimension(300, 150));
-        cutLine.setBorder(BorderFactory.createLineBorder(WindowNotice.GREEN_THEME));
+//        cutLine.setPreferredSize(new Dimension(300, 150));
+        cutPanel.add(cutLine);
 
         //subgroup part (7,1)
         JPanel subgroupPanel = new JPanel();
@@ -72,7 +76,7 @@ public class StockWindow extends JFrame implements ActionListener {
         subgroupPanel.add(subPanel(subgroupPanel, "Other", sizeOfOther));
 
         bigPanel.add(allItemsPanel, BorderLayout.NORTH);
-        bigPanel.add(cutLine, BorderLayout.CENTER);
+        bigPanel.add(cutPanel, BorderLayout.CENTER);
         bigPanel.add(subgroupPanel, BorderLayout.SOUTH);
         add(bigPanel,BorderLayout.CENTER);
     }
@@ -93,8 +97,9 @@ public class StockWindow extends JFrame implements ActionListener {
 
     public JPanel subPanel(JPanel subgroupPanel, String name, int size) {
         JPanel subPanel = new JPanel();
-        subPanel.setLayout(new GridLayout(1,4));
+        subPanel.setLayout(new GridLayout(1,5));
         subPanel.setBackground(DefaultUI.WHITE_COLOR);
+        subgroupPanel.setPreferredSize(new Dimension(100,500));
         ImageIcon fridgeIcon = new ImageIcon("./stockIcons/subPanel_" + name.toLowerCase() +".png");
         Image img = fridgeIcon.getImage();
         Image newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
@@ -104,14 +109,24 @@ public class StockWindow extends JFrame implements ActionListener {
         JPanel fridgeTextPanel = new JPanel();
         fridgeTextPanel.setLayout(new GridLayout(2,1));
         fridgeTextPanel.setBackground(DefaultUI.WHITE_COLOR);
-        fridgeTextPanel.add(new JLabel(name)); //add title text
-        fridgeTextPanel.setFont(new Font(WindowNotice.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, WindowNotice.TOP_BAR_SIZE));
+        JLabel typeName = new JLabel(name);
+        typeName.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TEXT_SIZE));
+        fridgeTextPanel.add(typeName); //add title text
         subPanel.add(fridgeTextPanel);
         JPanel fridgeNumPanel = new JPanel();
         fridgeNumPanel.setLayout(new GridLayout(2,1));
         fridgeNumPanel.setBackground(DefaultUI.WHITE_COLOR);
-        fridgeNumPanel.add(new JLabel(String.valueOf(size)));
-        fridgeNumPanel.add(new JLabel("items"));
+
+        JPanel blank = new JPanel();
+        blank.setBackground(DefaultUI.WHITE_COLOR);
+        subPanel.add(blank);
+
+        JLabel num = new JLabel(String.valueOf(size), SwingConstants.CENTER);
+        num.setFont(new Font(DefaultUI.TITLE_FONT, Font.PLAIN, DefaultUI.TITLE_SIZE));
+        fridgeNumPanel.add(num);
+        JLabel items = new JLabel("items", SwingConstants.CENTER);
+        items.setForeground(Color.gray);
+        fridgeNumPanel.add(items);
         subPanel.add(fridgeNumPanel); //add items num
 
         // Build an Open Button

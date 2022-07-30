@@ -31,6 +31,7 @@ public class DefaultUI implements ActionListener {
     public static final int ICON_SIZE = 44;
 
     private JFrame frame;
+    private String panelName;
     public DefaultUI(String title, JFrame frame) throws ParseException {
         this.frame = frame;
         frame.setTitle("My Fridge");
@@ -44,15 +45,16 @@ public class DefaultUI implements ActionListener {
         buttonPanel.setLayout(new GridLayout(1,4));
         buttonPanel.setBackground(WindowNotice.MENU_BACKGROUND);
 
-        buildBottomIcon(buttonPanel, "add", "add"); // 看这里，给button们建立method了
+        buildBottomIcon(buttonPanel, "add", "add");
         buildBottomIcon(buttonPanel, "expired", "notification");
-        buildBottomIcon(buttonPanel, "stock_g", "stock");
+        buildBottomIcon(buttonPanel, "stock", "stock");
         buildBottomIcon(buttonPanel, "recipe", "recipe");
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
     public void setTopPanel(String title, JFrame frame){
+        this.panelName = title;
         JPanel topPanel = new JPanel();
         topPanel.setBackground(GREEN_THEME);
         JLabel topText = new JLabel(title);
@@ -62,7 +64,23 @@ public class DefaultUI implements ActionListener {
         frame.add(topPanel, BorderLayout.NORTH);
     }
 
+    public String getPanelName() {
+        return panelName;
+    }
+
     public void buildBottomIcon(JPanel buttonPanel, String iconPath, String command) {
+        if(getPanelName().equals("Notifications") && iconPath.equals("expired")){
+            iconPath = "expired_g";
+        }
+        else if(getPanelName().equals("Stock") && iconPath.equals("stock")){
+            iconPath = "stock_g";
+        }
+        else if(getPanelName().equals("Add Items") && iconPath.equals("add")){
+            iconPath = "add_g";
+        }
+        else if(getPanelName().equals("Recipes") && iconPath.equals("recipe")){
+            iconPath = "recipe_g";
+        }
         ImageIcon addIcon = new ImageIcon("./icons/" + iconPath + ".png");
         Image img = addIcon.getImage();
         Image newImg = img.getScaledInstance(WindowNotice.ICON_SIZE, WindowNotice.ICON_SIZE, Image.SCALE_SMOOTH);
