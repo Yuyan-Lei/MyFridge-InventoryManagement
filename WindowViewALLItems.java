@@ -74,7 +74,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
 
             // c. Name
             JButton nameButton = new JButton(showinglist.get(i).getName());
-            nameButton.setActionCommand("View" + i);
+            nameButton.setActionCommand("view" + i);
             nameButton.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
             nameButton.setOpaque(true);
             nameButton.setBorderPainted(false);
@@ -190,9 +190,13 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
             FoodItem viewItem = showinglist.get(viewNum);
 
             setVisible(false);
-            // 这个window还没写，用于查看指定item的详情。写好后把下面代码解除注释，即可使用。
-            // WindowItemDetails window = new WindowItemDetails(viewItem);
-            // window.setVisible(true);
+            WindowItemDetails window = null;
+            try {
+                window = new WindowItemDetails(viewItem);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+            window.setVisible(true);
         }
         else
             System.out.println("Unexpected error.");

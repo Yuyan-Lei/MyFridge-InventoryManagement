@@ -63,6 +63,21 @@ public class FoodItem {
         return formatter.format(getExpiration());
     }
 
+    public String getLocationToString() {
+        if (location == PlaceLocation.REFRIGERATED) {
+            return "Fridge";
+        }
+        else {
+            return "Freezer";
+        }
+    }
+
+    public String getTypeToString() {
+        String typeName = type.toString().toLowerCase();
+        String s1 = typeName.substring(0, 1).toUpperCase();
+        return s1 + typeName.substring(1);
+    }
+
     public FoodType getType() {
         return type;
     }

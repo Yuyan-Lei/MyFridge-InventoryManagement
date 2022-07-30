@@ -1,4 +1,9 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,10 +32,21 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
 
         // 3. Center Items
         JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(DefaultUI.WHITE_COLOR);
 
         // a. Recipe name - top
-        JTextArea nameLabel = new JTextArea(recipeToOpen.getName());
+        JTextPane nameLabel = new JTextPane();
+        nameLabel.setMargin(new Insets(25, 15, 25, 15));
+        StyledDocument nameDoc = nameLabel.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        nameDoc.setParagraphAttributes(0, nameDoc.getLength(), center, false);
+        try {
+            nameDoc.insertString(nameDoc.getLength(), recipeToOpen.getName(), center);
+        } catch (BadLocationException e) {
+            System.out.println(e.getMessage());
+        }
         nameLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 15));
         nameLabel.setForeground(DefaultUI.GREEN_THEME);
         nameLabel.setBackground(WindowNotice.WHITE_COLOR);
@@ -39,7 +55,7 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
         JPanel servePanel = subPanel(centerPanel, " Servings", "serving", recipeToOpen.getServing());
         JPanel timePanel = subPanel(centerPanel, " Cook Time", "cookTime", recipeToOpen.getCookTime());
         JPanel ingredientPanel = subPanel(centerPanel, " Ingredients", "ingredients", recipeToOpen.getDetailsOfIngredient());
-        JPanel methodPanel = subPanel(centerPanel, " Methods", "methods", recipeToOpen.getMethod().replaceAll(": ", ": \n"));
+        JPanel methodPanel = subPanel(centerPanel, " Instructions", "methods", recipeToOpen.getMethod().replaceAll(": ", ": \n"));
 
         centerPanel.add(nameLabel);
         centerPanel.add(servePanel);
@@ -117,6 +133,7 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
         Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         newIcon = new ImageIcon(newImg);
         JLabel newLabel = new JLabel(newIcon);
+        newLabel.setBorder(new EmptyBorder(0, 10, 0 ,0));
         titlePanel.add(newLabel, BorderLayout.WEST);
 
         // b. Add Title
@@ -129,8 +146,18 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
         subPanel.add(titlePanel, BorderLayout.NORTH);
 
         // 2. Center Text Field Part
-        JTextArea textArea = new JTextArea(text);
-        subPanel.add(textArea, BorderLayout.CENTER);
+        JTextPane textPane = new JTextPane();
+        textPane.setMargin(new Insets(10, 28, 25, 15));
+        StyledDocument textDoc = textPane.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
+        textDoc.setParagraphAttributes(0, textDoc.getLength(), center, false);
+        try {
+            textDoc.insertString(textDoc.getLength(), text, center);
+        } catch (BadLocationException e) {
+            System.out.println(e.getMessage());
+        }
+        subPanel.add(textPane, BorderLayout.CENTER);
 
         return subPanel;
     }

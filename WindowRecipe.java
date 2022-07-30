@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -81,6 +82,7 @@ public class WindowRecipe extends JFrame implements ActionListener {
             newImg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             leftIcon = new ImageIcon(newImg);
             JLabel leftLable = new JLabel(leftIcon);
+            leftLable.setBorder(new EmptyBorder(0, 10, 0 ,10));
 
             thePanel.setBorder(BorderFactory.createLineBorder(DefaultUI.MENU_BACKGROUND));
             thePanel.add(leftLable, BorderLayout.WEST);
