@@ -30,12 +30,12 @@ public class WindowItemDetails extends JFrame implements ActionListener {
 
         // 3. Center Items
         JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(5, 1));
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(DefaultUI.WHITE_COLOR);
 
         // a. Recipe name - top
         JTextPane nameLabel = new JTextPane();
-        nameLabel.setMargin(new Insets(75, 15, 15, 15));
+        nameLabel.setMargin(new Insets(25, 15, 0, 15));
         StyledDocument nameDoc = nameLabel.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -57,7 +57,7 @@ public class WindowItemDetails extends JFrame implements ActionListener {
         subPanel(centerPanel, " Type", "type", foodToView.getTypeToString());
         subPanel(centerPanel, " Location", "location", foodToView.getLocationToString());
         String urlText = "Whole Foods: \n" + foodToView.getWFURL();
-        urlText += "\n\nAmazon Fresh: \n" + foodToView.getAFURL();
+        urlText += "\n\nAmazon Fresh: \n" + foodToView.getAFURL() + "\n\n\n";
         subPanel(centerPanel, "Order Online", "url", urlText);
         add(centerPanel);
     }
