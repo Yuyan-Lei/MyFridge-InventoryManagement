@@ -7,7 +7,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class WindowViewALLItems extends JFrame implements ActionListener{
-    Stock.StockType inputType;
+    private Stock.StockType inputType;
+    private ArrayList<FoodItem> showinglist;
     private ActionEvent e;
 
     public WindowViewALLItems(Stock.StockType type) throws ParseException {
@@ -27,7 +28,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
 
         // 3. Center Items
         Stock stock = new Stock();
-        ArrayList<FoodItem> showinglist = stock.getSpecificItems(type);
+        showinglist = stock.getSpecificItems(type);
         int size = showinglist.size();
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(12, 1));
@@ -78,6 +79,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
             nameButton.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
             nameButton.setOpaque(true);
             nameButton.setBorderPainted(false);
+            nameButton.addActionListener(this);
             nameButton.setBackground(WindowNotice.WHITE_COLOR);
             middle1.add(nameButton);
 
@@ -155,7 +157,6 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
         else if (actionCommand.startsWith("remove")) {
             int removeNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
             Stock stock = new Stock();
-            ArrayList<FoodItem> showinglist = stock.getSpecificItems(inputType);
             try {
                 stock.removeItem(showinglist.get(removeNum));
             } catch (IOException ex) {
@@ -174,8 +175,6 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
         }
         else if (actionCommand.startsWith("edit")) {
             int editNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
-            Stock stock = new Stock();
-            ArrayList<FoodItem> showinglist = stock.getSpecificItems(inputType);
             FoodItem editItem = showinglist.get(editNum);
 
             setVisible(false);
@@ -185,8 +184,6 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
         }
         else if (actionCommand.startsWith("view")) {
             int viewNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
-            Stock stock = new Stock();
-            ArrayList<FoodItem> showinglist = stock.getSpecificItems(inputType);
             FoodItem viewItem = showinglist.get(viewNum);
 
             setVisible(false);
@@ -215,5 +212,4 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
         addButton.addActionListener(this);
         buttonPanel.add(addButton);
     }
-
 }
