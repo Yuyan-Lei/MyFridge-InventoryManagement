@@ -42,7 +42,7 @@ public class WindowRecipe extends JFrame implements ActionListener {
             itemPanel.setBackground(DefaultUI.WHITE_COLOR);
 
             // Recipe Title
-            JLabel nameLabel = new JLabel(recipeList.get(i).getName());
+            JLabel nameLabel = new JLabel(capitalizeString(recipeList.get(i).getName()));
             nameLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
             nameLabel.setForeground(DefaultUI.GREEN_THEME);
             nameLabel.setBackground(WindowNotice.WHITE_COLOR);
@@ -57,7 +57,7 @@ public class WindowRecipe extends JFrame implements ActionListener {
                 ingredientsText.append(", ");
             }
             ingredientsText.setLength(ingredientsText.length() - 2);
-            ingredientsLabel.setText(ingredientsText.toString());
+            ingredientsLabel.setText(capitalizeString(ingredientsText.toString()));
             ingredientsLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.PLAIN, 11));
             ingredientsLabel.setBackground(DefaultUI.WHITE_COLOR);
             itemPanel.add(ingredientsLabel);
@@ -118,6 +118,7 @@ public class WindowRecipe extends JFrame implements ActionListener {
             setVisible(false);
             try {
                 StockWindow aNewWindow = new StockWindow();
+                aNewWindow.setVisible(true);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -150,5 +151,10 @@ public class WindowRecipe extends JFrame implements ActionListener {
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
         buttonPanel.add(addButton);
+    }
+
+    private String capitalizeString(String s) {
+        String lower = s.toLowerCase();
+        return lower.substring(0, 1).toUpperCase() + lower.substring(1);
     }
 }

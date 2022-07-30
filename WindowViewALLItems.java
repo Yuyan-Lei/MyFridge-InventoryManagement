@@ -79,6 +79,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
             nameButton.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
             nameButton.setOpaque(true);
             nameButton.setBorderPainted(false);
+            nameButton.addActionListener(this);
             nameButton.setBackground(WindowNotice.WHITE_COLOR);
             middle1.add(nameButton);
 
@@ -211,5 +212,4 @@ public class WindowViewALLItems extends JFrame implements ActionListener{
         addButton.addActionListener(this);
         buttonPanel.add(addButton);
     }
-
 }

@@ -210,11 +210,4 @@ public class WindowItemDetails extends JFrame implements ActionListener {
         });
         return hyperLink;
     }
-
-
-    public static void main(String[] args) throws ParseException {
-        FoodItem item = new FoodItem(0, "Apples", 9, new Date(), FoodItem.FoodType.FRUIT, FoodItem.PlaceLocation.FROZEN);
-        WindowItemDetails newWindow = new WindowItemDetails(item);
-        newWindow.setVisible(true);
-    }
 }
