@@ -2,10 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class WindowRecipe extends JFrame implements ActionListener {
     private ArrayList<RecipeItem> recipeList;
@@ -78,7 +76,7 @@ public class WindowRecipe extends JFrame implements ActionListener {
             openButton.setBackground(WindowNotice.WHITE_COLOR);
 
             // Recipe Icon
-            ImageIcon leftIcon = new ImageIcon("./icons/dish.png");
+            ImageIcon leftIcon = new ImageIcon("icons/recipe_list.png");
             img = leftIcon.getImage();
             newImg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             leftIcon = new ImageIcon(newImg);

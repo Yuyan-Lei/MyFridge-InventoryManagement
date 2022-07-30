@@ -35,7 +35,7 @@ public class RecipeDatabase {
                     continue;
                 }
                 else if (s.equals("******")) {
-                    String[] arrOfStr = recipeDetail.toString().split("///", 0);
+                    String[] arrOfStr = recipeDetail.toString().split("///\n", 0);
 
                     name = arrOfStr[0];
 
@@ -53,7 +53,7 @@ public class RecipeDatabase {
                     recipeDetail = new StringBuilder();
                 }
                 else {
-                    recipeDetail.append(s);
+                    recipeDetail.append(s).append("\n");
                 }
             }
             br.close();

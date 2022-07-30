@@ -30,25 +30,22 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
         centerPanel.setBackground(DefaultUI.WHITE_COLOR);
 
         // a. Recipe name - top
-        JLabel nameLabel = new JLabel(recipeToOpen.getName());
+        JTextArea nameLabel = new JTextArea(recipeToOpen.getName());
         nameLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 15));
         nameLabel.setForeground(DefaultUI.GREEN_THEME);
         nameLabel.setBackground(WindowNotice.WHITE_COLOR);
 
-        // b. Serving - middle
-        JLabel servingLabel = new JLabel(recipeToOpen.getServing());
-        // c. Cook Time - middle
-        JLabel cookTime = new JLabel(recipeToOpen.getCookTime());
-        // d. Ingredient details - middle
-        JLabel ingredientLabel = new JLabel(recipeToOpen.getDetailsOfIngredient());
-        // e. Methods - bottom
-        JLabel methodLabel = new JLabel(recipeToOpen.getMethod());
+        // b. Other information - Center
+        JPanel servePanel = subPanel(centerPanel, " Servings", "serving", recipeToOpen.getServing());
+        JPanel timePanel = subPanel(centerPanel, " Cook Time", "cookTime", recipeToOpen.getCookTime());
+        JPanel ingredientPanel = subPanel(centerPanel, " Ingredients", "ingredients", recipeToOpen.getDetailsOfIngredient());
+        JPanel methodPanel = subPanel(centerPanel, " Methods", "methods", recipeToOpen.getMethod().replaceAll(": ", ": \n"));
 
         centerPanel.add(nameLabel);
-        centerPanel.add(servingLabel);
-        centerPanel.add(cookTime);
-        centerPanel.add(ingredientLabel);
-        centerPanel.add(methodLabel);
+        centerPanel.add(servePanel);
+        centerPanel.add(timePanel);
+        centerPanel.add(ingredientPanel);
+        centerPanel.add(methodPanel);
 
         add(centerPanel);
     }
@@ -103,5 +100,38 @@ public class WindowRecipeDetails extends JFrame implements ActionListener {
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
         buttonPanel.add(addButton);
+    }
+
+    public JPanel subPanel(JPanel thePanel, String title, String iconPath, String text) {
+        JPanel subPanel = new JPanel();
+        subPanel.setLayout(new BorderLayout());
+        subPanel.setBackground(DefaultUI.WHITE_COLOR);
+
+        // 1. North title part
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setBackground(DefaultUI.WHITE_COLOR);
+
+        // a. Add icon
+        ImageIcon newIcon = new ImageIcon("./recipeIcons/" + iconPath +".png");
+        Image img = newIcon.getImage();
+        Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        newIcon = new ImageIcon(newImg);
+        JLabel newLabel = new JLabel(newIcon);
+        titlePanel.add(newLabel, BorderLayout.WEST);
+
+        // b. Add Title
+        JTextArea nameLabel = new JTextArea(title);
+        nameLabel.setFont(new Font(WindowNotice.TITLE_FONT, Font.BOLD, 13));
+        nameLabel.setForeground(DefaultUI.GREEN_THEME);
+        nameLabel.setBackground(WindowNotice.WHITE_COLOR);
+        titlePanel.add(nameLabel, BorderLayout.CENTER);
+
+        subPanel.add(titlePanel, BorderLayout.NORTH);
+
+        // 2. Center Text Field Part
+        JTextArea textArea = new JTextArea(text);
+        subPanel.add(textArea, BorderLayout.CENTER);
+
+        return subPanel;
     }
 }
