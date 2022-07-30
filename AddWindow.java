@@ -8,13 +8,6 @@ import java.util.Date;
 
 
 public class AddWindow extends JFrame implements ActionListener {
-    public static final Color GREEN_THEME = new Color(122, 156, 87);
-    public static final Color WHITE_COLOR = new Color(255, 255, 255);
-    public static final String TITLE_FONT = "San Francisco";
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 750;
-
-    public static final int TOP_BAR_SIZE = 24;
     String types[] = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
     String locations[] = {"FROZEN","REFRIGERATED" };
     private String theName;
@@ -34,12 +27,6 @@ public class AddWindow extends JFrame implements ActionListener {
 
     Boolean isValidate = true;
     AddWindow() throws ParseException {
-//        super("My Fridge"); //title name
-//
-//        setSize(WIDTH, HEIGHT);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setLayout(new BorderLayout());
-//        setVisible(true);
         DefaultUI ui = new DefaultUI("Add Items", this);
         setVisible(true);
 
@@ -50,71 +37,86 @@ public class AddWindow extends JFrame implements ActionListener {
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel nameLabel = new JLabel("Name:");
-        name = new JTextField("Broccoli");
+
+        ImageIcon nameIcon = new ImageIcon("./itemIcons/url.png");
+        Image nameImg = nameIcon.getImage();
+        Image newImg0 = nameImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        nameIcon = new ImageIcon(newImg0);
+        nameLabel.setIcon(nameIcon);
+        name = new JTextField();
         name.setPreferredSize(new Dimension(120,30));
         namePanel.add(nameLabel);
         namePanel.add(name);
         addInfoPanel.add(namePanel);
-//        theName = name.getText();
-//        System.out.println(theName);
 
         JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        ImageIcon quantityIcon = new ImageIcon("./itemIcons/quantity.png");
+        Image quantityImg = quantityIcon.getImage();
+        Image newImg1 = quantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        quantityIcon = new ImageIcon(newImg1);
         JLabel quantityLabel = new JLabel("Quantity:");
-        quantity = new JTextField("1");
-        quantity.setPreferredSize(new Dimension(70,30));
+        quantityLabel.setIcon(quantityIcon);
+        quantity = new JTextField();
+        quantity.setPreferredSize(new Dimension(50,30));
         quantityPanel.add(quantityLabel);
         quantityPanel.add(quantity);
         addInfoPanel.add(quantityPanel);
-//        theQuantity = Integer.parseInt(quantity.getText());
-//        System.out.println(theQuantity);
 
 
         JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        ImageIcon expirationIcon = new ImageIcon("./itemIcons/expiration.png");
+        Image expirationImg = expirationIcon.getImage();
+        Image newImg2 = expirationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        expirationIcon = new ImageIcon(newImg2);
         JLabel expirationLabel = new JLabel("Expiration Date (yyyy-MM-dd):");
-        JPanel expirationDate = new JPanel(new GridLayout(1,3));
-        expirationYear = new JTextField("2022");
-        expirationYear.setPreferredSize(new Dimension(70,30));
-        expirationMonth = new JTextField("12");
-        expirationMonth.setPreferredSize(new Dimension(20,30));
-        expirationDay = new JTextField("31");
-        expirationDay.setPreferredSize(new Dimension(20,30));
+        expirationLabel.setIcon(expirationIcon);
+        //JLabel dash = new JLabel("-");
+        JPanel expirationDate = new JPanel(new GridLayout(1,5));
+        expirationYear = new JTextField("");
+        expirationYear.setPreferredSize(new Dimension(50,30));
+        expirationMonth = new JTextField("");
+        expirationMonth.setPreferredSize(new Dimension(10,30));
+        expirationDay = new JTextField("");
+        expirationDay.setPreferredSize(new Dimension(10,30));
 
         expirationDate.add(expirationYear);
+        //expirationDate.add(dash);
         expirationDate.add(expirationMonth);
+        //expirationDate.add(dash);
         expirationDate.add(expirationDay);
-
         expirationPanel.add(expirationLabel);
         expirationPanel.add(expirationDate);
         addInfoPanel.add(expirationPanel);
 
-//        theExpiration = new Date(Integer.parseInt(expirationYear.getText()),Integer.parseInt(expirationMonth.getText()),Integer.parseInt(expirationDay.getText()));
-//        System.out.println(Integer.parseInt(expirationYear.getText()));
-//        System.out.println(Integer.parseInt(expirationMonth.getText()));
-//        System.out.println(Integer.parseInt(expirationDay.getText()));
-//        System.out.println(theExpiration);
-
-
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        ImageIcon typeIcon = new ImageIcon("./itemIcons/type.png");
+        Image typeImg = typeIcon.getImage();
+        Image newImg3 = typeImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        typeIcon = new ImageIcon(newImg3);
         JLabel typeLabel = new JLabel("Type:");
+        typeLabel.setIcon(typeIcon);
         typeOption = new JComboBox(types);
-        typeOption.setSelectedIndex(0);
         typeOption.setPreferredSize(new Dimension(120,30));
         typePanel.add(typeLabel);
         typePanel.add(typeOption);
         addInfoPanel.add(typePanel);
-        //theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
-        //System.out.println(theType);
 
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
+        ImageIcon locationIcon = new ImageIcon("./itemIcons/location.png");
+        Image locationImg = locationIcon.getImage();
+        Image newImg4 = locationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        locationIcon = new ImageIcon(newImg4);
+        locationLabel.setIcon(locationIcon);
+
         locationOption = new JComboBox(locations);
         typeOption.setSelectedIndex(0);
         locationOption.setPreferredSize(new Dimension(120,30));
         locationPanel.add(locationLabel);
         locationPanel.add(locationOption);
         addInfoPanel.add(locationPanel);
-        //theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
-        //System.out.println(theLocation);
+
 
         JPanel saveButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton saveButton = new JButton("Save");
@@ -123,6 +125,7 @@ public class AddWindow extends JFrame implements ActionListener {
         addInfoPanel.add(saveButtonPanel);
 
         add(addInfoPanel,BorderLayout.CENTER);
+
     }
 
     public void getInput(){

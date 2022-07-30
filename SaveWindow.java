@@ -66,8 +66,12 @@ public class SaveWindow extends JFrame implements ActionListener {
         add(buttonPanel, BorderLayout.SOUTH);
 
         //Central body
-        JLabel message = new JLabel("Success!");
+        JLabel message = new JLabel();
         add(message,BorderLayout.CENTER);
+        ImageIcon saveIcon = new ImageIcon("./icons/saved.png");
+        Image saveImg = saveIcon.getImage();
+        saveIcon = new ImageIcon(saveImg);
+        message.setIcon(saveIcon);
     }
 
     public void actionPerformed(ActionEvent e){
