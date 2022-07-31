@@ -16,7 +16,7 @@ public class DefaultUI implements ActionListener {
     public static final Color MENU_BACKGROUND = new Color(232, 240, 213);
     public static final Color WHITE_COLOR = new Color(255, 255, 255);
     public static final Color TITLE_COLOR = new Color(122, 156, 87);
-    public static final Color RED_COLOR = new Color(223, 185, 182);
+    public static final Color RED_COLOR = new Color(223, 162, 158);
 
     // Fonts
     public static final String TITLE_FONT = "San Francisco";

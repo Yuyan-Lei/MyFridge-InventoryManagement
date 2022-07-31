@@ -46,6 +46,12 @@ public class WindowNotice extends JFrame implements ActionListener  {
             String itemDate = lowStockList.get(i).getExpirationToString();
             String itemName = lowStockList.get(i).getName();
 
+            //whole item
+            JPanel bigItemPanel = new JPanel();
+            bigItemPanel.setLayout(new BorderLayout());
+            bigItemPanel.setBackground(DefaultUI.WHITE_COLOR);
+
+            //delete button and itemName button
             JPanel itemPanel = new JPanel();
             itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.LINE_AXIS));
 //            itemPanel.setLayout(new GridLayout(1,5));
@@ -53,20 +59,22 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
             JButton deleteButton = new JButton(removeIcon);
             deleteButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-            //need to add action
+            deleteButton.setActionCommand("0Delete" + i);
             JButton nameB = new JButton(itemName);
             nameB.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, DefaultUI.TEXT_SIZE - 3));
+            nameB.setOpaque(true);
+            nameB.setBorderPainted(false);
+            nameB.setBackground(DefaultUI.WHITE_COLOR);
+            nameB.setActionCommand("0View" + i);
 
+            JLabel expireDate = new JLabel(itemDate);
+            expireDate.setFont(new Font(DefaultUI.TEXT_FONT, Font.PLAIN, DefaultUI.TEXT_SIZE - 4));
+            expireDate.setForeground(Color.gray);
 
-//            JLabel expireDate = new JLabel(itemDate);
-//            expireDate.setFont(new Font(DefaultUI.TEXT_FONT, Font.PLAIN, DefaultUI.TEXT_SIZE - 4));
-//            JPanel expire = new JPanel();
-//            expire.add(expireDate);
-//            expire.setBackground(new Color(230,235,220));
-//            expireDate.setForeground(Color.white);
+            JPanel textPanel = new JPanel();
+            textPanel.setBackground(DefaultUI.WHITE_COLOR);
 
-
-            JLabel only = new JLabel("   Only  ");
+            JLabel only = new JLabel("      Only  ");
             only.setForeground(Color.gray);
 
             JLabel num = new JLabel(itemNum);
@@ -79,23 +87,25 @@ public class WindowNotice extends JFrame implements ActionListener  {
             itemPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
             itemPanel.add(deleteButton);
             itemPanel.add(nameB);
-//            itemPanel.add(expire);
-//            itemPanel.add(new JLabel());
-            itemPanel.add(only);
-            itemPanel.add(num);
-            itemPanel.add(left);
-            lowStock.add(itemPanel);
+            textPanel.add(expireDate);
+            textPanel.add(only);
+            textPanel.add(num);
+            textPanel.add(left);
+            bigItemPanel.add(itemPanel, BorderLayout.WEST);
+            bigItemPanel.add(textPanel,BorderLayout.EAST);
+            lowStock.add(bigItemPanel);
+
         }
         infoPanel.add(lowStock);
 
 
         // 3-2 Expired Panel
-        for(int p=0; p<2; p++) {
+        for(int p=1; p<3; p++) {
             //separate two cases
             String titleName = "";
             String word = "";
             ArrayList<FoodItem> expiredList = newStock.getExpiredItems(Stock.StockType.ALL);
-            if (p == 0) {
+            if (p == 1) {
                 titleName = " Expired";
                 word = "       Expired  ";
                 expiredList = newStock.getExpiredItems(Stock.StockType.ALL);
@@ -113,9 +123,15 @@ public class WindowNotice extends JFrame implements ActionListener  {
             expired.add(titleExpired, BorderLayout.NORTH);
             expired.setBorder(BorderFactory.createLineBorder(DefaultUI.GREEN_THEME));
             // show items
-
             int sizeOfExpiredItems = expiredList.size();
-            expired.setLayout(new GridLayout(sizeOfExpiredItems + 1, 1));
+            int rowsNum = 0;
+            if(sizeOfExpiredItems > 2){
+                rowsNum = sizeOfExpiredItems + 1;
+            }
+            else{
+                rowsNum = sizeOfExpiredItems + 2;
+            }
+            expired.setLayout(new GridLayout(rowsNum, 1));
             expired.setBackground(DefaultUI.WHITE_COLOR);
 
 
@@ -124,6 +140,12 @@ public class WindowNotice extends JFrame implements ActionListener  {
                 String itemDate = String.valueOf(expiredList.get(i).getDays());
                 String itemName = expiredList.get(i).getName();
 
+                //whole item
+                JPanel bigItemPanel = new JPanel();
+                bigItemPanel.setLayout(new BorderLayout());
+                bigItemPanel.setBackground(DefaultUI.WHITE_COLOR);
+
+                //delete button and itemName button
                 JPanel itemPanel = new JPanel();
                 itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.LINE_AXIS));
 //            itemPanel.setLayout(new GridLayout(1,5));
@@ -131,13 +153,19 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
                 JButton deleteButton = new JButton(removeIcon);
                 deleteButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-                //need to add action
+                deleteButton.setActionCommand(p + "Delete" + i);
                 JButton nameB = new JButton(itemName);
                 nameB.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, DefaultUI.TEXT_SIZE - 3));
+                nameB.setOpaque(true);
+                nameB.setBorderPainted(false);
+                nameB.setBackground(DefaultUI.WHITE_COLOR);
+                nameB.setActionCommand(p + "View" + i);
 
-                JLabel numLabel = new JLabel(itemNum);
+                JPanel textPanel = new JPanel();
+                textPanel.setBackground(DefaultUI.WHITE_COLOR);
+
+                JLabel numLabel = new JLabel("    "+ itemNum);
                 numLabel.setForeground(Color.gray);
-
 
                 JLabel expiredLabel = new JLabel(word);
                 expiredLabel.setForeground(Color.gray);
@@ -152,11 +180,19 @@ public class WindowNotice extends JFrame implements ActionListener  {
                 itemPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
                 itemPanel.add(deleteButton);
                 itemPanel.add(nameB);
-                itemPanel.add(numLabel);
-                itemPanel.add(expiredLabel);
-                itemPanel.add(num);
-                itemPanel.add(days);
-                expired.add(itemPanel);
+
+                textPanel.add(numLabel);
+                textPanel.add(expiredLabel);
+                textPanel.add(num);
+                textPanel.add(days);
+
+//                itemPanel.add(numLabel);
+//                itemPanel.add(expiredLabel);
+//                itemPanel.add(num);
+//                itemPanel.add(days);
+                bigItemPanel.add(itemPanel, BorderLayout.WEST);
+                bigItemPanel.add(textPanel,BorderLayout.EAST);
+                expired.add(bigItemPanel);
             }
             infoPanel.add(expired);
         }
