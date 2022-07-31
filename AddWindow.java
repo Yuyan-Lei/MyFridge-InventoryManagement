@@ -26,6 +26,7 @@ public class AddWindow extends JFrame implements ActionListener {
     private JComboBox locationOption;
 
     private String error = "";
+    private JLabel errorMessage;
 
     Boolean isValidate = true;
     AddWindow() throws ParseException {
@@ -39,7 +40,7 @@ public class AddWindow extends JFrame implements ActionListener {
 
         // Error Message
         JPanel errorMessagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel errorMessage = new JLabel(error);
+        errorMessage = new JLabel(error);
         errorMessage.setForeground(Color.RED);
         errorMessagePanel.add(errorMessage);
         errorMessagePanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -173,7 +174,7 @@ public class AddWindow extends JFrame implements ActionListener {
             }
             // 2. Error situation
             else {
-                setErrorColor();
+                setErrorEffect();
             }
         }
 
@@ -221,14 +222,29 @@ public class AddWindow extends JFrame implements ActionListener {
         }
     }
 
-    private void setErrorColor() {
+    private void setErrorEffect() {
         // set the specif text to red
         switch (error) {
-            case "nameError" -> name.setForeground(Color.red);
-            case "qtyError" -> quantity.setForeground(Color.red);
-            case "yearError" -> expirationYear.setForeground(Color.red);
-            case "monthError" -> expirationMonth.setForeground(Color.red);
-            case "dayError" -> expirationDay.setForeground(Color.red);
+            case "nameError" -> {
+                name.setForeground(Color.red);
+                errorMessage.setText("Error: Name can only contain letters");
+            }
+            case "qtyError" -> {
+                quantity.setForeground(Color.red);
+                errorMessage.setText("Error: Quantity should be a positive integer");
+            }
+            case "yearError" -> {
+                expirationYear.setForeground(Color.red);
+                errorMessage.setText("Error: Expiration year is limited to 2022 - 2023");
+            }
+            case "monthError" -> {
+                expirationMonth.setForeground(Color.red);
+                errorMessage.setText("Error: Expiration month is limited to 1 - 12");
+            }
+            case "dayError" -> {
+                expirationDay.setForeground(Color.red);
+                errorMessage.setText("Error: Expiration day is limited to 1 - 31");
+            }
         }
         // Reset error to null
         error = "";
@@ -241,5 +257,6 @@ public class AddWindow extends JFrame implements ActionListener {
         expirationYear.setForeground(Color.BLACK);
         expirationMonth.setForeground(Color.BLACK);
         expirationDay.setForeground(Color.BLACK);
+        errorMessage.setText("");
     }
 }
