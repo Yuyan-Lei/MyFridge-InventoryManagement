@@ -1,5 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class FoodItem {
     private int id;
@@ -58,6 +59,14 @@ public class FoodItem {
         return expiration;
     }
 
+    public FoodType getType() {
+        return type;
+    }
+
+    public PlaceLocation getLocation() {
+        return location;
+    }
+
     public String getExpirationToString() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(getExpiration());
@@ -78,12 +87,10 @@ public class FoodItem {
         return s1 + typeName.substring(1);
     }
 
-    public FoodType getType() {
-        return type;
-    }
-
-    public PlaceLocation getLocation() {
-        return location;
+    public int getDays() {
+        Date todayDate = new Date();
+        int daysBetween = (int) TimeUnit.DAYS.convert(expiration.getTime() - todayDate.getTime(), TimeUnit.MILLISECONDS);
+        return Math.abs(daysBetween);
     }
 
     // Two kinds of URLs: Whole Foods / Amazon Fresh
@@ -98,7 +105,6 @@ public class FoodItem {
     @Override
     public String toString() {
         // Format: name, quantity, expiration date, type, location
-
         return getName() + ", "  + getQuantity() + ", "+ getExpirationToString() + ", " + getType() + ", " + getLocation() + "\n";
     }
 }
