@@ -11,15 +11,21 @@ import java.util.ArrayList;
 public class WindowNotice extends JFrame implements ActionListener  {
     private ActionEvent e;
     public WindowNotice() throws ParseException {
-        DefaultUI ui = new DefaultUI("Notifications", this);
+        DefaultUI ui = new DefaultUI("Notice", this);
         setVisible(true);
 
         // Center stock info
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new GridLayout(3,1));
 
+        //remove icon
+        ImageIcon newIcon = new ImageIcon("./icons/delete_g.png");
+        Image img = newIcon.getImage();
+        Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        ImageIcon removeIcon = new ImageIcon(newImg);
+
         // 3-1 Low Stock Panel
-        JPanel lowStock = new JPanel();
+        JPanel lowStock = new JPanel(new BorderLayout());
         // show title
         JLabel titleLow = new JLabel(" Low Stock");
         titleLow.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TITLE_SIZE));
@@ -31,14 +37,57 @@ public class WindowNotice extends JFrame implements ActionListener  {
         Stock newStock = new Stock();
         ArrayList<FoodItem> lowStockList = newStock.getLowStockItems(Stock.StockType.ALL);
         int sizeOfLowStockItems = lowStockList.size();
+
         lowStock.setLayout(new GridLayout(sizeOfLowStockItems + 1, 1));
-        JButton[] lowStockItemButtons = new JButton[sizeOfLowStockItems];
+        lowStock.setBackground(DefaultUI.WHITE_COLOR);
+//        JPanel[] lowStockItemPanel = new JPanel[sizeOfLowStockItems];
         for (int i = 0; i < sizeOfLowStockItems; i++) {
-            String itemText = lowStockList.get(i).toString();
-            lowStockItemButtons[i] = new JButton(itemText);
-            lowStock.add(lowStockItemButtons[i]);
+            String itemNum = String.valueOf(lowStockList.get(i).getQuantity());
+            String itemDate = lowStockList.get(i).getExpirationToString();
+            String itemName = lowStockList.get(i).getName();
+
+            JPanel itemPanel = new JPanel();
+            itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.LINE_AXIS));
+//            itemPanel.setLayout(new GridLayout(1,5));
+            itemPanel.setBackground(DefaultUI.WHITE_COLOR);
+
+            JButton deleteButton = new JButton(removeIcon);
+            deleteButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+            //need to add action
+            JButton nameB = new JButton(itemName);
+            nameB.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, DefaultUI.TEXT_SIZE - 3));
+
+
+//            JLabel expireDate = new JLabel(itemDate);
+//            expireDate.setFont(new Font(DefaultUI.TEXT_FONT, Font.PLAIN, DefaultUI.TEXT_SIZE - 4));
+//            JPanel expire = new JPanel();
+//            expire.add(expireDate);
+//            expire.setBackground(new Color(230,235,220));
+//            expireDate.setForeground(Color.white);
+
+
+            JLabel only = new JLabel("   Only  ");
+            only.setForeground(Color.gray);
+
+            JLabel num = new JLabel(itemNum);
+            num.setFont(new Font(DefaultUI.TEXT_FONT, Font.BOLD, DefaultUI.TITLE_SIZE));
+            num.setForeground(DefaultUI.RED_COLOR);
+
+            JLabel left = new JLabel("  left");
+            left.setForeground(Color.gray);
+
+            itemPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+            itemPanel.add(deleteButton);
+            itemPanel.add(nameB);
+//            itemPanel.add(expire);
+//            itemPanel.add(new JLabel());
+            itemPanel.add(only);
+            itemPanel.add(num);
+            itemPanel.add(left);
+            lowStock.add(itemPanel);
         }
         infoPanel.add(lowStock);
+
 
         // 3-2 Expired Panel
         JPanel expired = new JPanel();
@@ -84,10 +133,10 @@ public class WindowNotice extends JFrame implements ActionListener  {
             JPanel itemPanel = new JPanel(new GridLayout(1, 4));
             itemPanel.setBackground(DefaultUI.WHITE_COLOR);
             // a. remove
-            ImageIcon newIcon = new ImageIcon("./icons/delete_g.png");
-            Image img = newIcon.getImage();
-            Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
-            ImageIcon removeIcon = new ImageIcon(newImg);
+//            newIcon = new ImageIcon("./icons/delete_g.png");
+//            img = newIcon.getImage();
+//            newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+//            removeIcon = new ImageIcon(newImg);
 
             JButton removeButton = new JButton(removeIcon);
             removeButton.setActionCommand("remove" + i);

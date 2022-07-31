@@ -46,7 +46,7 @@ public class DefaultUI implements ActionListener {
         buttonPanel.setBackground(DefaultUI.MENU_BACKGROUND);
 
         buildBottomIcon(buttonPanel, "add", "add");
-        buildBottomIcon(buttonPanel, "expired", "notification");
+        buildBottomIcon(buttonPanel, "expired", "notice");
         buildBottomIcon(buttonPanel, "stock", "stock");
         buildBottomIcon(buttonPanel, "recipe", "recipe");
 
@@ -69,7 +69,7 @@ public class DefaultUI implements ActionListener {
     }
 
     public void buildBottomIcon(JPanel buttonPanel, String iconPath, String command) {
-        if(getPanelName().equals("Notifications") && iconPath.equals("expired")){
+        if(getPanelName().equals("Notice") && iconPath.equals("expired")){
             iconPath = "expired_g";
         }
         else if(getPanelName().equals("Stock") && iconPath.equals("stock")){
@@ -104,7 +104,7 @@ public class DefaultUI implements ActionListener {
                 throw new RuntimeException(ex);
             }
         }
-        else if (actionCommand.equals("notification")) {
+        else if (actionCommand.equals("notice")) {
             frame.setVisible(false);
             try {
                 WindowNotice aNewWindow = new WindowNotice();
