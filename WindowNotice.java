@@ -66,14 +66,14 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
             JButton deleteButton = new JButton(removeIcon);
             deleteButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-            deleteButton.setActionCommand("Delete" + i);
+            deleteButton.setActionCommand("Delete" + panelName + i);
 
-            JButton nameB = new JButton(itemName);
+            JButton nameB = new JButton("  " + itemName);
             nameB.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, DefaultUI.TEXT_SIZE - 3));
             nameB.setOpaque(true);
             nameB.setBorderPainted(false);
             nameB.setBackground(DefaultUI.WHITE_COLOR);
-            nameB.setActionCommand("View" + i);
+            nameB.setActionCommand("View" + panelName + i);
 
             JLabel expireDate = new JLabel(itemDate);
             expireDate.setFont(new Font(DefaultUI.TEXT_FONT, Font.PLAIN, DefaultUI.TEXT_SIZE - 4));
@@ -166,13 +166,13 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
                 JButton deleteButton = new JButton(removeIcon);
                 deleteButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-                deleteButton.setActionCommand("Delete" + startIndex);
-                JButton nameB = new JButton(itemName);
+                deleteButton.setActionCommand("Delete" + panelName + startIndex);
+                JButton nameB = new JButton("  " + itemName);
                 nameB.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, DefaultUI.TEXT_SIZE - 3));
                 nameB.setOpaque(true);
                 nameB.setBorderPainted(false);
                 nameB.setBackground(DefaultUI.WHITE_COLOR);
-                nameB.setActionCommand("View" + startIndex);
+                nameB.setActionCommand("View" + panelName + i);
 
                 JPanel textPanel = new JPanel();
                 textPanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -190,7 +190,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
                 JLabel days = new JLabel("  Days");
                 days.setForeground(Color.gray);
 
-                startIndex++;
+//                startIndex++;
                 itemPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
                 itemPanel.add(deleteButton);
                 itemPanel.add(nameB);
