@@ -5,6 +5,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -14,13 +16,15 @@ import java.text.ParseException;
 import java.util.Objects;
 
 
-public class WindowItemDetails extends JFrame {
+public class WindowItemDetails extends JFrame implements ActionListener {
     private String urlWholeFoods;
     private String urlAmazonFresh;
+    FoodItem theItem;
 
     WindowItemDetails(FoodItem foodToView) throws ParseException {
         DefaultUI ui = new DefaultUI("Item Details", this);
         setVisible(true);
+        theItem = foodToView;
 
         // Center Items
         JPanel centerPanel = new JPanel();
@@ -54,6 +58,18 @@ public class WindowItemDetails extends JFrame {
         urlAmazonFresh = foodToView.getAFURL();
         subPanel(centerPanel, "Order Online", "url", "url");
         add(centerPanel);
+
+        // c. Edit
+        JPanel editButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton editButton = new JButton("Edit");
+        editButton.addActionListener(this);
+        editButtonPanel.add(editButton);
+        editButton.setBorderPainted(false);
+        editButton.setOpaque(true);
+        editButton.setBackground(DefaultUI.GREEN_THEME);
+        editButton.setForeground(DefaultUI.WHITE_COLOR);
+        editButtonPanel.setBackground(DefaultUI.WHITE_COLOR);
+        centerPanel.add(editButtonPanel);
     }
 
     private void subPanel(JPanel thePanel, String title, String iconPath, String text) {
@@ -92,8 +108,8 @@ public class WindowItemDetails extends JFrame {
             JPanel newPanel = new JPanel();
             newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.Y_AXIS));
             newPanel.setBackground(Color.WHITE);
-            JTextPane wholefoodsLink = addLink("    Click here", urlWholeFoods);
-            JTextPane amazonLink = addLink( "    Click here", urlAmazonFresh);
+            JTextPane wholefoodsLink = addLink(urlWholeFoods);
+            JTextPane amazonLink = addLink(urlAmazonFresh);
             newPanel.add(addJPane("1. Order on Whole Foods: "));
             newPanel.add(wholefoodsLink);
             newPanel.add(addJPane("2. Order on Amazon Fresh:"));
@@ -120,8 +136,8 @@ public class WindowItemDetails extends JFrame {
         return textPane;
     }
 
-    private JTextPane addLink(String urlText, String url) {
-        JTextPane hyperLink = addJPane(urlText);
+    private JTextPane addLink(String url) {
+        JTextPane hyperLink = addJPane("    Click here");
         hyperLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
         hyperLink.addMouseListener(new MouseAdapter() {
             @Override
@@ -134,7 +150,7 @@ public class WindowItemDetails extends JFrame {
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                hyperLink.setText(urlText);
+                hyperLink.setText("    Click here");
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -142,5 +158,22 @@ public class WindowItemDetails extends JFrame {
             }
         });
         return hyperLink;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String actionCommand = e.getActionCommand();
+        if (actionCommand.equals("Edit")) {
+            setVisible(false);
+            WindowEditItem newWindow = null;
+            try {
+                newWindow = new WindowEditItem(theItem);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+            newWindow.setVisible(true);
+        }
+        else {
+            System.out.println("Unexpected error.");
+        }
     }
 }

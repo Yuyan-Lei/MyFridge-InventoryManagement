@@ -133,9 +133,14 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             FoodItem editItem = showinglist.get(editNum);
 
             setVisible(false);
-            // 这个window还没写，用于edit指定item。写好后把下面代码解除注释，即可使用。
-            // WindowEditItem window = new WindowEditItem(editItem);
-            // window.setVisible(true);
+            WindowEditItem window = null;
+            try {
+                window = new WindowEditItem(editItem);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+            window.setVisible(true);
+
         } else if (actionCommand.startsWith("view")) {
             int viewNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
             FoodItem viewItem = showinglist.get(viewNum);

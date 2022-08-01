@@ -15,7 +15,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
     private ArrayList<FoodItem> lowStockList;
     private ArrayList<FoodItem> expiredList;
     private ArrayList<FoodItem> expiringList;
-    private String panelName = "";
+    private String panelName;
     private ActionEvent e;
     public WindowNotice() throws ParseException {
         DefaultUI ui = new DefaultUI("Notice", this);
@@ -66,14 +66,16 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
             JButton deleteButton = new JButton(removeIcon);
             deleteButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-            deleteButton.setActionCommand("Delete" + panelName + i);
+            deleteButton.setActionCommand("Delete " + panelName + i);
+            deleteButton.addActionListener(this);
 
             JButton nameB = new JButton("  " + itemName);
             nameB.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, DefaultUI.TEXT_SIZE - 3));
             nameB.setOpaque(true);
             nameB.setBorderPainted(false);
             nameB.setBackground(DefaultUI.WHITE_COLOR);
-            nameB.setActionCommand("View" + panelName + i);
+            nameB.setActionCommand("View " + panelName + i);
+            nameB.addActionListener(this);
 
             JLabel expireDate = new JLabel(itemDate);
             expireDate.setFont(new Font(DefaultUI.TEXT_FONT, Font.PLAIN, DefaultUI.TEXT_SIZE - 4));
@@ -107,28 +109,24 @@ public class WindowNotice extends JFrame implements ActionListener  {
         infoPanel.add(lowStock);
 
         // 3-2&3 Expired Panel & Expiring Panel
-        int startIndex = sizeOfLowStockItems;
         for(int p=1; p<3; p++) {
             //separate two cases
             String word = "";
-//            int endIndex = 0;
             ArrayList<FoodItem> list = newStock.getExpiredItems(Stock.StockType.ALL);
             if (p == 1) {
                 panelName = "Expired";
                 word = "       Expired  ";
-//                startIndex = sizeOfLowStockItems;
-                list = newStock.getExpiredItems(Stock.StockType.ALL);
                 expiredList = newStock.getExpiredItems(Stock.StockType.ALL);
-//                endIndex = sizeOfLowStockItems + expiredList.size();
+                list = expiredList;
             } else {
                 panelName = "Expiring";
                 word = "    Expiring in  ";
-//                startIndex = sizeOfLowStockItems + expiredList.size();
-                list = newStock.getAlmostExpiredItems(Stock.StockType.ALL);
                 expiringList = newStock.getAlmostExpiredItems(Stock.StockType.ALL);
-//                endIndex = sizeOfLowStockItems + expiredList.size() + expiringList.size();
+                list = expiringList;
             }
+
             JPanel expired = new JPanel();
+
             // show title
             JLabel titleExpired = new JLabel(panelName);
             titleExpired.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TITLE_SIZE));
@@ -136,9 +134,10 @@ public class WindowNotice extends JFrame implements ActionListener  {
             expired.setBackground(DefaultUI.MAIN_BACKGROUND);
             expired.add(titleExpired, BorderLayout.NORTH);
             expired.setBorder(BorderFactory.createLineBorder(DefaultUI.GREEN_THEME));
+
             // show items
             int sizeOfListItems = list.size();
-            int rowsNum = 0;
+            int rowsNum;
             if(sizeOfListItems > 2){
                 rowsNum = sizeOfListItems + 1;
             }
@@ -166,13 +165,15 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
                 JButton deleteButton = new JButton(removeIcon);
                 deleteButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-                deleteButton.setActionCommand("Delete" + panelName + startIndex);
+                deleteButton.setActionCommand("Delete " + panelName + i);
+                deleteButton.addActionListener(this);
                 JButton nameB = new JButton("  " + itemName);
                 nameB.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, DefaultUI.TEXT_SIZE - 3));
                 nameB.setOpaque(true);
                 nameB.setBorderPainted(false);
                 nameB.setBackground(DefaultUI.WHITE_COLOR);
-                nameB.setActionCommand("View" + panelName + i);
+                nameB.setActionCommand("View " + panelName + i);
+                nameB.addActionListener(this);
 
                 JPanel textPanel = new JPanel();
                 textPanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -190,7 +191,6 @@ public class WindowNotice extends JFrame implements ActionListener  {
                 JLabel days = new JLabel("  Days");
                 days.setForeground(Color.gray);
 
-//                startIndex++;
                 itemPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
                 itemPanel.add(deleteButton);
                 itemPanel.add(nameB);
@@ -211,17 +211,18 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
-        if(panelName.equals("Low Stock")){
-            showinglist = lowStockList;
-        }
-        else if (panelName.equals("Expired")){
-            showinglist = expiredList;
-        }
-        else if (panelName.equals("Expiring")){
-            showinglist = expiringList;
-        }
 
         if (actionCommand.startsWith("Delete")) {
+            if(actionCommand.startsWith("Delete Low Stock")){
+                showinglist = lowStockList;
+            }
+            else if (actionCommand.startsWith("Delete Expired")){
+                showinglist = expiredList;
+            }
+            else if (actionCommand.startsWith("Delete Expiring")){
+                showinglist = expiringList;
+            }
+
             int removeNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
             Stock stock = new Stock();
             try {
@@ -230,6 +231,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
                 throw new RuntimeException(ex);
             }
             setVisible(false);
+
             WindowNotice window = null;
             try {
                 window = new WindowNotice();
@@ -240,6 +242,16 @@ public class WindowNotice extends JFrame implements ActionListener  {
         }
 
         else if (actionCommand.startsWith("View")) {
+            if(actionCommand.startsWith("View Low Stock")){
+                showinglist = lowStockList;
+            }
+            else if (actionCommand.startsWith("View Expired")){
+                showinglist = expiredList;
+            }
+            else if (actionCommand.startsWith("View Expiring")){
+                showinglist = expiringList;
+            }
+
             int viewNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
             FoodItem viewItem = showinglist.get(viewNum);
 

@@ -197,7 +197,7 @@ public class AddWindow extends JFrame implements ActionListener {
             // Check Error
             resetTextColor();
             checkError();
-            // 1. No error situation
+            // No error situation
             if(isValidate){
                 try {
                     Stock newItem = new Stock();
@@ -213,9 +213,10 @@ public class AddWindow extends JFrame implements ActionListener {
                 }
                 setVisible(false);
             }
-            // 2. Error situation
             else {
-                setErrorEffect();
+                // Reset error to null
+                error = "";
+                isValidate = true;
             }
             actionSuccess = true;
         }
@@ -226,38 +227,53 @@ public class AddWindow extends JFrame implements ActionListener {
     }
 
     private void checkError() {
-        // 1. Name should only contain letters
-        if (!name.getText().chars().allMatch(Character::isLetter)) {
+        // 1. Name should not be empty
+        if (Objects.equals(name.getText(), "")) {
             error = "nameError";
+            setErrorEffect();
         }
         // 2. Quantity should only contain digits and not be 0.
-        else if (!quantity.getText().matches("[0-9]+")) {
+        if (!quantity.getText().matches("[0-9]+")) {
             error = "qtyError";
+            setErrorEffect();
         }
-        else if (Objects.equals(quantity.getText(), "0")) {
+        if (Objects.equals(quantity.getText(), "0")) {
             error = "qtyError";
+            setErrorEffect();
         }
         // 3. Expirations should only contain digits
-        else if (!expirationYear.getText().matches("[0-9]+")) {
+        if (!expirationYear.getText().matches("[0-9]+")) {
             error = "yearError";
+            setErrorEffect();
         }
-        else if (!expirationMonth.getText().matches("[0-9]+")) {
+        else {
+            // a. 2022 <= Expiration Year < 2032
+            if ((Integer.parseInt(expirationYear.getText())) < 2022 || (Integer.parseInt(expirationYear.getText())) > 2032) {
+                error = "yearError";
+                setErrorEffect();
+            }
+        }
+        if (!expirationMonth.getText().matches("[0-9]+")) {
             error = "monthError";
+            setErrorEffect();
         }
-        else if (!expirationDay.getText().matches("[0-9]+")) {
+        else {
+            // b. 0 < Expiration Month <= 12
+            if (Integer.parseInt(expirationMonth.getText()) <= 0 || Integer.parseInt(expirationMonth.getText()) > 12) {
+                error = "monthError";
+                setErrorEffect();
+            }
+        }
+        if (!expirationDay.getText().matches("[0-9]+")) {
             error = "dayError";
+            setErrorEffect();
         }
-        // a. 2022 <= Expiration Year < 2032
-        else if ((Integer.parseInt(expirationYear.getText())) < 2022 || (Integer.parseInt(expirationYear.getText())) > 2032) {
-            error = "yearError";
-        }
-        // b. 0 < Expiration Month <= 12
-        else if (Integer.parseInt(expirationMonth.getText()) <= 0 || Integer.parseInt(expirationMonth.getText()) > 12) {
-            error = "monthError";
-        }
-        // b. 0 < Expiration Day <= 31
-        else if  (Integer.parseInt(expirationDay.getText()) <= 0 || Integer.parseInt(expirationDay.getText()) > 31){
-            error = "dayError";
+        else {
+            // c. 0 < Expiration Day <= 31
+            if  (Integer.parseInt(expirationDay.getText()) <= 0 || Integer.parseInt(expirationDay.getText()) > 31){
+                error = "dayError";
+                setErrorEffect();
+            }
         }
 
         if (!Objects.equals(error, "")) {
@@ -270,28 +286,25 @@ public class AddWindow extends JFrame implements ActionListener {
         switch (error) {
             case "nameError" -> {
                 name.setForeground(Color.red);
-                errorMessage.setText("Error: Name can only contain letters");
+                errorMessage.setText(errorMessage.getText() + "\nError: Name should not be empty");
             }
             case "qtyError" -> {
                 quantity.setForeground(Color.red);
-                errorMessage.setText("Error: Quantity should be a positive integer");
+                errorMessage.setText(errorMessage.getText() + "\nError: Quantity should be a positive integer");
             }
             case "yearError" -> {
                 expirationYear.setForeground(Color.red);
-                errorMessage.setText("Error: Expiration year is limited to 2022 - 2023");
+                errorMessage.setText(errorMessage.getText() + "\nError: Expiration year is limited to 2022 - 2023");
             }
             case "monthError" -> {
                 expirationMonth.setForeground(Color.red);
-                errorMessage.setText("Error: Expiration month is limited to 1 - 12");
+                errorMessage.setText(errorMessage.getText() + "\nError: Expiration month is limited to 1 - 12");
             }
             case "dayError" -> {
                 expirationDay.setForeground(Color.red);
-                errorMessage.setText("Error: Expiration day is limited to 1 - 31");
+                errorMessage.setText(errorMessage.getText() + "\nError: Expiration day is limited to 1 - 31");
             }
         }
-        // Reset error to null
-        error = "";
-        isValidate = true;
     }
 
     private void resetTextColor() {
