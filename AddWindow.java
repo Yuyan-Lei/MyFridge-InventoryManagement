@@ -46,10 +46,10 @@ public class AddWindow extends JFrame implements ActionListener {
         errorMessagePanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(errorMessagePanel);
 
+        //Center add info - name
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel nameLabel = new JLabel("Name:");
-
         ImageIcon nameIcon = new ImageIcon("./itemIcons/url.png");
         Image nameImg = nameIcon.getImage();
         Image newImg0 = nameImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -62,51 +62,74 @@ public class AddWindow extends JFrame implements ActionListener {
         name.setBackground(DefaultUI.WHITE_COLOR);
         namePanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(namePanel);
-
+        //Center add info - quantity
         JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
         ImageIcon quantityIcon = new ImageIcon("./itemIcons/quantity.png");
         Image quantityImg = quantityIcon.getImage();
         Image newImg1 = quantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         quantityIcon = new ImageIcon(newImg1);
         JLabel quantityLabel = new JLabel("Quantity:");
         quantityLabel.setIcon(quantityIcon);
-        quantity = new JTextField();
-        quantity.setPreferredSize(new Dimension(50,30));
+
+        JButton addQuantityButton = new JButton();
+        ImageIcon addQuantityIcon = new ImageIcon("./itemIcons/add_zenjia.png");
+        Image addQuantityImg = addQuantityIcon.getImage();
+        Image addImg = addQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        addQuantityIcon = new ImageIcon(addImg);
+        addQuantityButton.setIcon(addQuantityIcon);
+        addQuantityButton.setBorderPainted(false);
+        addQuantityButton.setActionCommand("addOne");
+        addQuantityButton.addActionListener(this);
+
+        JButton minusQuantityButton = new JButton();
+        ImageIcon minusQuantityIcon = new ImageIcon("./itemIcons/add_jianshao.png");
+        Image minusQuantityImg = minusQuantityIcon.getImage();
+        Image minusImg = minusQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        minusQuantityIcon = new ImageIcon(minusImg);
+        minusQuantityButton.setIcon(minusQuantityIcon);
+        minusQuantityButton.setBorderPainted(false);
+        minusQuantityButton.setActionCommand("minusOne");
+        minusQuantityButton.addActionListener(this);
+
+        quantity = new JTextField("1");
+        quantity.setPreferredSize(new Dimension(30,30));
         quantityPanel.add(quantityLabel);
+        quantityPanel.add(addQuantityButton);
         quantityPanel.add(quantity);
+        quantityPanel.add(minusQuantityButton);
+
         quantity.setBackground(DefaultUI.WHITE_COLOR);
         quantityPanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(quantityPanel);
-
-
+        //Center add info - expiration
         JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon expirationIcon = new ImageIcon("./itemIcons/expiration.png");
         Image expirationImg = expirationIcon.getImage();
         Image newImg2 = expirationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         expirationIcon = new ImageIcon(newImg2);
-        JLabel expirationLabel = new JLabel("Expiration Date (yyyy-MM-dd):");
+        JLabel expirationLabel = new JLabel("Expiration (yyyy-MM-dd):");
         expirationLabel.setIcon(expirationIcon);
-        //JLabel dash = new JLabel("-");
-        JPanel expirationDate = new JPanel(new GridLayout(1,5));
-        expirationYear = new JTextField("");
-        expirationYear.setPreferredSize(new Dimension(50,30));
-        expirationMonth = new JTextField("");
-        expirationMonth.setPreferredSize(new Dimension(10,30));
-        expirationDay = new JTextField("");
-        expirationDay.setPreferredSize(new Dimension(10,30));
+        JLabel dash1 = new JLabel("-");
+        JLabel dash2 = new JLabel("-");
+        JPanel expirationDate = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        expirationYear = new JTextField();
+        expirationYear.setPreferredSize(new Dimension(42,30));
+        expirationMonth = new JTextField();
+        expirationMonth.setPreferredSize(new Dimension(25,30));
+        expirationDay = new JTextField();
+        expirationDay.setPreferredSize(new Dimension(25,30));
 
         expirationDate.add(expirationYear);
+        expirationDate.add(dash1);
         expirationDate.add(expirationMonth);
+        expirationDate.add(dash2);
         expirationDate.add(expirationDay);
         expirationPanel.add(expirationLabel);
         expirationPanel.add(expirationDate);
-        expirationDay.setBackground(DefaultUI.WHITE_COLOR);
-        expirationMonth.setBackground(DefaultUI.WHITE_COLOR);
-        expirationYear.setBackground(DefaultUI.WHITE_COLOR);
+        expirationDate.setBackground(DefaultUI.WHITE_COLOR);
         expirationPanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(expirationPanel);
-
+        //Type
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon typeIcon = new ImageIcon("./itemIcons/type.png");
         Image typeImg = typeIcon.getImage();
@@ -120,7 +143,7 @@ public class AddWindow extends JFrame implements ActionListener {
         typePanel.add(typeOption);
         typePanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(typePanel);
-
+        //Location
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
         ImageIcon locationIcon = new ImageIcon("./itemIcons/location.png");
@@ -128,7 +151,6 @@ public class AddWindow extends JFrame implements ActionListener {
         Image newImg4 = locationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         locationIcon = new ImageIcon(newImg4);
         locationLabel.setIcon(locationIcon);
-
         locationOption = new JComboBox(locations);
         typeOption.setSelectedIndex(0);
         locationOption.setPreferredSize(new Dimension(120,30));
@@ -142,7 +164,10 @@ public class AddWindow extends JFrame implements ActionListener {
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(this);
         saveButtonPanel.add(saveButton);
+        saveButton.setBorderPainted(false);
+        saveButton.setOpaque(true);
         saveButton.setBackground(DefaultUI.GREEN_THEME);
+        saveButton.setForeground(DefaultUI.WHITE_COLOR);
         saveButtonPanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(saveButtonPanel);
 
@@ -152,6 +177,22 @@ public class AddWindow extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
+        boolean actionSuccess = false;
+        if (actionCommand.equals("addOne")){
+            int number = Integer.parseInt(quantity.getText())+1;
+            quantity.setText(String.valueOf(number));
+            actionSuccess = true;
+        }
+
+        if (actionCommand.equals("minusOne")){
+            int number = Integer.parseInt(quantity.getText());
+            if (number >0){
+                number = Integer.parseInt(quantity.getText())-1;
+                quantity.setText(String.valueOf(number));
+            }
+            actionSuccess = true;
+        }
+
         if (actionCommand.equals("Save")) {
             // Check Error
             resetTextColor();
@@ -176,10 +217,12 @@ public class AddWindow extends JFrame implements ActionListener {
             else {
                 setErrorEffect();
             }
+            actionSuccess = true;
         }
 
-        else
+        if (!actionSuccess) {
             System.out.println("Unexpected error.");
+        }
     }
 
     private void checkError() {
