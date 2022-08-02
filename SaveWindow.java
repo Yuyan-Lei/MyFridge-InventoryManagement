@@ -7,7 +7,7 @@ import java.text.ParseException;
 public class SaveWindow extends JFrame implements ActionListener {
 
     SaveWindow() throws ParseException {
-        DefaultUI ui = new DefaultUI("Item(s) Saved", this);
+        DefaultUI ui = new DefaultUI("Item Saved", this);
         setVisible(true);
 
         // 2. Bottom Bar
@@ -66,8 +66,10 @@ public class SaveWindow extends JFrame implements ActionListener {
         add(buttonPanel, BorderLayout.SOUTH);
 
         //Central body
+        JPanel savePanel = new JPanel(new GridBagLayout());
         JLabel message = new JLabel();
-        add(message,BorderLayout.CENTER);
+        savePanel.add(message);
+        add(savePanel,BorderLayout.CENTER);
         ImageIcon saveIcon = new ImageIcon("./icons/saved.png");
         Image saveImg = saveIcon.getImage();
         saveIcon = new ImageIcon(saveImg);

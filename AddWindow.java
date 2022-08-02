@@ -113,11 +113,11 @@ public class AddWindow extends JFrame implements ActionListener {
         JLabel dash2 = new JLabel("-");
         JPanel expirationDate = new JPanel(new FlowLayout(FlowLayout.LEFT));
         expirationYear = new JTextField();
-        expirationYear.setPreferredSize(new Dimension(42,30));
+        expirationYear.setPreferredSize(new Dimension(43,30));
         expirationMonth = new JTextField();
-        expirationMonth.setPreferredSize(new Dimension(25,30));
+        expirationMonth.setPreferredSize(new Dimension(27,30));
         expirationDay = new JTextField();
-        expirationDay.setPreferredSize(new Dimension(25,30));
+        expirationDay.setPreferredSize(new Dimension(27,30));
 
         expirationDate.add(expirationYear);
         expirationDate.add(dash1);
