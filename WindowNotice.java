@@ -33,6 +33,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
         // 3-1 Low Stock Panel
         JPanel lowStock = new JPanel(new BorderLayout());
+
         // show title
         panelName = "Low Stock";
         JLabel titleLow = new JLabel(panelName);
@@ -41,6 +42,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
         lowStock.setBackground(DefaultUI.MAIN_BACKGROUND);
         lowStock.add(titleLow, BorderLayout.NORTH);
         lowStock.setBorder(BorderFactory.createLineBorder(DefaultUI.GREEN_THEME));
+
         // get items' list
         Stock newStock = new Stock();
         lowStockList = newStock.getLowStockItems(Stock.StockType.ALL);
@@ -164,7 +166,11 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
             for (int i = 0; i < sizeOfListItems; i++) {
                 String itemNum = String.valueOf(list.get(i).getQuantity());
-                String itemDate = String.valueOf(list.get(i).getDays());
+                int date = list.get(i).getDays();
+                if(p==2){
+                    date += 1;
+                }
+                String itemDate = String.valueOf(date);
                 itemName = list.get(i).getName();
 
                 //whole expired / expiring panel
