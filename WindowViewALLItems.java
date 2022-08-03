@@ -18,7 +18,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
 
         // Center Items
         Stock stock = new Stock();
-        showinglist = stock.getSpecificItems(type);
+        showinglist = stock.getItems(type);
         int size = showinglist.size();
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(12, 1));

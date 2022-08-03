@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Stock {
     private Date todayDate;
     private ArrayList<FoodItem> stockList;
-    public enum StockType {ALL, FROZEN,REFRIGERATED, VEGETABLE, MEAT, FRUIT, DRINK, OTHER}
+    public enum StockType {ALL,FROZEN,REFRIGERATED, VEGETABLE, MEAT, FRUIT, DRINK, OTHER}
 
     public Stock() {
         todayDate = new Date();
@@ -116,14 +116,8 @@ public class Stock {
         saveStockList();
     }
 
-
-    // View 1: Show all the items in a list
-    public ArrayList<FoodItem> getAllItems() {
-        return stockList;
-    }
-
-    // View 2 : Show specific types of items in a list
-    public ArrayList<FoodItem> getSpecificItems(StockType stockType) {
+    // View 1 : Show specific types of items in a list
+    public ArrayList<FoodItem> getItems(StockType stockType) {
         ArrayList<FoodItem> showingList;
         if (stockType == StockType.ALL) {
             showingList = stockList;
@@ -137,11 +131,10 @@ public class Stock {
         return showingList;
     }
 
-    // View 3: Show items that have already been expired in a list
-    public ArrayList<FoodItem> getExpiredItems(StockType stockType) {
+    // View 2: Show items that have already been expired in a list
+    public ArrayList<FoodItem> getExpiredItems() {
         ArrayList<FoodItem> expiredItems = new ArrayList<FoodItem>();
-        ArrayList<FoodItem> lookUpList = getSpecificItems(stockType);
-        for (FoodItem item : lookUpList)  {
+        for (FoodItem item : stockList)  {
             if (item.getExpiration().before(todayDate)) {
                 expiredItems.add(item);
             }
@@ -149,11 +142,10 @@ public class Stock {
         return expiredItems;
     }
 
-    // View 4: Show items that are going to be expired in 3 days
-    public ArrayList<FoodItem> getAlmostExpiredItems(StockType stockType) throws ParseException {
+    // View 3: Show items that are going to be expired in 3 days
+    public ArrayList<FoodItem> getAlmostExpiredItems() {
         ArrayList<FoodItem> almostExpiredItems = new ArrayList<FoodItem>();
-        ArrayList<FoodItem> lookUpList = getSpecificItems(stockType);
-        for (FoodItem item : lookUpList) {
+        for (FoodItem item : stockList) {
             // get the number of days between today and the expiration date
             long daysBetween = TimeUnit.DAYS.convert(item.getExpiration().getTime() - todayDate.getTime(), TimeUnit.MILLISECONDS);
             if (item.getExpiration().after(todayDate) && daysBetween <= 3) {
@@ -163,11 +155,10 @@ public class Stock {
         return almostExpiredItems;
     }
 
-    // View 5: Low stock
-    public ArrayList<FoodItem> getLowStockItems(StockType stockType){
+    // View 4: Show items that are of low stock
+    public ArrayList<FoodItem> getLowStockItems(){
         ArrayList<FoodItem> lowStockItems = new ArrayList<FoodItem>();
-        ArrayList<FoodItem> lookUpList = getSpecificItems(stockType);
-        for (FoodItem item : lookUpList) {
+        for (FoodItem item : stockList) {
             if (item.getQuantity() <= 3) {
                 lowStockItems.add(item);
             }
@@ -195,6 +186,7 @@ public class Stock {
         }
         return itemsByLocation;
     }
+
 
     // For recipe usage
     public ArrayList<String> getIngredientList() {

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.jar.JarEntry;
 
 public class StockWindow extends JFrame implements ActionListener {
 
@@ -15,14 +14,14 @@ public class StockWindow extends JFrame implements ActionListener {
 
         // Center stock info
         Stock newStock = new Stock();
-        ArrayList<FoodItem> itemList = newStock.getAllItems();
-        ArrayList<FoodItem> fruitList = newStock.getSpecificItems(Stock.StockType.FRUIT);
-        ArrayList<FoodItem> vegetableList = newStock.getSpecificItems(Stock.StockType.VEGETABLE);
-        ArrayList<FoodItem> drinkList = newStock.getSpecificItems(Stock.StockType.DRINK);
-        ArrayList<FoodItem> meatList = newStock.getSpecificItems(Stock.StockType.MEAT);
-        ArrayList<FoodItem> otherList = newStock.getSpecificItems(Stock.StockType.OTHER);
-        ArrayList<FoodItem> frozenList = newStock.getSpecificItems(Stock.StockType.FROZEN);
-        ArrayList<FoodItem> refrigeratedList = newStock.getSpecificItems(Stock.StockType.REFRIGERATED);
+        ArrayList<FoodItem> itemList = newStock.getItems(Stock.StockType.ALL);
+        ArrayList<FoodItem> fruitList = newStock.getItems(Stock.StockType.FRUIT);
+        ArrayList<FoodItem> vegetableList = newStock.getItems(Stock.StockType.VEGETABLE);
+        ArrayList<FoodItem> drinkList = newStock.getItems(Stock.StockType.DRINK);
+        ArrayList<FoodItem> meatList = newStock.getItems(Stock.StockType.MEAT);
+        ArrayList<FoodItem> otherList = newStock.getItems(Stock.StockType.OTHER);
+        ArrayList<FoodItem> frozenList = newStock.getItems(Stock.StockType.FROZEN);
+        ArrayList<FoodItem> refrigeratedList = newStock.getItems(Stock.StockType.REFRIGERATED);
         int sizeOfAllItems = itemList.size();
         int sizeOfFruit = fruitList.size();
         int sizeOfVegetable = vegetableList.size();

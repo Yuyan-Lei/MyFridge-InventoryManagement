@@ -45,7 +45,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
 
         // get items' list
         Stock newStock = new Stock();
-        lowStockList = newStock.getLowStockItems(Stock.StockType.ALL);
+        lowStockList = newStock.getLowStockItems();
         int sizeOfLowStockItems = lowStockList.size();
 
         lowStock.setLayout(new GridLayout(sizeOfLowStockItems + 1, 1));
@@ -123,19 +123,19 @@ public class WindowNotice extends JFrame implements ActionListener  {
         for (int p=1; p<3; p++) {
             // separate two cases
             String word = "";
-            ArrayList<FoodItem> list = newStock.getExpiredItems(Stock.StockType.ALL);
+            ArrayList<FoodItem> list = newStock.getExpiredItems();
             // Expired panel
             if (p == 1) {
                 panelName = "Expired";
                 word = "       Expired  ";
-                expiredList = newStock.getExpiredItems(Stock.StockType.ALL);
+                expiredList = newStock.getExpiredItems();
                 list = expiredList;
             }
             // Expiring panel
             else {
                 panelName = "Expiring";
                 word = "    Expiring in  ";
-                expiringList = newStock.getAlmostExpiredItems(Stock.StockType.ALL);
+                expiringList = newStock.getAlmostExpiredItems();
                 list = expiringList;
             }
 
@@ -281,7 +281,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
             FoodItem viewItem = showinglist.get(viewNum);
 
             setVisible(false);
-            WindowItemDetails window = null;
+            WindowItemDetails window;
             try {
                 window = new WindowItemDetails(viewItem);
             } catch (ParseException ex) {
