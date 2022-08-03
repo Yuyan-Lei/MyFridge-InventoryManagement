@@ -286,23 +286,23 @@ public class AddWindow extends JFrame implements ActionListener {
         switch (error) {
             case "nameError" -> {
                 name.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Name should not be empty");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Name should not be empty<br>");
             }
             case "qtyError" -> {
                 quantity.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Quantity should be a positive integer");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Quantity should be a positive integer<br>");
             }
             case "yearError" -> {
                 expirationYear.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Expiration year is limited to 2022 - 2023");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration year is limited to 2022 - 2023<br>");
             }
             case "monthError" -> {
                 expirationMonth.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Expiration month is limited to 1 - 12");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration month is limited to 1 - 12<br>");
             }
             case "dayError" -> {
                 expirationDay.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Expiration day is limited to 1 - 31");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration day is limited to 1 - 31");
             }
         }
     }
