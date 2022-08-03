@@ -10,68 +10,15 @@ public class SaveWindow extends JFrame implements ActionListener {
         DefaultUI ui = new DefaultUI("Item Saved", this);
         setVisible(true);
 
-        // 2. Bottom Bar
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1,4));
-        buttonPanel.setBackground(DefaultUI.MENU_BACKGROUND);
-
-        ImageIcon addIcon = new ImageIcon("./icons/add.png");
-        Image img = addIcon.getImage();
-        Image newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
-        addIcon = new ImageIcon(newImg);
-        JButton addButton = new JButton(addIcon);
-        addButton.setActionCommand("add");
-        addButton.setBackground(DefaultUI.MENU_BACKGROUND);
-        addButton.setOpaque(true);
-        addButton.setBorderPainted(false);
-        addButton.addActionListener(this);
-        buttonPanel.add(addButton);
-
-        ImageIcon notificationIcon = new ImageIcon("./icons/expired.png");
-        img = notificationIcon.getImage();
-        newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
-        notificationIcon = new ImageIcon(newImg);
-        JButton notificationButton = new JButton(notificationIcon);
-        notificationButton.setActionCommand("notification");
-        notificationButton.setBackground(DefaultUI.MENU_BACKGROUND);
-        notificationButton.setOpaque(true);
-        notificationButton.setBorderPainted(false);
-        notificationButton.addActionListener(this);
-        buttonPanel.add(notificationButton);
-
-        ImageIcon viewIcon = new ImageIcon("./icons/stock.png");
-        img = viewIcon.getImage();
-        newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
-        viewIcon = new ImageIcon(newImg);
-        JButton viewButton = new JButton(viewIcon);
-        viewButton.setActionCommand("stock");
-        viewButton.setBackground(DefaultUI.MENU_BACKGROUND);
-        viewButton.setOpaque(true);
-        viewButton.setBorderPainted(false);
-        viewButton.addActionListener(this);
-        buttonPanel.add(viewButton);
-
-        ImageIcon recipeIcon = new ImageIcon("./icons/recipe_g.png");
-        img = recipeIcon.getImage();
-        newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
-        recipeIcon = new ImageIcon(newImg);
-        JButton recipeButton = new JButton(recipeIcon);
-        recipeButton.setActionCommand("recipe");
-        recipeButton.setBackground(DefaultUI.MENU_BACKGROUND);
-        recipeButton.setOpaque(true);
-        recipeButton.setBorderPainted(false);
-        recipeButton.addActionListener(this);
-        buttonPanel.add(recipeButton);
-
-        add(buttonPanel, BorderLayout.SOUTH);
-
-        //Central body
+        //Central body - saveIcon
         JPanel savePanel = new JPanel(new GridBagLayout());
+        savePanel.setBackground(DefaultUI.WHITE_COLOR);
         JLabel message = new JLabel();
         savePanel.add(message);
         add(savePanel,BorderLayout.CENTER);
         ImageIcon saveIcon = new ImageIcon("./icons/saved.png");
         Image saveImg = saveIcon.getImage();
+        saveImg = saveImg.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         saveIcon = new ImageIcon(saveImg);
         message.setIcon(saveIcon);
     }

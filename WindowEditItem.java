@@ -104,9 +104,9 @@ public class WindowEditItem extends JFrame implements ActionListener {
         quantity = new JTextField(String.valueOf(theQuantity));
         quantity.setPreferredSize(new Dimension(30, 30));
         quantityPanel.add(quantityLabel);
-        quantityPanel.add(addQuantityButton);
-        quantityPanel.add(quantity);
         quantityPanel.add(minusQuantityButton);
+        quantityPanel.add(quantity);
+        quantityPanel.add(addQuantityButton);
 
         quantity.setBackground(DefaultUI.WHITE_COLOR);
         quantityPanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -203,7 +203,7 @@ public class WindowEditItem extends JFrame implements ActionListener {
 
         if (actionCommand.equals("minusOne")){
             int number = Integer.parseInt(quantity.getText());
-            if (number >0){
+            if (number >1){
                 number = Integer.parseInt(quantity.getText())-1;
                 quantity.setText(String.valueOf(number));
             }
@@ -258,7 +258,7 @@ public class WindowEditItem extends JFrame implements ActionListener {
             }
             case "yearError" -> {
                 expirationYear.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Expiration year is limited to 2022 - 2023");
+                errorMessage.setText(errorMessage.getText() + "\nError: Expiration year is limited to 2022 - 2032");
                 break;
             }
             case "monthError" -> {
