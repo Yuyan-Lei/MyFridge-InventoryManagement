@@ -22,7 +22,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
     private String panelName;
     private ActionEvent e;
     public NoticeWindow() throws ParseException {
-        DefaultUI ui = new DefaultUI("Notice", this);
+        new DefaultUI("Notice", this);
         setVisible(true);
 
         // Center stock info
@@ -30,7 +30,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
         infoPanel.setLayout(new GridLayout(3,1));
 
         // remove icon
-        ImageIcon newIcon = new ImageIcon("./icons/delete_g.png");
+        ImageIcon newIcon = new ImageIcon("icons/basicIcons/delete_g.png");
         Image img = newIcon.getImage();
         Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         ImageIcon removeIcon = new ImageIcon(newImg);

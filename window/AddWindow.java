@@ -1,7 +1,5 @@
 package window;
 
-import window.SaveWindow;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,7 +34,7 @@ public class AddWindow extends JFrame implements ActionListener {
 
     Boolean isValidate = true;
     AddWindow() throws ParseException {
-        DefaultUI ui = new DefaultUI("Add Items", this);
+        new DefaultUI("Add Items", this);
         setVisible(true);
 
         // Center add info
@@ -56,7 +54,7 @@ public class AddWindow extends JFrame implements ActionListener {
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel nameLabel = new JLabel("Name:");
-        ImageIcon nameIcon = new ImageIcon("./itemIcons/url.png");
+        ImageIcon nameIcon = new ImageIcon("./icons/itemIcons/url.png");
         Image nameImg = nameIcon.getImage();
         Image newImg0 = nameImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         nameIcon = new ImageIcon(newImg0);
@@ -70,7 +68,7 @@ public class AddWindow extends JFrame implements ActionListener {
         addInfoPanel.add(namePanel);
         //Center add info - quantity
         JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ImageIcon quantityIcon = new ImageIcon("./itemIcons/quantity.png");
+        ImageIcon quantityIcon = new ImageIcon("./icons/itemIcons/quantity.png");
         Image quantityImg = quantityIcon.getImage();
         Image newImg1 = quantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         quantityIcon = new ImageIcon(newImg1);
@@ -78,7 +76,7 @@ public class AddWindow extends JFrame implements ActionListener {
         quantityLabel.setIcon(quantityIcon);
 
         JButton addQuantityButton = new JButton();
-        ImageIcon addQuantityIcon = new ImageIcon("./itemIcons/add_zenjia.png");
+        ImageIcon addQuantityIcon = new ImageIcon("./icons/itemIcons/add_zenjia.png");
         Image addQuantityImg = addQuantityIcon.getImage();
         Image addImg = addQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         addQuantityIcon = new ImageIcon(addImg);
@@ -88,7 +86,7 @@ public class AddWindow extends JFrame implements ActionListener {
         addQuantityButton.addActionListener(this);
 
         JButton minusQuantityButton = new JButton();
-        ImageIcon minusQuantityIcon = new ImageIcon("./itemIcons/add_jianshao.png");
+        ImageIcon minusQuantityIcon = new ImageIcon("./icons/itemIcons/add_jianshao.png");
         Image minusQuantityImg = minusQuantityIcon.getImage();
         Image minusImg = minusQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         minusQuantityIcon = new ImageIcon(minusImg);
@@ -109,7 +107,7 @@ public class AddWindow extends JFrame implements ActionListener {
         addInfoPanel.add(quantityPanel);
         //Center add info - expiration
         JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ImageIcon expirationIcon = new ImageIcon("./itemIcons/expiration.png");
+        ImageIcon expirationIcon = new ImageIcon("./icons/itemIcons/expiration.png");
         Image expirationImg = expirationIcon.getImage();
         Image newImg2 = expirationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         expirationIcon = new ImageIcon(newImg2);
@@ -137,7 +135,7 @@ public class AddWindow extends JFrame implements ActionListener {
         addInfoPanel.add(expirationPanel);
         //Type
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ImageIcon typeIcon = new ImageIcon("./itemIcons/type.png");
+        ImageIcon typeIcon = new ImageIcon("./icons/itemIcons/type.png");
         Image typeImg = typeIcon.getImage();
         Image newImg3 = typeImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         typeIcon = new ImageIcon(newImg3);
@@ -152,7 +150,7 @@ public class AddWindow extends JFrame implements ActionListener {
         //Location
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
-        ImageIcon locationIcon = new ImageIcon("./itemIcons/location.png");
+        ImageIcon locationIcon = new ImageIcon("./icons/itemIcons/location.png");
         Image locationImg = locationIcon.getImage();
         Image newImg4 = locationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         locationIcon = new ImageIcon(newImg4);

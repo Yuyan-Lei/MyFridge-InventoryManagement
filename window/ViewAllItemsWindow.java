@@ -18,7 +18,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
 
     public ViewAllItemsWindow(Stock.StockType type) throws ParseException {
         inputType = type;
-        DefaultUI ui = new DefaultUI("model.Stock", this);
+        new DefaultUI("Stock", this);
         setVisible(true);
 
         // Center Items
@@ -43,7 +43,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             rightSide.setBackground(DefaultUI.WHITE_COLOR);
 
             // a. remove
-            ImageIcon newIcon = new ImageIcon("./icons/delete_g.png");
+            ImageIcon newIcon = new ImageIcon("icons/basicIcons/delete_g.png");
             Image img = newIcon.getImage();
             Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             ImageIcon removeIcon = new ImageIcon(newImg);
@@ -59,7 +59,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
 
             // b. Icon
             String picType = displayList.get(i).getType().toString().toLowerCase();
-            newIcon = new ImageIcon("./stockIcons/subPanel_" + picType + ".png");
+            newIcon = new ImageIcon("./icons/stockIcons/subPanel_" + picType + ".png");
             img = newIcon.getImage();
             newImg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             ImageIcon typeIcon = new ImageIcon(newImg);
@@ -92,7 +92,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             middle2.add(expirationLabel);
 
             // f. Edit
-            newIcon = new ImageIcon("./icons/edit_g.png");
+            newIcon = new ImageIcon("icons/basicIcons/edit_g.png");
             img = newIcon.getImage();
             newImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             ImageIcon editIcon = new ImageIcon(newImg);

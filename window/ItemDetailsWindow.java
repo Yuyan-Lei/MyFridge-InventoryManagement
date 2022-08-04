@@ -20,12 +20,12 @@ import model.FoodItem;
 
 
 public class ItemDetailsWindow extends JFrame implements ActionListener {
-    private String urlWholeFoods;
-    private String urlAmazonFresh;
+    private final String urlWholeFoods;
+    private final String urlAmazonFresh;
     FoodItem theItem;
 
     ItemDetailsWindow(FoodItem foodToView) throws ParseException {
-        DefaultUI ui = new DefaultUI("Item Details", this);
+        new DefaultUI("Item Details", this);
         setVisible(true);
         theItem = foodToView;
 
@@ -54,7 +54,7 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
         centerPanel.add(nameLabel);
 
         // b. Other information - Center
-        subPanel(centerPanel, " Quantity", "quantity", String.valueOf(foodToView.getQuantity()) + " items");
+        subPanel(centerPanel, " Quantity", "quantity", foodToView.getQuantity() + " items");
         subPanel(centerPanel, " Expiration", "expiration", foodToView.getExpirationToString());
         subPanel(centerPanel, " Type", "type", foodToView.getTypeToString());
         subPanel(centerPanel, " Location", "location", foodToView.getLocationToString());
@@ -86,7 +86,7 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
         titlePanel.setBackground(DefaultUI.WHITE_COLOR);
 
         // a. Add icon
-        ImageIcon newIcon = new ImageIcon("./itemIcons/" + iconPath +".png");
+        ImageIcon newIcon = new ImageIcon("./icons/itemIcons/" + iconPath +".png");
         Image img = newIcon.getImage();
         Image newImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         newIcon = new ImageIcon(newImg);
@@ -173,7 +173,7 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("Edit")) {
             setVisible(false);
-            EditItemWindow newWindow = null;
+            EditItemWindow newWindow;
             try {
                 newWindow = new EditItemWindow(theItem);
             } catch (ParseException ex) {

@@ -13,7 +13,7 @@ import model.Stock;
 public class StockWindow extends JFrame implements ActionListener {
 
     StockWindow() throws ParseException {
-        DefaultUI ui = new DefaultUI("Stock", this);
+        new DefaultUI("Stock", this);
         setVisible(true);
 
         // Center stock info
@@ -73,7 +73,7 @@ public class StockWindow extends JFrame implements ActionListener {
     }
 
     public void buildBottomIcon(JPanel buttonPanel, String iconPath, String command) {
-        ImageIcon addIcon = new ImageIcon("./icons/" + iconPath + ".png");
+        ImageIcon addIcon = new ImageIcon("./icons/basicIcons" + iconPath + ".png");
         Image img = addIcon.getImage();
         Image newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
         addIcon = new ImageIcon(newImg);
@@ -92,7 +92,7 @@ public class StockWindow extends JFrame implements ActionListener {
         subPanel.setLayout(new GridLayout(1,5));
         subPanel.setBackground(DefaultUI.WHITE_COLOR);
         subgroupPanel.setPreferredSize(new Dimension(100,500));
-        ImageIcon fridgeIcon = new ImageIcon("./stockIcons/subPanel_" + name.toLowerCase() +".png");
+        ImageIcon fridgeIcon = new ImageIcon("./icons/stockIcons/subPanel_" + name.toLowerCase() +".png");
         Image img = fridgeIcon.getImage();
         Image newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
         fridgeIcon = new ImageIcon(newImg);
@@ -122,7 +122,7 @@ public class StockWindow extends JFrame implements ActionListener {
         subPanel.add(fridgeNumPanel); //add items num
 
         // Build an Open Button
-        ImageIcon openIcon = new ImageIcon("./stockIcons/open.png");
+        ImageIcon openIcon = new ImageIcon("./icons/stockIcons/open.png");
         img = openIcon.getImage();
         newImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         openIcon = new ImageIcon(newImg);

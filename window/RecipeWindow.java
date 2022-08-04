@@ -15,7 +15,7 @@ public class RecipeWindow extends JFrame implements ActionListener {
     private ArrayList<RecipeItem> recipeList;
 
     RecipeWindow() throws ParseException {
-        DefaultUI ui = new DefaultUI("Recipes", this);
+        new DefaultUI("Recipes", this);
         setVisible(true);
 
         // Center Items
@@ -58,7 +58,7 @@ public class RecipeWindow extends JFrame implements ActionListener {
 
             // Open Button
             // Build an Open Button
-            ImageIcon openIcon = new ImageIcon("./stockIcons/open.png");
+            ImageIcon openIcon = new ImageIcon("./icons/stockIcons/open.png");
             Image img = openIcon.getImage();
             Image newImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             openIcon = new ImageIcon(newImg);
@@ -72,7 +72,7 @@ public class RecipeWindow extends JFrame implements ActionListener {
             openButton.setFocusPainted(false);
 
             // Recipe Icon
-            ImageIcon leftIcon = new ImageIcon("./icons/recipe_list.png");
+            ImageIcon leftIcon = new ImageIcon("icons/basicIcons/recipe_list.png");
             img = leftIcon.getImage();
             newImg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             leftIcon = new ImageIcon(newImg);

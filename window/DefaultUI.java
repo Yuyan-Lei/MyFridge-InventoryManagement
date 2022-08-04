@@ -83,7 +83,7 @@ public class DefaultUI implements ActionListener {
         else if(getPanelName().equals("Recipes") && iconPath.equals("recipe")){
             iconPath = "recipe_g";
         }
-        ImageIcon addIcon = new ImageIcon("./icons/" + iconPath + ".png");
+        ImageIcon addIcon = new ImageIcon("./icons/basicIcons/" + iconPath + ".png");
         Image img = addIcon.getImage();
         Image newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
         addIcon = new ImageIcon(newImg);

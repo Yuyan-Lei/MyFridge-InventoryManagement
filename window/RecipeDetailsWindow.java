@@ -12,7 +12,7 @@ import model.RecipeItem;
 
 public class RecipeDetailsWindow extends JFrame{
     RecipeDetailsWindow(RecipeItem recipeToOpen) throws ParseException {
-        DefaultUI ui = new DefaultUI("Recipes", this);
+        new DefaultUI("Recipes", this);
         setVisible(true);
 
         // Center Items
@@ -62,7 +62,7 @@ public class RecipeDetailsWindow extends JFrame{
         titlePanel.setBackground(DefaultUI.WHITE_COLOR);
 
         // a. Add icon
-        ImageIcon newIcon = new ImageIcon("./recipeIcons/" + iconPath +".png");
+        ImageIcon newIcon = new ImageIcon("./icons/recipeIcons/" + iconPath +".png");
         Image img = newIcon.getImage();
         Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         newIcon = new ImageIcon(newImg);
