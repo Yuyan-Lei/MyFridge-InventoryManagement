@@ -24,7 +24,7 @@ public class Stock {
 
         // Read from the txt file
         try{
-            BufferedReader br = new BufferedReader(new FileReader("DatabaseOfStock.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("database/DatabaseOfStock.txt"));
             String s;
             while((s = br.readLine()) != null) {
                 String name;
@@ -58,7 +58,7 @@ public class Stock {
     private void saveStockList() throws IOException {
         FileWriter fw;
         try {
-            fw = new FileWriter("DatabaseOfStock.txt", false);
+            fw = new FileWriter("database/DatabaseOfStock.txt", false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -82,7 +82,7 @@ public class Stock {
         String text = newItem.toString();
         FileWriter fw;
         try {
-            fw = new FileWriter("DatabaseOfStock.txt", true);
+            fw = new FileWriter("database/DatabaseOfStock.txt", true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

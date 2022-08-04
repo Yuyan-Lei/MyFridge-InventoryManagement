@@ -2,7 +2,6 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -20,7 +19,7 @@ public class RecipeDatabase {
 
         // Read from the txt file
         try {
-            BufferedReader br = new BufferedReader(new FileReader("DatabaseOfRecipes.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("database/DatabaseOfRecipes.txt"));
             String s;
             StringBuilder recipeDetail = new StringBuilder();
             String name;
