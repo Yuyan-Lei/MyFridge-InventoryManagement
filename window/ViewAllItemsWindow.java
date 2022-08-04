@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,14 +8,17 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class WindowViewALLItems extends JFrame implements ActionListener {
+import model.Stock;
+import model.FoodItem;
+
+public class ViewAllItemsWindow extends JFrame implements ActionListener {
     private Stock.StockType inputType;
     private ArrayList<FoodItem> showinglist;
     private ActionEvent e;
 
-    public WindowViewALLItems(Stock.StockType type) throws ParseException {
+    public ViewAllItemsWindow(Stock.StockType type) throws ParseException {
         inputType = type;
-        DefaultUI ui = new DefaultUI("Stock", this);
+        DefaultUI ui = new DefaultUI("model.Stock", this);
         setVisible(true);
 
         // Center Items
@@ -49,6 +54,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             removeButton.setBorderPainted(false);
             removeButton.addActionListener(this);
             removeButton.setBackground(DefaultUI.WHITE_COLOR);
+            removeButton.setFocusPainted(false);
             left.add(removeButton);
 
             // b. Icon
@@ -61,6 +67,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             typeButton.setOpaque(true);
             typeButton.setBorderPainted(false);
             typeButton.setBackground(DefaultUI.WHITE_COLOR);
+            typeButton.setFocusPainted(false);
             left.add(typeButton);
 
             // c. Name
@@ -71,6 +78,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             nameButton.setBorderPainted(false);
             nameButton.addActionListener(this);
             nameButton.setBackground(DefaultUI.WHITE_COLOR);
+            nameButton.setFocusPainted(false);
             middle1.add(nameButton);
 
             // d. Quantity
@@ -95,6 +103,7 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             editButton.setBorderPainted(false);
             editButton.addActionListener(this);
             editButton.setBackground(DefaultUI.WHITE_COLOR);
+            editButton.setFocusPainted(false);
             rightSide.add(editButton);
 
             itemPanel.add(left, BorderLayout.WEST);
@@ -120,9 +129,9 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             }
 
             setVisible(false);
-            WindowViewALLItems window = null;
+            ViewAllItemsWindow window = null;
             try {
-                window = new WindowViewALLItems(inputType);
+                window = new ViewAllItemsWindow(inputType);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -133,9 +142,9 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             FoodItem editItem = showinglist.get(editNum);
 
             setVisible(false);
-            WindowEditItem window = null;
+            EditItemWindow window = null;
             try {
-                window = new WindowEditItem(editItem);
+                window = new EditItemWindow(editItem);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -146,9 +155,9 @@ public class WindowViewALLItems extends JFrame implements ActionListener {
             FoodItem viewItem = showinglist.get(viewNum);
 
             setVisible(false);
-            WindowItemDetails window = null;
+            ItemDetailsWindow window = null;
             try {
-                window = new WindowItemDetails(viewItem);
+                window = new ItemDetailsWindow(viewItem);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }

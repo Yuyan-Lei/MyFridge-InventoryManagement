@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -72,7 +74,7 @@ public class DefaultUI implements ActionListener {
         if(getPanelName().equals("Notice") && iconPath.equals("expired")){
             iconPath = "expired_g";
         }
-        else if(getPanelName().equals("Stock") && iconPath.equals("stock")){
+        else if(getPanelName().equals("model.Stock") && iconPath.equals("stock")){
             iconPath = "stock_g";
         }
         else if(getPanelName().equals("Add Items") && iconPath.equals("add")){
@@ -91,6 +93,7 @@ public class DefaultUI implements ActionListener {
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
+        addButton.setFocusPainted(false);
         buttonPanel.add(addButton);
     }
 
@@ -107,7 +110,7 @@ public class DefaultUI implements ActionListener {
         else if (actionCommand.equals("notice")) {
             frame.setVisible(false);
             try {
-                WindowNotice aNewWindow = new WindowNotice();
+                NoticeWindow aNewWindow = new NoticeWindow();
                 aNewWindow.setVisible(true);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
@@ -116,7 +119,7 @@ public class DefaultUI implements ActionListener {
         else if (actionCommand.equals("recipe")) {
             frame.setVisible(false);
             try {
-                WindowRecipe aNewWindow = new WindowRecipe();
+                RecipeWindow aNewWindow = new RecipeWindow();
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }

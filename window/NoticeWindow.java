@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,11 +7,13 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import model.FoodItem;
+import model.Stock;
 
 /**
  * This GUI is the notice window
  */
-public class WindowNotice extends JFrame implements ActionListener  {
+public class NoticeWindow extends JFrame implements ActionListener  {
     private String itemName;
     private ArrayList<FoodItem> showinglist;
     private ArrayList<FoodItem> lowStockList;
@@ -17,7 +21,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
     private ArrayList<FoodItem> expiringList;
     private String panelName;
     private ActionEvent e;
-    public WindowNotice() throws ParseException {
+    public NoticeWindow() throws ParseException {
         DefaultUI ui = new DefaultUI("Notice", this);
         setVisible(true);
 
@@ -31,7 +35,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
         Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         ImageIcon removeIcon = new ImageIcon(newImg);
 
-        // 3-1 Low Stock Panel
+        // 3-1 Low model.Stock Panel
         JPanel lowStock = new JPanel(new BorderLayout());
 
         // show title
@@ -239,7 +243,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
         String actionCommand = e.getActionCommand();
 
         if (actionCommand.startsWith("Delete")) {
-            if(actionCommand.startsWith("Delete Low Stock")){
+            if(actionCommand.startsWith("Delete Low model.Stock")){
                 showinglist = lowStockList;
             }
             else if (actionCommand.startsWith("Delete Expired")){
@@ -257,9 +261,9 @@ public class WindowNotice extends JFrame implements ActionListener  {
             }
             setVisible(false);
 
-            WindowNotice window = null;
+            NoticeWindow window = null;
             try {
-                window = new WindowNotice();
+                window = new NoticeWindow();
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -267,7 +271,7 @@ public class WindowNotice extends JFrame implements ActionListener  {
         }
 
         else if (actionCommand.startsWith("View")) {
-            if(actionCommand.startsWith("View Low Stock")){
+            if(actionCommand.startsWith("View Low model.Stock")){
                 showinglist = lowStockList;
             }
             else if (actionCommand.startsWith("View Expired")){
@@ -281,9 +285,9 @@ public class WindowNotice extends JFrame implements ActionListener  {
             FoodItem viewItem = showinglist.get(viewNum);
 
             setVisible(false);
-            WindowItemDetails window;
+            ItemDetailsWindow window;
             try {
-                window = new WindowItemDetails(viewItem);
+                window = new ItemDetailsWindow(viewItem);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }

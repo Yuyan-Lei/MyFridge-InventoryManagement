@@ -1,3 +1,5 @@
+package model;
+
 public class RecipeItem {
     private int id;
     private String name;

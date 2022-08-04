@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
+import model.FoodItem;
+import model.Stock;
 
 public class StockWindow extends JFrame implements ActionListener {
 
@@ -79,6 +83,7 @@ public class StockWindow extends JFrame implements ActionListener {
         addButton.setOpaque(true);
         addButton.setBorderPainted(false);
         addButton.addActionListener(this);
+        addButton.setFocusPainted(false);
         buttonPanel.add(addButton);
     }
 
@@ -128,6 +133,7 @@ public class StockWindow extends JFrame implements ActionListener {
         openButton.setBorderPainted(false);
         openButton.addActionListener(this);
         openButton.setBackground(DefaultUI.WHITE_COLOR);
+        openButton.setFocusPainted(false);
         subPanel.add(openButton);
 
         subPanel.setBorder(BorderFactory.createLineBorder(DefaultUI.MENU_BACKGROUND));
@@ -139,9 +145,9 @@ public class StockWindow extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("Fridge")) {
             setVisible(false);
-            WindowViewALLItems window = null;
+            ViewAllItemsWindow window = null;
             try {
-                window = new WindowViewALLItems(Stock.StockType.REFRIGERATED);
+                window = new ViewAllItemsWindow(Stock.StockType.REFRIGERATED);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -149,9 +155,9 @@ public class StockWindow extends JFrame implements ActionListener {
         }
         else if (actionCommand.equals("Freezer")) {
             setVisible(false);
-            WindowViewALLItems window = null;
+            ViewAllItemsWindow window = null;
             try {
-                window = new WindowViewALLItems(Stock.StockType.FROZEN);
+                window = new ViewAllItemsWindow(Stock.StockType.FROZEN);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -160,9 +166,9 @@ public class StockWindow extends JFrame implements ActionListener {
         else if (actionCommand.equals("All") || actionCommand.equals("Fruit") || actionCommand.equals("Meat") || actionCommand.equals("Vegetable")
                 || actionCommand.equals("Other") || actionCommand.equals("Drink")) {
             setVisible(false);
-            WindowViewALLItems window = null;
+            ViewAllItemsWindow window = null;
             try {
-                window = new WindowViewALLItems(Stock.StockType.valueOf(actionCommand.toUpperCase()));
+                window = new ViewAllItemsWindow(Stock.StockType.valueOf(actionCommand.toUpperCase()));
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }

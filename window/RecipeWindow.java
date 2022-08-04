@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -5,11 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
+import model.RecipeItem;
+import model.Stock;
+import model.RecipeDatabase;
 
-public class WindowRecipe extends JFrame implements ActionListener {
+public class RecipeWindow extends JFrame implements ActionListener {
     private ArrayList<RecipeItem> recipeList;
 
-    WindowRecipe() throws ParseException {
+    RecipeWindow() throws ParseException {
         DefaultUI ui = new DefaultUI("Recipes", this);
         setVisible(true);
 
@@ -64,9 +69,10 @@ public class WindowRecipe extends JFrame implements ActionListener {
             openButton.setBorderPainted(false);
             openButton.addActionListener(this);
             openButton.setBackground(DefaultUI.WHITE_COLOR);
+            openButton.setFocusPainted(false);
 
             // Recipe Icon
-            ImageIcon leftIcon = new ImageIcon("icons/recipe_list.png");
+            ImageIcon leftIcon = new ImageIcon("./icons/recipe_list.png");
             img = leftIcon.getImage();
             newImg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             leftIcon = new ImageIcon(newImg);
@@ -89,9 +95,9 @@ public class WindowRecipe extends JFrame implements ActionListener {
         if (actionCommand.startsWith("Recipe")) {
             int recipeNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
             RecipeItem recipeToOpen = recipeList.get(recipeNum);
-            WindowRecipeDetails newWindow = null;
+            RecipeDetailsWindow newWindow = null;
             try {
-                newWindow = new WindowRecipeDetails(recipeToOpen);
+                newWindow = new RecipeDetailsWindow(recipeToOpen);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }

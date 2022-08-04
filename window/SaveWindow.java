@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,6 +23,10 @@ public class SaveWindow extends JFrame implements ActionListener {
         saveImg = saveImg.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         saveIcon = new ImageIcon(saveImg);
         message.setIcon(saveIcon);
+
+//        JLabel savedLabel = new JLabel("Saved!");
+//        savedLabel.setBackground(window.DefaultUI.WHITE_COLOR);
+//        savedLabel.setFont(new Font(24, window.DefaultUI.Font.PLAIN, ));
     }
 
     public void actionPerformed(ActionEvent e){
@@ -36,7 +42,7 @@ public class SaveWindow extends JFrame implements ActionListener {
         else if (actionCommand.equals("notification")) {
             setVisible(false);
             try {
-                WindowNotice aNewWindow = new WindowNotice();
+                NoticeWindow aNewWindow = new NoticeWindow();
                 aNewWindow.setVisible(true);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);

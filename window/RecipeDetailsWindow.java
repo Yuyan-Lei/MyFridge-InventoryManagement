@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
@@ -6,9 +8,10 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.text.ParseException;
+import model.RecipeItem;
 
-public class WindowRecipeDetails extends JFrame{
-    WindowRecipeDetails(RecipeItem recipeToOpen) throws ParseException {
+public class RecipeDetailsWindow extends JFrame{
+    RecipeDetailsWindow(RecipeItem recipeToOpen) throws ParseException {
         DefaultUI ui = new DefaultUI("Recipes", this);
         setVisible(true);
 

@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
@@ -14,14 +16,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.Objects;
+import model.FoodItem;
 
 
-public class WindowItemDetails extends JFrame implements ActionListener {
+public class ItemDetailsWindow extends JFrame implements ActionListener {
     private String urlWholeFoods;
     private String urlAmazonFresh;
     FoodItem theItem;
 
-    WindowItemDetails(FoodItem foodToView) throws ParseException {
+    ItemDetailsWindow(FoodItem foodToView) throws ParseException {
         DefaultUI ui = new DefaultUI("Item Details", this);
         setVisible(true);
         theItem = foodToView;
@@ -164,9 +167,9 @@ public class WindowItemDetails extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("Edit")) {
             setVisible(false);
-            WindowEditItem newWindow = null;
+            EditItemWindow newWindow = null;
             try {
-                newWindow = new WindowEditItem(theItem);
+                newWindow = new EditItemWindow(theItem);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
