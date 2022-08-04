@@ -198,47 +198,46 @@ public class EditItemWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         boolean actionSuccess = false;
-        if (actionCommand.equals("addOne")){
-            int number = Integer.parseInt(quantity.getText())+1;
-            quantity.setText(String.valueOf(number));
-            actionSuccess = true;
-        }
-
-        if (actionCommand.equals("minusOne")){
-            int number = Integer.parseInt(quantity.getText());
-            if (number >1){
-                number = Integer.parseInt(quantity.getText())-1;
+        switch (actionCommand) {
+            case "addOne" -> {
+                int number = Integer.parseInt(quantity.getText()) + 1;
                 quantity.setText(String.valueOf(number));
+                actionSuccess = true;
             }
-            actionSuccess = true;
-        }
-
-        if (actionCommand.equals("Update")) {
-            // Check Error
-            resetTextColor();
-            checkError();
-            // No error situation
-            if(isValidate){
-                try {
-                    Stock newItem = new Stock();
-                    theName = String.valueOf(name.getText());
-                    theQuantity = Integer.parseInt(quantity.getText());
-                    theExpiration = new Date((Integer.parseInt(expirationYear.getText())-1901),(Integer.parseInt(expirationMonth.getText())+11),Integer.parseInt(expirationDay.getText()));
-                    theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
-                    theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
-                    newItem.updateItem(theItem, theName, theQuantity, theExpiration, theType, theLocation);
-                    SaveWindow aNewWindow = new SaveWindow();
-                } catch (ParseException | IOException ex) {
-                    throw new RuntimeException(ex);
+            case "minusOne" -> {
+                int number = Integer.parseInt(quantity.getText());
+                if (number > 1) {
+                    number = Integer.parseInt(quantity.getText()) - 1;
+                    quantity.setText(String.valueOf(number));
                 }
-                setVisible(false);
+                actionSuccess = true;
             }
-            else {
-                // Reset error to null
-                error = "";
-                isValidate = true;
+            case "Update" -> {
+                // Check Error
+                resetTextColor();
+                checkError();
+                // No error situation
+                if (isValidate) {
+                    try {
+                        Stock newItem = new Stock();
+                        theName = String.valueOf(name.getText());
+                        theQuantity = Integer.parseInt(quantity.getText());
+                        theExpiration = new Date((Integer.parseInt(expirationYear.getText()) - 1901), (Integer.parseInt(expirationMonth.getText()) + 11), Integer.parseInt(expirationDay.getText()));
+                        theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
+                        theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
+                        newItem.updateItem(theItem, theName, theQuantity, theExpiration, theType, theLocation);
+                        SaveWindow aNewWindow = new SaveWindow();
+                    } catch (ParseException | IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    setVisible(false);
+                } else {
+                    // Reset error to null
+                    error = "";
+                    isValidate = true;
+                }
+                actionSuccess = true;
             }
-            actionSuccess = true;
         }
 
         if (!actionSuccess) {
@@ -252,27 +251,22 @@ public class EditItemWindow extends JFrame implements ActionListener {
             case "nameError" -> {
                 name.setForeground(Color.red);
                 errorMessage.setText(errorMessage.getText() + "\nError: Name should not be empty");
-                break;
             }
             case "qtyError" -> {
                 quantity.setForeground(Color.red);
                 errorMessage.setText(errorMessage.getText() + "\nError: Quantity should be a positive integer");
-                break;
             }
             case "yearError" -> {
                 expirationYear.setForeground(Color.red);
                 errorMessage.setText(errorMessage.getText() + "\nError: Expiration year is limited to 2022 - 2032");
-                break;
             }
             case "monthError" -> {
                 expirationMonth.setForeground(Color.red);
                 errorMessage.setText(errorMessage.getText() + "\nError: Expiration month is limited to 1 - 12");
-                break;
             }
             case "dayError" -> {
                 expirationDay.setForeground(Color.red);
                 errorMessage.setText(errorMessage.getText() + "\nError: Expiration day is limited to 1 - 31");
-                break;
             }
         }
     }
@@ -284,7 +278,7 @@ public class EditItemWindow extends JFrame implements ActionListener {
             setErrorEffect();
         }
         // 2. Quantity should only contain digits and not be 0.
-        if (!quantity.getText().matches("[0-9]+")) {
+        if (!quantity.getText().matches("\\d+")) {
             error = "qtyError";
             setErrorEffect();
         }
@@ -293,7 +287,7 @@ public class EditItemWindow extends JFrame implements ActionListener {
             setErrorEffect();
         }
         // 3. Expirations should only contain digits
-        if (!expirationYear.getText().matches("[0-9]+")) {
+        if (!expirationYear.getText().matches("\\d+")) {
             error = "yearError";
             setErrorEffect();
         }
@@ -304,7 +298,7 @@ public class EditItemWindow extends JFrame implements ActionListener {
                 setErrorEffect();
             }
         }
-        if (!expirationMonth.getText().matches("[0-9]+")) {
+        if (!expirationMonth.getText().matches("\\d+")) {
             error = "monthError";
             setErrorEffect();
         }
@@ -315,7 +309,7 @@ public class EditItemWindow extends JFrame implements ActionListener {
                 setErrorEffect();
             }
         }
-        if (!expirationDay.getText().matches("[0-9]+")) {
+        if (!expirationDay.getText().matches("\\d+")) {
             error = "dayError";
             setErrorEffect();
         }

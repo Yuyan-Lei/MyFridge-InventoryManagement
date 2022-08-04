@@ -47,36 +47,4 @@ public class RecipeItem {
     public String getCookTime() {
         return cookTime;
     }
-
-    public String ingredientsToString() {
-        StringBuilder sb = new StringBuilder();
-        for (String item : ingredient) {
-            sb.append(item).append(", ");
-        }
-        sb.setLength(sb.length() - 2);
-
-        return sb.toString();
-    }
-
-    public String detailsOfIngredientToString() {
-        StringBuilder sb = new StringBuilder();
-        String[] s = detailsOfIngredient.split("; ", 0);
-        for (String item : s) {
-            sb.append(item).append("\n");
-        }
-        sb.setLength(sb.length() - 1);
-        return sb.toString();
-    }
-
-    @Override
-    public String toString() {
-        return "***Recipe***\n" +
-                name + "///\n" +
-                ingredientsToString() + "///\n"+
-                detailsOfIngredient + "///\n" +
-                method + "///\n" +
-                serving + "///\n" +
-                cookTime + "///\n" +
-                "******" + "\n";
-    }
 }

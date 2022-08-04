@@ -34,8 +34,9 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(DefaultUI.WHITE_COLOR);
 
-        // a. Recipe name - top
+        // a. Item name - top
         JTextPane nameLabel = new JTextPane();
+        nameLabel.setEditable(false);
         nameLabel.setMargin(new Insets(25, 15, 0, 15));
         StyledDocument nameDoc = nameLabel.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
@@ -95,6 +96,7 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
 
         // b. Add Title
         JTextArea nameLabel = new JTextArea(title);
+        nameLabel.setEditable(false);
         nameLabel.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, 13));
         nameLabel.setForeground(DefaultUI.GREEN_THEME);
         nameLabel.setBackground(DefaultUI.WHITE_COLOR);
@@ -109,10 +111,13 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
         // Hyperlink
         else {
             JPanel newPanel = new JPanel();
+            newPanel.setEnabled(false);
             newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.Y_AXIS));
             newPanel.setBackground(Color.WHITE);
             JTextPane wholefoodsLink = addLink(urlWholeFoods);
+            wholefoodsLink.setEditable(false);
             JTextPane amazonLink = addLink(urlAmazonFresh);
+            amazonLink.setEditable(false);
             newPanel.add(addJPane("1. Order on Whole Foods: "));
             newPanel.add(wholefoodsLink);
             newPanel.add(addJPane("2. Order on Amazon Fresh:"));
@@ -127,6 +132,7 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
     private JTextPane addJPane(String text) {
         JTextPane textPane = new JTextPane();
         textPane.setMargin(new Insets(10, 34, 0, 15));
+        textPane.setEditable(false);
         StyledDocument textDoc = textPane.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);

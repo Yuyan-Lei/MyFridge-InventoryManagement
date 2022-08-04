@@ -99,41 +99,42 @@ public class DefaultUI implements ActionListener {
 
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
-        if (actionCommand.equals("add")) {
-            frame.setVisible(false);
-            try {
-                AddWindow aNewWindow = new AddWindow();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
+        switch (actionCommand) {
+            case "add" -> {
+                frame.setVisible(false);
+                try {
+                    AddWindow aNewWindow = new AddWindow();
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        }
-        else if (actionCommand.equals("notice")) {
-            frame.setVisible(false);
-            try {
-                NoticeWindow aNewWindow = new NoticeWindow();
-                aNewWindow.setVisible(true);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
+            case "notice" -> {
+                frame.setVisible(false);
+                try {
+                    NoticeWindow aNewWindow = new NoticeWindow();
+                    aNewWindow.setVisible(true);
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        }
-        else if (actionCommand.equals("recipe")) {
-            frame.setVisible(false);
-            try {
-                RecipeWindow aNewWindow = new RecipeWindow();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
+            case "recipe" -> {
+                frame.setVisible(false);
+                try {
+                    RecipeWindow aNewWindow = new RecipeWindow();
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        }
-        else if (actionCommand.equals("stock")) {
-            frame.setVisible(false);
-            try {
-                StockWindow aNewWindow = new StockWindow();
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
+            case "stock" -> {
+                frame.setVisible(false);
+                try {
+                    StockWindow aNewWindow = new StockWindow();
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+            default -> System.out.println("Unexpected error.");
         }
-        else
-            System.out.println("Unexpected error.");
     }
 
 }

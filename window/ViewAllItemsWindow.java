@@ -13,7 +13,7 @@ import model.FoodItem;
 
 public class ViewAllItemsWindow extends JFrame implements ActionListener {
     private Stock.StockType inputType;
-    private ArrayList<FoodItem> showinglist;
+    private ArrayList<FoodItem> displayList;
     private ActionEvent e;
 
     public ViewAllItemsWindow(Stock.StockType type) throws ParseException {
@@ -23,8 +23,8 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
 
         // Center Items
         Stock stock = new Stock();
-        showinglist = stock.getItems(type);
-        int size = showinglist.size();
+        displayList = stock.getItems(type);
+        int size = displayList.size();
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(12, 1));
         centerPanel.setBackground(DefaultUI.MAIN_BACKGROUND);
@@ -58,7 +58,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             left.add(removeButton);
 
             // b. Icon
-            String picType = showinglist.get(i).getType().toString().toLowerCase();
+            String picType = displayList.get(i).getType().toString().toLowerCase();
             newIcon = new ImageIcon("./stockIcons/subPanel_" + picType + ".png");
             img = newIcon.getImage();
             newImg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -71,7 +71,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             left.add(typeButton);
 
             // c. Name
-            JButton nameButton = new JButton(showinglist.get(i).getName());
+            JButton nameButton = new JButton(displayList.get(i).getName());
             nameButton.setActionCommand("view" + i);
             nameButton.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, 13));
             nameButton.setOpaque(true);
@@ -82,12 +82,12 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             middle1.add(nameButton);
 
             // d. Quantity
-            JLabel qtyLabel = new JLabel(String.valueOf(showinglist.get(i).getQuantity()));
+            JLabel qtyLabel = new JLabel(String.valueOf(displayList.get(i).getQuantity()));
             qtyLabel.setFont(new Font(DefaultUI.TITLE_FONT, Font.PLAIN, 11));
             middle2.add(qtyLabel);
 
             // e. Expiration
-            JLabel expirationLabel = new JLabel(showinglist.get(i).getExpirationToString());
+            JLabel expirationLabel = new JLabel(displayList.get(i).getExpirationToString());
             expirationLabel.setFont(new Font(DefaultUI.TITLE_FONT, Font.PLAIN, 11));
             middle2.add(expirationLabel);
 
@@ -123,7 +123,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             int removeNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
             Stock stock = new Stock();
             try {
-                stock.removeItem(showinglist.get(removeNum));
+                stock.removeItem(displayList.get(removeNum));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -139,7 +139,7 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
 
         } else if (actionCommand.startsWith("edit")) {
             int editNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
-            FoodItem editItem = showinglist.get(editNum);
+            FoodItem editItem = displayList.get(editNum);
 
             setVisible(false);
             EditItemWindow window = null;
@@ -152,10 +152,10 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
 
         } else if (actionCommand.startsWith("view")) {
             int viewNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
-            FoodItem viewItem = showinglist.get(viewNum);
+            FoodItem viewItem = displayList.get(viewNum);
 
             setVisible(false);
-            ItemDetailsWindow window = null;
+            ItemDetailsWindow window;
             try {
                 window = new ItemDetailsWindow(viewItem);
             } catch (ParseException ex) {

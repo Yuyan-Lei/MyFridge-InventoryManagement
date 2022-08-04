@@ -243,7 +243,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
         String actionCommand = e.getActionCommand();
 
         if (actionCommand.startsWith("Delete")) {
-            if(actionCommand.startsWith("Delete Low model.Stock")){
+            if(actionCommand.startsWith("Delete Low Stock")){
                 showinglist = lowStockList;
             }
             else if (actionCommand.startsWith("Delete Expired")){
@@ -271,7 +271,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
         }
 
         else if (actionCommand.startsWith("View")) {
-            if(actionCommand.startsWith("View Low model.Stock")){
+            if(actionCommand.startsWith("View Low Stock")){
                 showinglist = lowStockList;
             }
             else if (actionCommand.startsWith("View Expired")){

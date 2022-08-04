@@ -32,10 +32,7 @@ public class RecipeDatabase {
 
             while ((s = br.readLine()) != null) {
                 // 1. Extract information from text
-                if (s.equals("***Recipe***")) {
-                    continue;
-                }
-                else if (s.equals("******")) {
+                if (s.equals("******")) {
                     String[] arrOfStr = recipeDetail.toString().split("///\n", 0);
 
                     name = arrOfStr[0];
@@ -53,7 +50,7 @@ public class RecipeDatabase {
                     recipeList.add(newItem);
                     recipeDetail = new StringBuilder();
                 }
-                else {
+                else if (!s.equals("***Recipe***")) {
                     recipeDetail.append(s).append("\n");
                 }
             }
@@ -61,24 +58,6 @@ public class RecipeDatabase {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // Add
-    private void addItem(String name, String[] ingredient, String detailsOfIngredient, String method, String serving, String cookTime) throws IOException {
-        // 1. Create a new object
-        RecipeItem newItem = new RecipeItem(recipeList.size() + 1, name, ingredient, detailsOfIngredient, method, serving,cookTime);
-        recipeList.add(newItem);
-
-        // 2. Add to the txt
-        String text = newItem.toString();
-        FileWriter fw;
-        try {
-            fw = new FileWriter("DatabaseOfRecipes.txt", true);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        fw.write(text);
-        fw.close();
     }
 
     // Get a list of all recipes in the database

@@ -22,6 +22,7 @@ public class RecipeDetailsWindow extends JFrame{
 
         // a. Recipe name - top
         JTextPane nameLabel = new JTextPane();
+        nameLabel.setEditable(false);
         nameLabel.setMargin(new Insets(25, 15, 25, 15));
         StyledDocument nameDoc = nameLabel.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
@@ -37,10 +38,10 @@ public class RecipeDetailsWindow extends JFrame{
         nameLabel.setBackground(DefaultUI.WHITE_COLOR);
 
         // b. Other information - Center
-        JPanel servePanel = subPanel(centerPanel, " Servings", "serving", recipeToOpen.getServing());
-        JPanel timePanel = subPanel(centerPanel, " Cook Time", "cookTime", recipeToOpen.getCookTime());
-        JPanel ingredientPanel = subPanel(centerPanel, " Ingredients", "ingredients", recipeToOpen.getDetailsOfIngredient());
-        JPanel methodPanel = subPanel(centerPanel, " Instructions", "methods", recipeToOpen.getMethod().replaceAll(": ", ": \n"));
+        JPanel servePanel = subPanel(" Servings", "serving", recipeToOpen.getServing());
+        JPanel timePanel = subPanel(" Cook Time", "cookTime", recipeToOpen.getCookTime());
+        JPanel ingredientPanel = subPanel(" Ingredients", "ingredients", recipeToOpen.getDetailsOfIngredient());
+        JPanel methodPanel = subPanel(" Instructions", "methods", recipeToOpen.getMethod().replaceAll(": ", ": \n"));
 
         centerPanel.add(nameLabel);
         centerPanel.add(servePanel);
@@ -51,7 +52,7 @@ public class RecipeDetailsWindow extends JFrame{
         add(centerPanel);
     }
 
-    private JPanel subPanel(JPanel thePanel, String title, String iconPath, String text) {
+    private JPanel subPanel(String title, String iconPath, String text) {
         JPanel subPanel = new JPanel();
         subPanel.setLayout(new BorderLayout());
         subPanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -80,6 +81,7 @@ public class RecipeDetailsWindow extends JFrame{
 
         // 2. Center Text Field Part
         JTextPane textPane = new JTextPane();
+        textPane.setEditable(false);
         textPane.setMargin(new Insets(10, 28, 25, 15));
         StyledDocument textDoc = textPane.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
@@ -90,8 +92,15 @@ public class RecipeDetailsWindow extends JFrame{
         } catch (BadLocationException e) {
             System.out.println(e.getMessage());
         }
-        subPanel.add(textPane, BorderLayout.CENTER);
 
+        if (title.equals(" Instructions")) {
+            textPane.setCaretPosition(0);
+            JScrollPane scrollPane = new JScrollPane(textPane);
+            scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            subPanel.add(scrollPane, BorderLayout.CENTER);
+        } else {
+            subPanel.add(textPane);
+        }
         return subPanel;
     }
 }

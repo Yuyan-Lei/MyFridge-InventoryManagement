@@ -23,10 +23,6 @@ public class FoodItem {
         this.location = location;
     }
 
-    public int getId() {
-        return id;
-    }
-
     // Setters
     public void setName(String name) {
         this.name = name;
@@ -49,6 +45,10 @@ public class FoodItem {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
