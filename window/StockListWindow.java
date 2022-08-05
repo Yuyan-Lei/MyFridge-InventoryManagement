@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import model.Stock;
 import model.FoodItem;
 
-public class ViewAllItemsWindow extends JFrame implements ActionListener {
+public class StockListWindow extends JFrame implements ActionListener {
     private Stock.StockType inputType;
     private ArrayList<FoodItem> displayList;
     private ActionEvent e;
 
-    public ViewAllItemsWindow(Stock.StockType type) throws ParseException {
+    public StockListWindow(Stock.StockType type) throws ParseException {
         inputType = type;
         new DefaultUI("Stock", this);
         setVisible(true);
@@ -129,9 +129,9 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             }
 
             setVisible(false);
-            ViewAllItemsWindow window = null;
+            StockListWindow window = null;
             try {
-                window = new ViewAllItemsWindow(inputType);
+                window = new StockListWindow(inputType);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -142,9 +142,9 @@ public class ViewAllItemsWindow extends JFrame implements ActionListener {
             FoodItem editItem = displayList.get(editNum);
 
             setVisible(false);
-            EditItemWindow window = null;
+            EditWindow window = null;
             try {
-                window = new EditItemWindow(editItem);
+                window = new EditWindow(editItem);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }

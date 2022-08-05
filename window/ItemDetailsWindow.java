@@ -173,9 +173,9 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("Edit")) {
             setVisible(false);
-            EditItemWindow newWindow;
+            EditWindow newWindow;
             try {
-                newWindow = new EditItemWindow(theItem);
+                newWindow = new EditWindow(theItem);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }

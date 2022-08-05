@@ -11,7 +11,7 @@ import java.util.Objects;
 import model.FoodItem;
 import model.Stock;
 
-public class EditItemWindow extends JFrame implements ActionListener {
+public class EditWindow extends JFrame implements ActionListener {
     String types[] = {"VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
     String locations[] = {"FROZEN", "REFRIGERATED"};
     private String theName;
@@ -33,7 +33,7 @@ public class EditItemWindow extends JFrame implements ActionListener {
     private FoodItem theItem;
     Boolean isValidate = true;
 
-    public EditItemWindow(FoodItem itemToEdit) throws ParseException {
+    public EditWindow(FoodItem itemToEdit) throws ParseException {
         new DefaultUI("Edit Item", this);
         setVisible(true);
 
