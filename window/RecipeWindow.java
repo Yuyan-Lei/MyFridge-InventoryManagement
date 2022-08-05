@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import model.RecipeItem;
 import model.Stock;
-import model.RecipeDatabase;
+import model.Recipe;
 
 public class RecipeWindow extends JFrame implements ActionListener {
     private ArrayList<RecipeItem> recipeList;
@@ -21,8 +21,8 @@ public class RecipeWindow extends JFrame implements ActionListener {
         // Center Items
         Stock stock = new Stock();
         ArrayList<String> ingredients = stock.getIngredientList();
-        RecipeDatabase recipeDatabase = new RecipeDatabase();
-        recipeList = recipeDatabase.getSpecificRecipeList(ingredients, 10);
+        Recipe recipe = new Recipe();
+        recipeList = recipe.getSpecificRecipeList(ingredients, 10);
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(10, 1));

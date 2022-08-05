@@ -5,10 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class RecipeDatabase {
+public class Recipe {
     private ArrayList<RecipeItem> recipeList;
 
-    public RecipeDatabase() {
+    public Recipe() {
         loadRecipeList();
     }
 
