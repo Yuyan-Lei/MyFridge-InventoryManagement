@@ -27,6 +27,7 @@ public class SaveWindow extends JFrame {
         JPanel saveLabelPanel = new JPanel(new GridBagLayout());
         saveLabelPanel.setBackground(window.DefaultUI.WHITE_COLOR);
         JLabel savedLabel = new JLabel("Saved!");
+        savedLabel.setForeground(DefaultUI.GREEN_THEME);
         savedLabel.setFont(new Font("Saved!", Font.PLAIN, 21));
         saveLabelPanel.add(savedLabel);
         GridBagConstraints c = new GridBagConstraints();
@@ -38,8 +39,6 @@ public class SaveWindow extends JFrame {
         c.gridy = 1;
         savePanel.add(saveLabelPanel,c);
         add(savePanel);
-
-        //Timer timer = new Timer(5000, new AddWindow());
     }
     
 }
