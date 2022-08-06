@@ -74,7 +74,7 @@ public class DefaultUI implements ActionListener {
         if(getPanelName().equals("Notice") && iconPath.equals("expired")){
             iconPath = "expired_g";
         }
-        else if(getPanelName().equals("model.Stock") && iconPath.equals("stock")){
+        else if(getPanelName().equals("Stock") && iconPath.equals("stock")){
             iconPath = "stock_g";
         }
         else if(getPanelName().equals("Add Items") && iconPath.equals("add")){
