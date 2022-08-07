@@ -48,7 +48,6 @@ public class StockWindow extends JFrame implements ActionListener {
         cutLine.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TITLE_SIZE));
         cutPanel.setBackground(new Color(230,235,220));
         cutLine.setForeground(Color.GRAY);
-//        cutLine.setPreferredSize(new Dimension(300, 150));
         cutPanel.add(cutLine);
 
         //subgroup part (7,1)
@@ -56,7 +55,6 @@ public class StockWindow extends JFrame implements ActionListener {
         subgroupPanel.setLayout(new GridLayout(7,1));
         subgroupPanel.setBackground(DefaultUI.WHITE_COLOR);
 
-        // 看这里，给panels建立method了
         // Build Panels of types
         subgroupPanel.add(subPanel(subgroupPanel, "Fridge", sizeOfFridge));
         subgroupPanel.add(subPanel(subgroupPanel, "Freezer", sizeOfFrozen));
