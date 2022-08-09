@@ -15,19 +15,14 @@ import model.Stock;
 public class AddWindow extends JFrame implements ActionListener {
     String[] types = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
     String[] locations = {"FROZEN","REFRIGERATED" };
-    private String theName;
-    private int theQuantity;
-    private Date theExpiration;
-    private FoodItem.FoodType theType;
-    private FoodItem.PlaceLocation theLocation;
 
-    private JTextField name;
-    private JTextField quantity;
-    private JTextField expirationYear;
-    private JTextField expirationMonth;
-    private JTextField expirationDay;
-    private JComboBox typeOption;
-    private JComboBox locationOption;
+    private final JTextField name;
+    private final JTextField quantity;
+    private final JTextField expirationYear;
+    private final JTextField expirationMonth;
+    private final JTextField expirationDay;
+    private final JComboBox<String> typeOption;
+    private final JComboBox<String> locationOption;
 
     private String error = "";
     private JLabel errorMessage;
@@ -141,7 +136,7 @@ public class AddWindow extends JFrame implements ActionListener {
         typeIcon = new ImageIcon(newImg3);
         JLabel typeLabel = new JLabel("Type:");
         typeLabel.setIcon(typeIcon);
-        typeOption = new JComboBox(types);
+        typeOption = new JComboBox<>(types);
         typeOption.setPreferredSize(new Dimension(120,30));
         typePanel.add(typeLabel);
         typePanel.add(typeOption);
@@ -155,7 +150,7 @@ public class AddWindow extends JFrame implements ActionListener {
         Image newImg4 = locationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         locationIcon = new ImageIcon(newImg4);
         locationLabel.setIcon(locationIcon);
-        locationOption = new JComboBox(locations);
+        locationOption = new JComboBox<>(locations);
         typeOption.setSelectedIndex(0);
         locationOption.setPreferredSize(new Dimension(120,30));
         locationPanel.add(locationLabel);
@@ -204,11 +199,11 @@ public class AddWindow extends JFrame implements ActionListener {
                 if (isValidate) {
                     try {
                         Stock newItem = new Stock();
-                        theName = name.getText();
-                        theQuantity = Integer.parseInt(quantity.getText());
-                        theExpiration = new Date((Integer.parseInt(expirationYear.getText()) - 1901), (Integer.parseInt(expirationMonth.getText()) + 11), Integer.parseInt(expirationDay.getText()));
-                        theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
-                        theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
+                        String theName = name.getText();
+                        int theQuantity = Integer.parseInt(quantity.getText());
+                        Date theExpiration = new Date((Integer.parseInt(expirationYear.getText()) - 1901), (Integer.parseInt(expirationMonth.getText()) + 11), Integer.parseInt(expirationDay.getText()));
+                        FoodItem.FoodType theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
+                        FoodItem.PlaceLocation theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
                         newItem.addItem(theName, theQuantity, theExpiration, theType, theLocation);
                         SaveWindow aNewWindow = new SaveWindow();
                         aNewWindow.setVisible(true);
