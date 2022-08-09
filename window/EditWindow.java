@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.awt.*;
 import java.util.Objects;
@@ -222,9 +223,11 @@ public class EditWindow extends JFrame implements ActionListener {
                         Stock newItem = new Stock();
                         theName = name.getText();
                         theQuantity = Integer.parseInt(quantity.getText());
-                        theExpiration = new Date((Integer.parseInt(expirationYear.getText()) - 1901),
-                                (Integer.parseInt(expirationMonth.getText()) + 11),
-                                Integer.parseInt(expirationDay.getText()));
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(Calendar.YEAR,Integer.parseInt(expirationYear.getText())-1);
+                        cal.set(Calendar.MONTH,(Integer.parseInt(expirationMonth.getText()) + 11));
+                        cal.set(Calendar.DATE, (Integer.parseInt(expirationDay.getText())));
+                        theExpiration = cal.getTime();
                         theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
                         theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
                         newItem.updateItem(theItem, theName, theQuantity, theExpiration, theType, theLocation);
