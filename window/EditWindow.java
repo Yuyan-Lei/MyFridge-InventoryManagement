@@ -20,17 +20,17 @@ public class EditWindow extends JFrame implements ActionListener {
     private FoodItem.FoodType theType;
     private FoodItem.PlaceLocation theLocation;
 
-    private JTextField name;
-    private JTextField quantity;
-    private JTextField expirationYear;
-    private JTextField expirationMonth;
-    private JTextField expirationDay;
-    private JComboBox typeOption;
-    private JComboBox locationOption;
+    private final JTextField name;
+    private final JTextField quantity;
+    private final JTextField expirationYear;
+    private final JTextField expirationMonth;
+    private final JTextField expirationDay;
+    private final JComboBox<String> typeOption;
+    private final JComboBox<String> locationOption;
 
     private String error = "";
     private JLabel errorMessage;
-    private FoodItem theItem;
+    private final FoodItem theItem;
     Boolean isValidate = true;
 
     public EditWindow(FoodItem itemToEdit) throws ParseException {
@@ -154,7 +154,7 @@ public class EditWindow extends JFrame implements ActionListener {
         typeIcon = new ImageIcon(newImg3);
         JLabel typeLabel = new JLabel("Type:");
         typeLabel.setIcon(typeIcon);
-        typeOption = new JComboBox(types);
+        typeOption = new JComboBox<>(types);
         typeOption.setPreferredSize(new Dimension(120, 30));
         typeOption.setSelectedItem(String.valueOf(theType));
         typePanel.add(typeLabel);
@@ -170,7 +170,7 @@ public class EditWindow extends JFrame implements ActionListener {
         Image newImg4 = locationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         locationIcon = new ImageIcon(newImg4);
         locationLabel.setIcon(locationIcon);
-        locationOption = new JComboBox(locations);
+        locationOption = new JComboBox<>(locations);
         locationOption.setSelectedItem(String.valueOf(theLocation));
         locationOption.setPreferredSize(new Dimension(120, 30));
         locationPanel.add(locationLabel);
@@ -222,7 +222,9 @@ public class EditWindow extends JFrame implements ActionListener {
                         Stock newItem = new Stock();
                         theName = name.getText();
                         theQuantity = Integer.parseInt(quantity.getText());
-                        theExpiration = new Date((Integer.parseInt(expirationYear.getText()) - 1901), (Integer.parseInt(expirationMonth.getText()) + 11), Integer.parseInt(expirationDay.getText()));
+                        theExpiration = new Date((Integer.parseInt(expirationYear.getText()) - 1901),
+                                (Integer.parseInt(expirationMonth.getText()) + 11),
+                                Integer.parseInt(expirationDay.getText()));
                         theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
                         theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
                         newItem.updateItem(theItem, theName, theQuantity, theExpiration, theType, theLocation);
