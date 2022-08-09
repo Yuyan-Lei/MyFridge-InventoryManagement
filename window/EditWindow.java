@@ -220,7 +220,7 @@ public class EditWindow extends JFrame implements ActionListener {
                 if (isValidate) {
                     try {
                         Stock newItem = new Stock();
-                        theName = String.valueOf(name.getText());
+                        theName = name.getText();
                         theQuantity = Integer.parseInt(quantity.getText());
                         theExpiration = new Date((Integer.parseInt(expirationYear.getText()) - 1901), (Integer.parseInt(expirationMonth.getText()) + 11), Integer.parseInt(expirationDay.getText()));
                         theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
@@ -247,34 +247,42 @@ public class EditWindow extends JFrame implements ActionListener {
     }
 
     private void setErrorEffect() {
-        // set the specific text to red
+        // set the specif text to red
         switch (error) {
             case "nameError" -> {
                 name.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Name should not be empty");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Name should not be empty, or contain '///' or ','<br>");
             }
             case "qtyError" -> {
                 quantity.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Quantity should be a positive integer");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Quantity should be a positive integer<br>");
             }
             case "yearError" -> {
                 expirationYear.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Expiration year is limited to 2022 - 2032");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration year is limited to 2022 - 2032<br>");
             }
             case "monthError" -> {
                 expirationMonth.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Expiration month is limited to 1 - 12");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration month is limited to 1 - 12<br>");
             }
             case "dayError" -> {
                 expirationDay.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "\nError: Expiration day is limited to 1 - 31");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration day is limited to 1 - 31");
             }
         }
     }
 
     private void checkError() {
-        // 1. Name should not be empty
+        // 1. Name should not be empty, or contain "///" or ","
         if (Objects.equals(name.getText(), "")) {
+            error = "nameError";
+            setErrorEffect();
+        }
+        else if (name.getText().matches(".*///.*")) {
+            error = "nameError";
+            setErrorEffect();
+        }
+        else if (name.getText().matches(".*,.*")) {
             error = "nameError";
             setErrorEffect();
         }

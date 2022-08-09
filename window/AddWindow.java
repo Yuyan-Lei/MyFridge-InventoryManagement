@@ -50,7 +50,7 @@ public class AddWindow extends JFrame implements ActionListener {
         errorMessagePanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(errorMessagePanel);
 
-        //Center add info - name
+        // Center add info - name
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel nameLabel = new JLabel("Name:");
@@ -66,7 +66,7 @@ public class AddWindow extends JFrame implements ActionListener {
         name.setBackground(DefaultUI.WHITE_COLOR);
         namePanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(namePanel);
-        //Center add info - quantity
+        // Center add info - quantity
         JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon quantityIcon = new ImageIcon("./icons/itemIcons/quantity.png");
         Image quantityImg = quantityIcon.getImage();
@@ -105,7 +105,7 @@ public class AddWindow extends JFrame implements ActionListener {
         quantity.setBackground(DefaultUI.WHITE_COLOR);
         quantityPanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(quantityPanel);
-        //Center add info - expiration
+        // Center add info - expiration
         JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon expirationIcon = new ImageIcon("./icons/itemIcons/expiration.png");
         Image expirationImg = expirationIcon.getImage();
@@ -133,7 +133,7 @@ public class AddWindow extends JFrame implements ActionListener {
         expirationDate.setBackground(DefaultUI.WHITE_COLOR);
         expirationPanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(expirationPanel);
-        //Type
+        // Type
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon typeIcon = new ImageIcon("./icons/itemIcons/type.png");
         Image typeImg = typeIcon.getImage();
@@ -147,7 +147,7 @@ public class AddWindow extends JFrame implements ActionListener {
         typePanel.add(typeOption);
         typePanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(typePanel);
-        //Location
+        // Location
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
         ImageIcon locationIcon = new ImageIcon("./icons/itemIcons/location.png");
@@ -231,8 +231,16 @@ public class AddWindow extends JFrame implements ActionListener {
     }
 
     private void checkError() {
-        // 1. Name should not be empty
+        // 1. Name should not be empty, or contain "///" or ","
         if (Objects.equals(name.getText(), "")) {
+            error = "nameError";
+            setErrorEffect();
+        }
+        else if (name.getText().matches(".*///.*")) {
+            error = "nameError";
+            setErrorEffect();
+        }
+        else if (name.getText().matches(".*,.*")) {
             error = "nameError";
             setErrorEffect();
         }
@@ -284,7 +292,7 @@ public class AddWindow extends JFrame implements ActionListener {
         switch (error) {
             case "nameError" -> {
                 name.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "<html>Error: Name should not be empty<br>");
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Name should not be empty, or contain '///' or ','<br>");
             }
             case "qtyError" -> {
                 quantity.setForeground(Color.red);
