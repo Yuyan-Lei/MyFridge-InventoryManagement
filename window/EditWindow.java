@@ -12,8 +12,8 @@ import model.FoodItem;
 import model.Stock;
 
 public class EditWindow extends JFrame implements ActionListener {
-    String types[] = {"VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
-    String locations[] = {"FROZEN", "REFRIGERATED"};
+    String[] types = {"VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
+    String[] locations = {"FROZEN", "REFRIGERATED"};
     private String theName;
     private int theQuantity;
     private Date theExpiration;
@@ -37,7 +37,7 @@ public class EditWindow extends JFrame implements ActionListener {
         new DefaultUI("Edit Item", this);
         setVisible(true);
 
-        //get the item details
+        // Get the item details
         theItem = itemToEdit;
         theName = theItem.getName();
         theQuantity = theItem.getQuantity();
@@ -58,7 +58,7 @@ public class EditWindow extends JFrame implements ActionListener {
         errorMessagePanel.setBackground(DefaultUI.WHITE_COLOR);
         editInfoPanel.add(errorMessagePanel);
 
-        //Center add info - name
+        // Center add info - name
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel nameLabel = new JLabel("Name:");
@@ -75,7 +75,7 @@ public class EditWindow extends JFrame implements ActionListener {
         namePanel.setBackground(DefaultUI.WHITE_COLOR);
         editInfoPanel.add(namePanel);
 
-        //Center add info - quantity
+        // Center add info - quantity
         JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon quantityIcon = new ImageIcon("./icons/itemIcons/quantity.png");
         Image quantityImg = quantityIcon.getImage();
@@ -85,7 +85,7 @@ public class EditWindow extends JFrame implements ActionListener {
         quantityLabel.setIcon(quantityIcon);
 
         JButton addQuantityButton = new JButton();
-        ImageIcon addQuantityIcon = new ImageIcon("./icons/itemIcons/add_zenjia.png");
+        ImageIcon addQuantityIcon = new ImageIcon("icons/itemIcons/add.png");
         Image addQuantityImg = addQuantityIcon.getImage();
         Image addImg = addQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         addQuantityIcon = new ImageIcon(addImg);
@@ -95,7 +95,7 @@ public class EditWindow extends JFrame implements ActionListener {
         addQuantityButton.addActionListener(this);
 
         JButton minusQuantityButton = new JButton();
-        ImageIcon minusQuantityIcon = new ImageIcon("./icons/itemIcons/add_jianshao.png");
+        ImageIcon minusQuantityIcon = new ImageIcon("icons/itemIcons/minus.png");
         Image minusQuantityImg = minusQuantityIcon.getImage();
         Image minusImg = minusQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         minusQuantityIcon = new ImageIcon(minusImg);
@@ -115,7 +115,7 @@ public class EditWindow extends JFrame implements ActionListener {
         quantityPanel.setBackground(DefaultUI.WHITE_COLOR);
         editInfoPanel.add(quantityPanel);
 
-        //Center add info - expiration
+        // Center add info - expiration
         JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon expirationIcon = new ImageIcon("./icons/itemIcons/expiration.png");
         Image expirationImg = expirationIcon.getImage();
@@ -146,7 +146,7 @@ public class EditWindow extends JFrame implements ActionListener {
         expirationPanel.setBackground(DefaultUI.WHITE_COLOR);
         editInfoPanel.add(expirationPanel);
 
-        //Type
+        // Type
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon typeIcon = new ImageIcon("./icons/itemIcons/type.png");
         Image typeImg = typeIcon.getImage();
@@ -162,7 +162,7 @@ public class EditWindow extends JFrame implements ActionListener {
         typePanel.setBackground(DefaultUI.WHITE_COLOR);
         editInfoPanel.add(typePanel);
 
-        //Location
+        // Location
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
         ImageIcon locationIcon = new ImageIcon("./icons/itemIcons/location.png");
@@ -227,6 +227,7 @@ public class EditWindow extends JFrame implements ActionListener {
                         theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
                         newItem.updateItem(theItem, theName, theQuantity, theExpiration, theType, theLocation);
                         SaveWindow aNewWindow = new SaveWindow();
+                        aNewWindow.setVisible(true);
                     } catch (ParseException | IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -246,7 +247,7 @@ public class EditWindow extends JFrame implements ActionListener {
     }
 
     private void setErrorEffect() {
-        // set the specif text to red
+        // set the specific text to red
         switch (error) {
             case "nameError" -> {
                 name.setForeground(Color.red);
@@ -282,7 +283,7 @@ public class EditWindow extends JFrame implements ActionListener {
             error = "qtyError";
             setErrorEffect();
         }
-        if (Objects.equals(quantity.getText(), "0")) {
+        else if (Objects.equals(quantity.getText(), "0")) {
             error = "qtyError";
             setErrorEffect();
         }
@@ -291,34 +292,28 @@ public class EditWindow extends JFrame implements ActionListener {
             error = "yearError";
             setErrorEffect();
         }
-        else {
-            // a. 2022 <= Expiration Year < 2032
-            if ((Integer.parseInt(expirationYear.getText())) < 2022 || (Integer.parseInt(expirationYear.getText())) > 2032) {
-                error = "yearError";
-                setErrorEffect();
-            }
+        // a. 2022 <= Expiration Year < 2032
+        else if ((Integer.parseInt(expirationYear.getText())) < 2022 || (Integer.parseInt(expirationYear.getText())) > 2032) {
+            error = "yearError";
+            setErrorEffect();
         }
         if (!expirationMonth.getText().matches("\\d+")) {
             error = "monthError";
             setErrorEffect();
         }
-        else {
-            // b. 0 < Expiration Month <= 12
-            if (Integer.parseInt(expirationMonth.getText()) <= 0 || Integer.parseInt(expirationMonth.getText()) > 12) {
-                error = "monthError";
-                setErrorEffect();
-            }
+        // b. 0 < Expiration Month <= 12
+        else if (Integer.parseInt(expirationMonth.getText()) <= 0 || Integer.parseInt(expirationMonth.getText()) > 12) {
+            error = "monthError";
+            setErrorEffect();
         }
         if (!expirationDay.getText().matches("\\d+")) {
             error = "dayError";
             setErrorEffect();
         }
-        else {
-            // c. 0 < Expiration Day <= 31
-            if  (Integer.parseInt(expirationDay.getText()) <= 0 || Integer.parseInt(expirationDay.getText()) > 31){
-                error = "dayError";
-                setErrorEffect();
-            }
+        // c. 0 < Expiration Day <= 31
+        else if  (Integer.parseInt(expirationDay.getText()) <= 0 || Integer.parseInt(expirationDay.getText()) > 31){
+            error = "dayError";
+            setErrorEffect();
         }
 
         if (!Objects.equals(error, "")) {

@@ -96,11 +96,11 @@ public class FoodItem {
     }
 
     // Two kinds of URLs: Whole Foods / Amazon Fresh
-    public String getWFURL() {
+    public String getWholeFoodsUrl() {
         return "https://www.amazon.com/s?k=" + name + "&i=wholefoods";
     }
 
-    public String getAFURL() {
+    public String getAmazonFreshUrl() {
         return "https://www.amazon.com/s?k=" + name + "&i=amazonfresh";
     }
 

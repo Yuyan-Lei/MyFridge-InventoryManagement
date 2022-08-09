@@ -35,7 +35,7 @@ public class RecipeWindow extends JFrame implements ActionListener {
             itemPanel.setLayout(new GridLayout(2, 1));
             itemPanel.setBackground(DefaultUI.WHITE_COLOR);
 
-            // Recipe Title
+            // 1. Recipe Title
             JLabel nameLabel = new JLabel(capitalizeString(recipeList.get(i).getName()));
             nameLabel.setFont(new Font(DefaultUI.TITLE_FONT, Font.BOLD, 13));
             nameLabel.setForeground(DefaultUI.GREEN_THEME);
@@ -43,7 +43,7 @@ public class RecipeWindow extends JFrame implements ActionListener {
             itemPanel.add(nameLabel);
             itemPanel.setBackground(DefaultUI.WHITE_COLOR);
 
-            // Recipe Ingredients
+            // 2. Recipe Ingredients
             JLabel ingredientsLabel = new JLabel();
             StringBuilder ingredientsText = new StringBuilder();
             for (String text : recipeList.get(i).getIngredient()) {
@@ -56,8 +56,7 @@ public class RecipeWindow extends JFrame implements ActionListener {
             ingredientsLabel.setBackground(DefaultUI.WHITE_COLOR);
             itemPanel.add(ingredientsLabel);
 
-            // Open Button
-            // Build an Open Button
+            // 3. Open Button
             ImageIcon openIcon = new ImageIcon("./icons/stockIcons/open.png");
             Image img = openIcon.getImage();
             Image newImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -71,16 +70,16 @@ public class RecipeWindow extends JFrame implements ActionListener {
             openButton.setBackground(DefaultUI.WHITE_COLOR);
             openButton.setFocusPainted(false);
 
-            // Recipe Icon
-            ImageIcon leftIcon = new ImageIcon("icons/basicIcons/recipe_list.png");
+            // 4. Recipe Icon
+            ImageIcon leftIcon = new ImageIcon("icons/basicIcons/recipelist.png");
             img = leftIcon.getImage();
             newImg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             leftIcon = new ImageIcon(newImg);
-            JLabel leftLable = new JLabel(leftIcon);
-            leftLable.setBorder(new EmptyBorder(0, 10, 0 ,10));
+            JLabel leftLabel = new JLabel(leftIcon);
+            leftLabel.setBorder(new EmptyBorder(0, 10, 0 ,10));
 
             thePanel.setBorder(BorderFactory.createLineBorder(DefaultUI.MENU_BACKGROUND));
-            thePanel.add(leftLable, BorderLayout.WEST);
+            thePanel.add(leftLabel, BorderLayout.WEST);
             thePanel.add(itemPanel, BorderLayout.CENTER);
             thePanel.add(openButton, BorderLayout.EAST);
             centerPanel.add(thePanel);
@@ -93,9 +92,9 @@ public class RecipeWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
         if (actionCommand.startsWith("Recipe")) {
-            int recipeNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
+            int recipeNum = Integer.parseInt(actionCommand.replaceAll("\\D", ""));
             RecipeItem recipeToOpen = recipeList.get(recipeNum);
-            RecipeDetailsWindow newWindow = null;
+            RecipeDetailsWindow newWindow;
             try {
                 newWindow = new RecipeDetailsWindow(recipeToOpen);
             } catch (ParseException ex) {

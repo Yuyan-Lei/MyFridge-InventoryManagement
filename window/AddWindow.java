@@ -13,8 +13,8 @@ import model.Stock;
 
 
 public class AddWindow extends JFrame implements ActionListener {
-    String types[] = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
-    String locations[] = {"FROZEN","REFRIGERATED" };
+    String[] types = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
+    String[] locations = {"FROZEN","REFRIGERATED" };
     private String theName;
     private int theQuantity;
     private Date theExpiration;
@@ -76,7 +76,7 @@ public class AddWindow extends JFrame implements ActionListener {
         quantityLabel.setIcon(quantityIcon);
 
         JButton addQuantityButton = new JButton();
-        ImageIcon addQuantityIcon = new ImageIcon("./icons/itemIcons/add_zenjia.png");
+        ImageIcon addQuantityIcon = new ImageIcon("icons/itemIcons/add.png");
         Image addQuantityImg = addQuantityIcon.getImage();
         Image addImg = addQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         addQuantityIcon = new ImageIcon(addImg);
@@ -86,7 +86,7 @@ public class AddWindow extends JFrame implements ActionListener {
         addQuantityButton.addActionListener(this);
 
         JButton minusQuantityButton = new JButton();
-        ImageIcon minusQuantityIcon = new ImageIcon("./icons/itemIcons/add_jianshao.png");
+        ImageIcon minusQuantityIcon = new ImageIcon("icons/itemIcons/minus.png");
         Image minusQuantityImg = minusQuantityIcon.getImage();
         Image minusImg = minusQuantityImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         minusQuantityIcon = new ImageIcon(minusImg);
@@ -211,6 +211,7 @@ public class AddWindow extends JFrame implements ActionListener {
                         theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
                         newItem.addItem(theName, theQuantity, theExpiration, theType, theLocation);
                         SaveWindow aNewWindow = new SaveWindow();
+                        aNewWindow.setVisible(true);
                     } catch (ParseException | IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -240,7 +241,7 @@ public class AddWindow extends JFrame implements ActionListener {
             error = "qtyError";
             setErrorEffect();
         }
-        if (Objects.equals(quantity.getText(), "0")) {
+        else if (Objects.equals(quantity.getText(), "0")) {
             error = "qtyError";
             setErrorEffect();
         }
@@ -249,34 +250,28 @@ public class AddWindow extends JFrame implements ActionListener {
             error = "yearError";
             setErrorEffect();
         }
-        else {
-            // a. 2022 <= Expiration Year < 2032
-            if ((Integer.parseInt(expirationYear.getText())) < 2022 || (Integer.parseInt(expirationYear.getText())) > 2032) {
+        // a. 2022 <= Expiration Year < 2032
+        else if ((Integer.parseInt(expirationYear.getText())) < 2022 || (Integer.parseInt(expirationYear.getText())) > 2032) {
                 error = "yearError";
                 setErrorEffect();
-            }
         }
         if (!expirationMonth.getText().matches("\\d+")) {
             error = "monthError";
             setErrorEffect();
         }
-        else {
-            // b. 0 < Expiration Month <= 12
-            if (Integer.parseInt(expirationMonth.getText()) <= 0 || Integer.parseInt(expirationMonth.getText()) > 12) {
+        // b. 0 < Expiration Month <= 12
+        else if (Integer.parseInt(expirationMonth.getText()) <= 0 || Integer.parseInt(expirationMonth.getText()) > 12) {
                 error = "monthError";
                 setErrorEffect();
-            }
         }
         if (!expirationDay.getText().matches("\\d+")) {
             error = "dayError";
             setErrorEffect();
         }
-        else {
-            // c. 0 < Expiration Day <= 31
-            if  (Integer.parseInt(expirationDay.getText()) <= 0 || Integer.parseInt(expirationDay.getText()) > 31){
+        // c. 0 < Expiration Day <= 31
+        else if  (Integer.parseInt(expirationDay.getText()) <= 0 || Integer.parseInt(expirationDay.getText()) > 31){
                 error = "dayError";
                 setErrorEffect();
-            }
         }
 
         if (!Objects.equals(error, "")) {

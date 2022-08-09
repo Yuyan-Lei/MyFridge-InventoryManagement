@@ -10,7 +10,7 @@ public class SaveWindow extends JFrame {
         new DefaultUI("Item Saved", this);
         setVisible(true);
 
-        //Central body - saveIcon
+        // Central body - save icon
         JPanel savePanel = new JPanel(new GridBagLayout());
         savePanel.setBackground(window.DefaultUI.WHITE_COLOR);
         JPanel saveIconPanel = new JPanel(new GridBagLayout());
@@ -24,6 +24,7 @@ public class SaveWindow extends JFrame {
         saveIcon = new ImageIcon(saveImg);
         message.setIcon(saveIcon);
 
+        // Central body - save label
         JPanel saveLabelPanel = new JPanel(new GridBagLayout());
         saveLabelPanel.setBackground(window.DefaultUI.WHITE_COLOR);
         JLabel savedLabel = new JLabel("Saved!");

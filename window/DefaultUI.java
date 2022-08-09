@@ -9,7 +9,6 @@ import java.text.ParseException;
 public class DefaultUI implements ActionListener {
     public static final int WIDTH = 350;
     public static final int HEIGHT = 750;
-    private ActionEvent e;
 
     // Colors
     public static final Color GREEN_THEME = new Color(122, 156, 87);
@@ -28,8 +27,6 @@ public class DefaultUI implements ActionListener {
     public static final int TOP_BAR_SIZE = 24;
     public static final int TITLE_SIZE = 18;
     public static final int TEXT_SIZE = 14;
-    public static final int MENU_SIZE = 12;
-    public static final Font MENU_FORMAT = new Font(TITLE_FONT, Font.PLAIN, MENU_SIZE);
     public static final int ICON_SIZE = 44;
 
     private JFrame frame;
@@ -60,7 +57,7 @@ public class DefaultUI implements ActionListener {
         JPanel topPanel = new JPanel();
         topPanel.setBackground(GREEN_THEME);
         JLabel topText = new JLabel(title);
-        topText.setFont(new Font(TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, TOP_BAR_SIZE));
+        topText.setFont(new Font(TITLE_FONT, Font.PLAIN, TOP_BAR_SIZE));
         topText.setForeground(WHITE_COLOR);
         topPanel.add(topText);
         frame.add(topPanel, BorderLayout.NORTH);
@@ -72,16 +69,16 @@ public class DefaultUI implements ActionListener {
 
     public void buildBottomIcon(JPanel buttonPanel, String iconPath, String command) {
         if(getPanelName().equals("Notice") && iconPath.equals("expired")){
-            iconPath = "expired_g";
+            iconPath = "expired_green";
         }
         else if(getPanelName().equals("Stock") && iconPath.equals("stock")){
-            iconPath = "stock_g";
+            iconPath = "stock_green";
         }
         else if(getPanelName().equals("Add Items") && iconPath.equals("add")){
-            iconPath = "add_g";
+            iconPath = "add_green";
         }
         else if(getPanelName().equals("Recipes") && iconPath.equals("recipe")){
-            iconPath = "recipe_g";
+            iconPath = "recipe_green";
         }
         ImageIcon addIcon = new ImageIcon("./icons/basicIcons/" + iconPath + ".png");
         Image img = addIcon.getImage();
@@ -104,6 +101,7 @@ public class DefaultUI implements ActionListener {
                 frame.setVisible(false);
                 try {
                     AddWindow aNewWindow = new AddWindow();
+                    aNewWindow.setVisible(true);
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -121,6 +119,7 @@ public class DefaultUI implements ActionListener {
                 frame.setVisible(false);
                 try {
                     RecipeWindow aNewWindow = new RecipeWindow();
+                    aNewWindow.setVisible(true);
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -129,6 +128,7 @@ public class DefaultUI implements ActionListener {
                 frame.setVisible(false);
                 try {
                     StockWindow aNewWindow = new StockWindow();
+                    aNewWindow.setVisible(true);
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }

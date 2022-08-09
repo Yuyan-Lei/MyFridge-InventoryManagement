@@ -12,7 +12,7 @@ public class Recipe {
         loadRecipeList();
     }
 
-    // Private methods for inner operations over the stock list & database
+    // Private method for inner operations over the stock list & database
     private void loadRecipeList() {
         // Store the items in an arraylist.
         recipeList = new ArrayList<RecipeItem>();

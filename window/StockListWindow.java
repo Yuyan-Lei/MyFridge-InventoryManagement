@@ -14,7 +14,6 @@ import model.FoodItem;
 public class StockListWindow extends JFrame implements ActionListener {
     private Stock.StockType inputType;
     private ArrayList<FoodItem> displayList;
-    private ActionEvent e;
 
     public StockListWindow(Stock.StockType type) throws ParseException {
         inputType = type;
@@ -42,8 +41,8 @@ public class StockListWindow extends JFrame implements ActionListener {
             middle2.setBackground(DefaultUI.WHITE_COLOR);
             rightSide.setBackground(DefaultUI.WHITE_COLOR);
 
-            // a. remove
-            ImageIcon newIcon = new ImageIcon("icons/basicIcons/delete_g.png");
+            // a. Remove
+            ImageIcon newIcon = new ImageIcon("icons/basicIcons/delete_green.png");
             Image img = newIcon.getImage();
             Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             ImageIcon removeIcon = new ImageIcon(newImg);
@@ -92,7 +91,7 @@ public class StockListWindow extends JFrame implements ActionListener {
             middle2.add(expirationLabel);
 
             // f. Edit
-            newIcon = new ImageIcon("icons/basicIcons/edit_g.png");
+            newIcon = new ImageIcon("icons/basicIcons/edit_green.png");
             img = newIcon.getImage();
             newImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             ImageIcon editIcon = new ImageIcon(newImg);
@@ -120,7 +119,7 @@ public class StockListWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if (actionCommand.startsWith("remove")) {
-            int removeNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
+            int removeNum = Integer.parseInt(actionCommand.replaceAll("\\D", ""));
             Stock stock = new Stock();
             try {
                 stock.removeItem(displayList.get(removeNum));
@@ -129,7 +128,7 @@ public class StockListWindow extends JFrame implements ActionListener {
             }
 
             setVisible(false);
-            StockListWindow window = null;
+            StockListWindow window;
             try {
                 window = new StockListWindow(inputType);
             } catch (ParseException ex) {
@@ -138,11 +137,11 @@ public class StockListWindow extends JFrame implements ActionListener {
             window.setVisible(true);
 
         } else if (actionCommand.startsWith("edit")) {
-            int editNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
+            int editNum = Integer.parseInt(actionCommand.replaceAll("\\D", ""));
             FoodItem editItem = displayList.get(editNum);
 
             setVisible(false);
-            EditWindow window = null;
+            EditWindow window;
             try {
                 window = new EditWindow(editItem);
             } catch (ParseException ex) {
@@ -151,7 +150,7 @@ public class StockListWindow extends JFrame implements ActionListener {
             window.setVisible(true);
 
         } else if (actionCommand.startsWith("view")) {
-            int viewNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
+            int viewNum = Integer.parseInt(actionCommand.replaceAll("\\D", ""));
             FoodItem viewItem = displayList.get(viewNum);
 
             setVisible(false);

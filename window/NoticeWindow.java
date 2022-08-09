@@ -20,7 +20,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
     private ArrayList<FoodItem> expiredList;
     private ArrayList<FoodItem> expiringList;
     private String panelName;
-    private ActionEvent e;
+
     public NoticeWindow() throws ParseException {
         new DefaultUI("Notice", this);
         setVisible(true);
@@ -30,7 +30,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
         infoPanel.setLayout(new GridLayout(3,1));
 
         // remove icon
-        ImageIcon newIcon = new ImageIcon("icons/basicIcons/delete_g.png");
+        ImageIcon newIcon = new ImageIcon("icons/basicIcons/delete_green.png");
         Image img = newIcon.getImage();
         Image newImg = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         ImageIcon removeIcon = new ImageIcon(newImg);
@@ -41,7 +41,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
         // show title
         panelName = "Low Stock";
         JLabel titleLow = new JLabel(panelName);
-        titleLow.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TITLE_SIZE));
+        titleLow.setFont(new Font(DefaultUI.TITLE_FONT, Font.PLAIN, DefaultUI.TITLE_SIZE));
         titleLow.setForeground(DefaultUI.TITLE_COLOR);
         lowStock.setBackground(DefaultUI.MAIN_BACKGROUND);
         lowStock.add(titleLow, BorderLayout.NORTH);
@@ -126,8 +126,8 @@ public class NoticeWindow extends JFrame implements ActionListener  {
         // 3-2&3 Expired Panel & Expiring Panel
         for (int p=1; p<3; p++) {
             // separate two cases
-            String word = "";
-            ArrayList<FoodItem> list = newStock.getExpiredItems();
+            String word;
+            ArrayList<FoodItem> list;
             // Expired panel
             if (p == 1) {
                 panelName = "Expired";
@@ -148,7 +148,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
 
             // show title
             JLabel titleExpired = new JLabel(panelName);
-            titleExpired.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TITLE_SIZE));
+            titleExpired.setFont(new Font(DefaultUI.TITLE_FONT, Font.PLAIN, DefaultUI.TITLE_SIZE));
             titleExpired.setForeground(DefaultUI.TITLE_COLOR);
             expired.setBackground(DefaultUI.MAIN_BACKGROUND);
             expired.add(titleExpired, BorderLayout.NORTH);
@@ -224,7 +224,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
                 itemPanel.add(deleteButton);
                 itemPanel.add(nameB);
 
-                //textPanel -> place to East
+                // textPanel -> place to East
                 textPanel.add(numLabel);
                 textPanel.add(expiredLabel);
                 textPanel.add(num);
@@ -252,7 +252,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
             else if (actionCommand.startsWith("Delete Expiring")){
                 showinglist = expiringList;
             }
-            int removeNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
+            int removeNum = Integer.parseInt(actionCommand.replaceAll("\\D", ""));
             Stock stock = new Stock();
             try {
                 stock.removeItem(showinglist.get(removeNum));
@@ -261,7 +261,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
             }
             setVisible(false);
 
-            NoticeWindow window = null;
+            NoticeWindow window;
             try {
                 window = new NoticeWindow();
             } catch (ParseException ex) {
@@ -281,7 +281,7 @@ public class NoticeWindow extends JFrame implements ActionListener  {
                 showinglist = expiringList;
             }
 
-            int viewNum = Integer.parseInt(actionCommand.replaceAll("[\\D]", ""));
+            int viewNum = Integer.parseInt(actionCommand.replaceAll("\\D", ""));
             FoodItem viewItem = showinglist.get(viewNum);
 
             setVisible(false);

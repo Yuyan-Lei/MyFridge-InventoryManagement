@@ -58,8 +58,8 @@ public class ItemDetailsWindow extends JFrame implements ActionListener {
         subPanel(centerPanel, " Expiration", "expiration", foodToView.getExpirationToString());
         subPanel(centerPanel, " Type", "type", foodToView.getTypeToString());
         subPanel(centerPanel, " Location", "location", foodToView.getLocationToString());
-        urlWholeFoods = foodToView.getWFURL();
-        urlAmazonFresh = foodToView.getAFURL();
+        urlWholeFoods = foodToView.getWholeFoodsUrl();
+        urlAmazonFresh = foodToView.getAmazonFreshUrl();
         subPanel(centerPanel, "Order Online", "url", "url");
         add(centerPanel);
 

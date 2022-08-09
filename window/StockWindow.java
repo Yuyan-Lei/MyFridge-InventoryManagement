@@ -42,15 +42,15 @@ public class StockWindow extends JFrame implements ActionListener {
         JPanel allItemsPanel = subPanel(bigPanel, "All", sizeOfAllItems);
         allItemsPanel.setPreferredSize(new Dimension(20,90));
 
-        //cut line
+        // Cut line
         JPanel cutPanel = new JPanel();
         JLabel cutLine = new JLabel("Types                                            ");
-        cutLine.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TITLE_SIZE));
+        cutLine.setFont(new Font(DefaultUI.TITLE_FONT, Font.PLAIN, DefaultUI.TITLE_SIZE));
         cutPanel.setBackground(new Color(230,235,220));
         cutLine.setForeground(Color.GRAY);
         cutPanel.add(cutLine);
 
-        //subgroup part (7,1)
+        // Subgroup part (7,1)
         JPanel subgroupPanel = new JPanel();
         subgroupPanel.setLayout(new GridLayout(7,1));
         subgroupPanel.setBackground(DefaultUI.WHITE_COLOR);
@@ -70,21 +70,6 @@ public class StockWindow extends JFrame implements ActionListener {
         add(bigPanel,BorderLayout.CENTER);
     }
 
-    public void buildBottomIcon(JPanel buttonPanel, String iconPath, String command) {
-        ImageIcon addIcon = new ImageIcon("./icons/basicIcons" + iconPath + ".png");
-        Image img = addIcon.getImage();
-        Image newImg = img.getScaledInstance(DefaultUI.ICON_SIZE, DefaultUI.ICON_SIZE, Image.SCALE_SMOOTH);
-        addIcon = new ImageIcon(newImg);
-        JButton addButton = new JButton(addIcon);
-        addButton.setActionCommand(command);
-        addButton.setBackground(DefaultUI.MENU_BACKGROUND);
-        addButton.setOpaque(true);
-        addButton.setBorderPainted(false);
-        addButton.addActionListener(this);
-        addButton.setFocusPainted(false);
-        buttonPanel.add(addButton);
-    }
-
     public JPanel subPanel(JPanel subgroupPanel, String name, int size) {
         JPanel subPanel = new JPanel();
         subPanel.setLayout(new GridLayout(1,5));
@@ -100,7 +85,7 @@ public class StockWindow extends JFrame implements ActionListener {
         fridgeTextPanel.setLayout(new GridLayout(2,1));
         fridgeTextPanel.setBackground(DefaultUI.WHITE_COLOR);
         JLabel typeName = new JLabel(name);
-        typeName.setFont(new Font(DefaultUI.TITLE_FONT, Font.LAYOUT_LEFT_TO_RIGHT, DefaultUI.TEXT_SIZE));
+        typeName.setFont(new Font(DefaultUI.TITLE_FONT, Font.PLAIN, DefaultUI.TEXT_SIZE));
         fridgeTextPanel.add(typeName); //add title text
         subPanel.add(fridgeTextPanel);
         JPanel fridgeNumPanel = new JPanel();
@@ -141,38 +126,38 @@ public class StockWindow extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e){
         String actionCommand = e.getActionCommand();
-        if (actionCommand.equals("Fridge")) {
-            setVisible(false);
-            StockListWindow window = null;
-            try {
-                window = new StockListWindow(Stock.StockType.REFRIGERATED);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
+        switch (actionCommand) {
+            case "Fridge" -> {
+                setVisible(false);
+                StockListWindow window;
+                try {
+                    window = new StockListWindow(Stock.StockType.REFRIGERATED);
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+                window.setVisible(true);
             }
-            window.setVisible(true);
-        }
-        else if (actionCommand.equals("Freezer")) {
-            setVisible(false);
-            StockListWindow window = null;
-            try {
-                window = new StockListWindow(Stock.StockType.FROZEN);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
+            case "Freezer" -> {
+                setVisible(false);
+                StockListWindow window;
+                try {
+                    window = new StockListWindow(Stock.StockType.FROZEN);
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+                window.setVisible(true);
             }
-            window.setVisible(true);
-        }
-        else if (actionCommand.equals("All") || actionCommand.equals("Fruit") || actionCommand.equals("Meat") || actionCommand.equals("Vegetable")
-                || actionCommand.equals("Other") || actionCommand.equals("Drink")) {
-            setVisible(false);
-            StockListWindow window = null;
-            try {
-                window = new StockListWindow(Stock.StockType.valueOf(actionCommand.toUpperCase()));
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
+            case "All", "Fruit", "Meat", "Vegetable", "Other", "Drink" -> {
+                setVisible(false);
+                StockListWindow window;
+                try {
+                    window = new StockListWindow(Stock.StockType.valueOf(actionCommand.toUpperCase()));
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+                window.setVisible(true);
             }
-            window.setVisible(true);
+            default -> System.out.println("Unexpected error.");
         }
-        else
-            System.out.println("Unexpected error.");
     }
 }
