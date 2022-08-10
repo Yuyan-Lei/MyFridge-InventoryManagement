@@ -21,11 +21,9 @@ public class AddWindow extends JFrame implements ActionListener {
     private final JTextField expirationDay;
     private final JComboBox<String> typeOption;
     private final JComboBox<String> locationOption;
-
     private String error = "";
-    JLabel errorMessage;
-
-    Boolean isValidate = true;
+    private JLabel errorMessage;
+    private Boolean isValidate = true;
     AddWindow() throws ParseException {
         new DefaultUI("Add Items", this);
         setVisible(true);
