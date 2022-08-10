@@ -1,19 +1,24 @@
 package window;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.awt.*;
 import java.util.Objects;
 import model.FoodItem;
 import model.Stock;
 
+public class EditWindow extends JFrame implements ActionListener {
+    private String theName;
+    private int theQuantity;
+    private Date theExpiration;
+    private FoodItem.FoodType theType;
+    private FoodItem.PlaceLocation theLocation;
 
-public class AddWindow extends JFrame implements ActionListener {
     private final JTextField name;
     private final JTextField quantity;
     private final JTextField expirationYear;
@@ -23,17 +28,26 @@ public class AddWindow extends JFrame implements ActionListener {
     private final JComboBox<String> locationOption;
 
     private String error = "";
-    JLabel errorMessage;
-
+    protected JLabel errorMessage;
+    private final FoodItem theItem;
     Boolean isValidate = true;
-    AddWindow() throws ParseException {
-        new DefaultUI("Add Items", this);
+
+    public EditWindow(FoodItem itemToEdit) throws ParseException {
+        new DefaultUI("Edit Item", this);
         setVisible(true);
 
-        // Center add info
-        JPanel addInfoPanel = new JPanel();
-        addInfoPanel.setLayout(new BoxLayout(addInfoPanel, BoxLayout.PAGE_AXIS));
-        addInfoPanel.setBackground(DefaultUI.WHITE_COLOR);
+        // Get the item details
+        theItem = itemToEdit;
+        theName = theItem.getName();
+        theQuantity = theItem.getQuantity();
+        theExpiration =  theItem.getExpiration();
+        theType = theItem.getType();
+        theLocation = theItem.getLocation();
+
+        // Center add
+        JPanel editInfoPanel = new JPanel();
+        editInfoPanel.setLayout(new BoxLayout(editInfoPanel, BoxLayout.PAGE_AXIS));
+        editInfoPanel.setBackground(DefaultUI.WHITE_COLOR);
 
         // Error Message
         JPanel errorMessagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -41,7 +55,7 @@ public class AddWindow extends JFrame implements ActionListener {
         errorMessage.setForeground(Color.RED);
         errorMessagePanel.add(errorMessage);
         errorMessagePanel.setBackground(DefaultUI.WHITE_COLOR);
-        addInfoPanel.add(errorMessagePanel);
+        editInfoPanel.add(errorMessagePanel);
 
         // Center add info - name
         JPanel namePanel = new JPanel();
@@ -52,13 +66,14 @@ public class AddWindow extends JFrame implements ActionListener {
         Image newImg0 = nameImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         nameIcon = new ImageIcon(newImg0);
         nameLabel.setIcon(nameIcon);
-        name = new JTextField();
-        name.setPreferredSize(new Dimension(120,30));
+        name = new JTextField(theName);
+        name.setPreferredSize(new Dimension(120, 30));
         namePanel.add(nameLabel);
         namePanel.add(name);
         name.setBackground(DefaultUI.WHITE_COLOR);
         namePanel.setBackground(DefaultUI.WHITE_COLOR);
-        addInfoPanel.add(namePanel);
+        editInfoPanel.add(namePanel);
+
         // Center add info - quantity
         JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon quantityIcon = new ImageIcon("./icons/itemIcons/quantity.png");
@@ -67,7 +82,6 @@ public class AddWindow extends JFrame implements ActionListener {
         quantityIcon = new ImageIcon(newImg1);
         JLabel quantityLabel = new JLabel("Quantity:");
         quantityLabel.setIcon(quantityIcon);
-
         JButton addQuantityButton = new JButton();
         ImageIcon addQuantityIcon = new ImageIcon("icons/itemIcons/add.png");
         Image addQuantityImg = addQuantityIcon.getImage();
@@ -77,7 +91,6 @@ public class AddWindow extends JFrame implements ActionListener {
         addQuantityButton.setBorderPainted(false);
         addQuantityButton.setActionCommand("addOne");
         addQuantityButton.addActionListener(this);
-
         JButton minusQuantityButton = new JButton();
         ImageIcon minusQuantityIcon = new ImageIcon("icons/itemIcons/minus.png");
         Image minusQuantityImg = minusQuantityIcon.getImage();
@@ -88,8 +101,8 @@ public class AddWindow extends JFrame implements ActionListener {
         minusQuantityButton.setActionCommand("minusOne");
         minusQuantityButton.addActionListener(this);
 
-        quantity = new JTextField("1");
-        quantity.setPreferredSize(new Dimension(30,30));
+        quantity = new JTextField(String.valueOf(theQuantity));
+        quantity.setPreferredSize(new Dimension(30, 30));
         quantityPanel.add(quantityLabel);
         quantityPanel.add(minusQuantityButton);
         quantityPanel.add(quantity);
@@ -97,7 +110,8 @@ public class AddWindow extends JFrame implements ActionListener {
 
         quantity.setBackground(DefaultUI.WHITE_COLOR);
         quantityPanel.setBackground(DefaultUI.WHITE_COLOR);
-        addInfoPanel.add(quantityPanel);
+        editInfoPanel.add(quantityPanel);
+
         // Center add info - expiration
         JPanel expirationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon expirationIcon = new ImageIcon("./icons/itemIcons/expiration.png");
@@ -108,13 +122,15 @@ public class AddWindow extends JFrame implements ActionListener {
         expirationLabel.setIcon(expirationIcon);
         JLabel dash1 = new JLabel("-");
         JLabel dash2 = new JLabel("-");
+        String theExpirationDate = theItem.getExpirationToString();
+        String [] theExpiration = theExpirationDate.split("-");
         JPanel expirationDate = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        expirationYear = new JTextField();
-        expirationYear.setPreferredSize(new Dimension(43,30));
-        expirationMonth = new JTextField();
-        expirationMonth.setPreferredSize(new Dimension(27,30));
-        expirationDay = new JTextField();
-        expirationDay.setPreferredSize(new Dimension(27,30));
+        expirationYear = new JTextField(String.valueOf(theExpiration[0]));
+        expirationYear.setPreferredSize(new Dimension(43, 30));
+        expirationMonth = new JTextField(String.valueOf(theExpiration[1]));
+        expirationMonth.setPreferredSize(new Dimension(27, 30));
+        expirationDay = new JTextField(theExpiration[2]);
+        expirationDay.setPreferredSize(new Dimension(27, 30));
 
         expirationDate.add(expirationYear);
         expirationDate.add(dash1);
@@ -125,7 +141,8 @@ public class AddWindow extends JFrame implements ActionListener {
         expirationPanel.add(expirationDate);
         expirationDate.setBackground(DefaultUI.WHITE_COLOR);
         expirationPanel.setBackground(DefaultUI.WHITE_COLOR);
-        addInfoPanel.add(expirationPanel);
+        editInfoPanel.add(expirationPanel);
+
         // Center add info - Type
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon typeIcon = new ImageIcon("./icons/itemIcons/type.png");
@@ -135,11 +152,13 @@ public class AddWindow extends JFrame implements ActionListener {
         JLabel typeLabel = new JLabel("Type:");
         typeLabel.setIcon(typeIcon);
         typeOption = new JComboBox<>(new String[]{"VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"});
-        typeOption.setPreferredSize(new Dimension(120,30));
+        typeOption.setPreferredSize(new Dimension(120, 30));
+        typeOption.setSelectedItem(String.valueOf(theType));
         typePanel.add(typeLabel);
         typePanel.add(typeOption);
         typePanel.setBackground(DefaultUI.WHITE_COLOR);
-        addInfoPanel.add(typePanel);
+        editInfoPanel.add(typePanel);
+
         // Center add info - Location
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
@@ -149,16 +168,16 @@ public class AddWindow extends JFrame implements ActionListener {
         locationIcon = new ImageIcon(newImg4);
         locationLabel.setIcon(locationIcon);
         locationOption = new JComboBox<>(new String[]{"FROZEN", "REFRIGERATED"});
-        typeOption.setSelectedIndex(0);
-        locationOption.setPreferredSize(new Dimension(120,30));
+        locationOption.setSelectedItem(String.valueOf(theLocation));
+        locationOption.setPreferredSize(new Dimension(120, 30));
         locationPanel.add(locationLabel);
         locationPanel.add(locationOption);
         locationPanel.setBackground(DefaultUI.WHITE_COLOR);
-        addInfoPanel.add(locationPanel);
+        editInfoPanel.add(locationPanel);
 
 
         JPanel saveButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton saveButton = new JButton("Save");
+        JButton saveButton = new JButton("Update");
         saveButton.addActionListener(this);
         saveButtonPanel.add(saveButton);
         saveButton.setBorderPainted(false);
@@ -166,12 +185,13 @@ public class AddWindow extends JFrame implements ActionListener {
         saveButton.setBackground(DefaultUI.GREEN_THEME);
         saveButton.setForeground(DefaultUI.WHITE_COLOR);
         saveButtonPanel.setBackground(DefaultUI.WHITE_COLOR);
-        addInfoPanel.add(saveButtonPanel);
+        editInfoPanel.add(saveButtonPanel);
 
-        add(addInfoPanel,BorderLayout.CENTER);
+        add(editInfoPanel, BorderLayout.CENTER);
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         boolean actionSuccess = false;
@@ -189,7 +209,7 @@ public class AddWindow extends JFrame implements ActionListener {
                 }
                 actionSuccess = true;
             }
-            case "Save" -> {
+            case "Update" -> {
                 // Check Error
                 resetTextColor();
                 checkError();
@@ -197,16 +217,16 @@ public class AddWindow extends JFrame implements ActionListener {
                 if (isValidate) {
                     try {
                         Stock newItem = new Stock();
-                        String theName = name.getText();
-                        int theQuantity = Integer.parseInt(quantity.getText());
+                        theName = name.getText();
+                        theQuantity = Integer.parseInt(quantity.getText());
                         Calendar cal = Calendar.getInstance();
                         cal.set(Calendar.YEAR,Integer.parseInt(expirationYear.getText()));
                         cal.set(Calendar.MONTH,(Integer.parseInt(expirationMonth.getText()) - 1));
                         cal.set(Calendar.DATE, (Integer.parseInt(expirationDay.getText())));
-                        Date theExpiration = cal.getTime();
-                        FoodItem.FoodType theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
-                        FoodItem.PlaceLocation theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
-                        newItem.addItem(theName, theQuantity, theExpiration, theType, theLocation);
+                        theExpiration = cal.getTime();
+                        theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
+                        theLocation = FoodItem.PlaceLocation.valueOf(String.valueOf(locationOption.getSelectedItem()));
+                        newItem.updateItem(theItem, theName, theQuantity, theExpiration, theType, theLocation);
                         SaveWindow aNewWindow = new SaveWindow();
                         aNewWindow.setVisible(true);
                     } catch (ParseException | IOException ex) {
@@ -224,6 +244,32 @@ public class AddWindow extends JFrame implements ActionListener {
 
         if (!actionSuccess) {
             System.out.println("Unexpected error.");
+        }
+    }
+
+    private void setErrorEffect() {
+        // set the specif text to red
+        switch (error) {
+            case "nameError" -> {
+                name.setForeground(Color.red);
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Name should not be empty, or contain '///' or ','<br>");
+            }
+            case "qtyError" -> {
+                quantity.setForeground(Color.red);
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Quantity should be a positive integer<br>");
+            }
+            case "yearError" -> {
+                expirationYear.setForeground(Color.red);
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration year is limited to 2022 - 2032<br>");
+            }
+            case "monthError" -> {
+                expirationMonth.setForeground(Color.red);
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration month is limited to 1 - 12<br>");
+            }
+            case "dayError" -> {
+                expirationDay.setForeground(Color.red);
+                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration day is limited to 1 - 31");
+            }
         }
     }
 
@@ -281,32 +327,6 @@ public class AddWindow extends JFrame implements ActionListener {
 
         if (!Objects.equals(error, "")) {
             isValidate = false;
-        }
-    }
-
-    private void setErrorEffect() {
-        // set the specif text to red
-        switch (error) {
-            case "nameError" -> {
-                name.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "<html>Error: Name should not be empty, or contain '///' or ','<br>");
-            }
-            case "qtyError" -> {
-                quantity.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "<html>Error: Quantity should be a positive integer<br>");
-            }
-            case "yearError" -> {
-                expirationYear.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration year is limited to 2022 - 2032<br>");
-            }
-            case "monthError" -> {
-                expirationMonth.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration month is limited to 1 - 12<br>");
-            }
-            case "dayError" -> {
-                expirationDay.setForeground(Color.red);
-                errorMessage.setText(errorMessage.getText() + "<html>Error: Expiration day is limited to 1 - 31");
-            }
         }
     }
 
