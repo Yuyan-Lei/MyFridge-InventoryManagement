@@ -14,9 +14,6 @@ import model.Stock;
 
 
 public class AddWindow extends JFrame implements ActionListener {
-    String[] types = { "VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"};
-    String[] locations = {"FROZEN","REFRIGERATED" };
-
     private final JTextField name;
     private final JTextField quantity;
     private final JTextField expirationYear;
@@ -26,7 +23,7 @@ public class AddWindow extends JFrame implements ActionListener {
     private final JComboBox<String> locationOption;
 
     private String error = "";
-    private JLabel errorMessage;
+    JLabel errorMessage;
 
     Boolean isValidate = true;
     AddWindow() throws ParseException {
@@ -129,7 +126,7 @@ public class AddWindow extends JFrame implements ActionListener {
         expirationDate.setBackground(DefaultUI.WHITE_COLOR);
         expirationPanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(expirationPanel);
-        // Type
+        // Center add info - Type
         JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ImageIcon typeIcon = new ImageIcon("./icons/itemIcons/type.png");
         Image typeImg = typeIcon.getImage();
@@ -137,13 +134,13 @@ public class AddWindow extends JFrame implements ActionListener {
         typeIcon = new ImageIcon(newImg3);
         JLabel typeLabel = new JLabel("Type:");
         typeLabel.setIcon(typeIcon);
-        typeOption = new JComboBox<>(types);
+        typeOption = new JComboBox<>(new String[]{"VEGETABLE", "MEAT", "FRUIT", "DRINK", "OTHER"});
         typeOption.setPreferredSize(new Dimension(120,30));
         typePanel.add(typeLabel);
         typePanel.add(typeOption);
         typePanel.setBackground(DefaultUI.WHITE_COLOR);
         addInfoPanel.add(typePanel);
-        // Location
+        // Center add info - Location
         JPanel locationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel locationLabel = new JLabel("Location:");
         ImageIcon locationIcon = new ImageIcon("./icons/itemIcons/location.png");
@@ -151,7 +148,7 @@ public class AddWindow extends JFrame implements ActionListener {
         Image newImg4 = locationImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         locationIcon = new ImageIcon(newImg4);
         locationLabel.setIcon(locationIcon);
-        locationOption = new JComboBox<>(locations);
+        locationOption = new JComboBox<>(new String[]{"FROZEN", "REFRIGERATED"});
         typeOption.setSelectedIndex(0);
         locationOption.setPreferredSize(new Dimension(120,30));
         locationPanel.add(locationLabel);
@@ -203,8 +200,8 @@ public class AddWindow extends JFrame implements ActionListener {
                         String theName = name.getText();
                         int theQuantity = Integer.parseInt(quantity.getText());
                         Calendar cal = Calendar.getInstance();
-                        cal.set(Calendar.YEAR,Integer.parseInt(expirationYear.getText())-1);
-                        cal.set(Calendar.MONTH,(Integer.parseInt(expirationMonth.getText()) + 11));
+                        cal.set(Calendar.YEAR,Integer.parseInt(expirationYear.getText()));
+                        cal.set(Calendar.MONTH,(Integer.parseInt(expirationMonth.getText()) - 1));
                         cal.set(Calendar.DATE, (Integer.parseInt(expirationDay.getText())));
                         Date theExpiration = cal.getTime();
                         FoodItem.FoodType theType = FoodItem.FoodType.valueOf(String.valueOf(typeOption.getSelectedItem()));
@@ -260,8 +257,8 @@ public class AddWindow extends JFrame implements ActionListener {
         }
         // a. 2022 <= Expiration Year < 2032
         else if ((Integer.parseInt(expirationYear.getText())) < 2022 || (Integer.parseInt(expirationYear.getText())) > 2032) {
-                error = "yearError";
-                setErrorEffect();
+            error = "yearError";
+            setErrorEffect();
         }
         if (!expirationMonth.getText().matches("\\d+")) {
             error = "monthError";
@@ -269,8 +266,8 @@ public class AddWindow extends JFrame implements ActionListener {
         }
         // b. 0 < Expiration Month <= 12
         else if (Integer.parseInt(expirationMonth.getText()) <= 0 || Integer.parseInt(expirationMonth.getText()) > 12) {
-                error = "monthError";
-                setErrorEffect();
+            error = "monthError";
+            setErrorEffect();
         }
         if (!expirationDay.getText().matches("\\d+")) {
             error = "dayError";
@@ -278,8 +275,8 @@ public class AddWindow extends JFrame implements ActionListener {
         }
         // c. 0 < Expiration Day <= 31
         else if  (Integer.parseInt(expirationDay.getText()) <= 0 || Integer.parseInt(expirationDay.getText()) > 31){
-                error = "dayError";
-                setErrorEffect();
+            error = "dayError";
+            setErrorEffect();
         }
 
         if (!Objects.equals(error, "")) {
