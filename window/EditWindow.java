@@ -26,11 +26,10 @@ public class EditWindow extends JFrame implements ActionListener {
     private final JTextField expirationDay;
     private final JComboBox<String> typeOption;
     private final JComboBox<String> locationOption;
-
     private String error = "";
-    protected JLabel errorMessage;
+    private JLabel errorMessage;
     private final FoodItem theItem;
-    Boolean isValidate = true;
+    private Boolean isValidate = true;
 
     public EditWindow(FoodItem itemToEdit) throws ParseException {
         new DefaultUI("Edit Item", this);
