@@ -15,6 +15,10 @@ There are four main features:
 - Notifications: alerts the user that specific food is running low or is about to expire.
 - Recipe generation: based on built-in recipes, it lists all the possible recipes according to how much ingredients the user has in the fridge.
 
+![features](./assets/organize.png)
+
+![features](./assets/recipe.png)
+
 ## High Level Design
 
 ![high level design](./assets/architecture.png)
