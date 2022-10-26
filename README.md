@@ -16,7 +16,6 @@ There are four main features:
 - Recipe generation: based on built-in recipes, it lists all the possible recipes according to how much ingredients the user has in the fridge.
 
 ![organize](./assets/organize.png)
-
 ![recipe](./assets/recipe.png)
 
 ## High Level Design
